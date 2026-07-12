@@ -20,6 +20,7 @@
 param(
     [string]$Time = "08:30",
     [string]$TaskName = "AI-Toolchain-Sync",
+    [switch]$WhenLoggedOut,
     [switch]$Unregister
 )
 
@@ -51,14 +52,32 @@ $trigger = New-ScheduledTaskTrigger -Daily -At $Time
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `
     -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Hours 1) `
     -MultipleInstances IgnoreNew
-$principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" `
-    -LogonType S4U -RunLevel Highest
+# Default: per-user Interactive task (no admin needed; runs when you are logged
+# in). -WhenLoggedOut uses S4U + Highest so it runs even when logged off, but
+# registering that variant requires an elevated (admin) shell.
+if ($WhenLoggedOut) {
+    $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" `
+        -LogonType S4U -RunLevel Highest
+    $mode = "whether or not you are logged in (elevated)"
+} else {
+    $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" `
+        -LogonType Interactive -RunLevel Limited
+    $mode = "while you are logged in"
+}
 
-Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
-    -Settings $settings -Principal $principal -Force `
-    -Description "Sync skills/memory/MCP/history across AI coding assistants (ai-sync)." | Out-Null
+try {
+    Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
+        -Settings $settings -Principal $principal -Force `
+        -Description "Sync skills/memory/MCP/history across AI coding assistants (ai-sync)." | Out-Null
+} catch {
+    Write-Warning "Registration failed: $($_.Exception.Message)"
+    if ($WhenLoggedOut) {
+        Write-Host "The -WhenLoggedOut variant needs an ADMIN PowerShell. Re-run elevated, or drop the switch for a per-user task."
+    }
+    throw
+}
 
-Write-Host "Registered '$TaskName' to run daily at $Time (local time)."
+Write-Host "Registered '$TaskName' to run daily at $Time (local time), $mode."
 Write-Host "Run now:   Start-ScheduledTask -TaskName '$TaskName'"
 Write-Host "Inspect:   Get-ScheduledTask -TaskName '$TaskName' | Get-ScheduledTaskInfo"
 Write-Host "Remove:    .\install-schedule.ps1 -Unregister"
