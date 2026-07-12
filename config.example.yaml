@@ -1,0 +1,120 @@
+# ai-sync configuration TEMPLATE.
+#
+#   1. Copy this file to  config.local.yaml  (which is gitignored).
+#   2. Adjust paths only if your tools live somewhere non-default.
+#
+# ${USERPROFILE} expands to your Windows home dir (e.g. C:\Users\<you>), so this
+# template is machine-neutral: no username, no absolute paths, no secrets ever
+# live in the committed repo. config.local.yaml stays on your machine only.
+
+# Canonical hub — the local source of truth. NEVER committed.
+data_dir: "${USERPROFILE}/.ai-sync"
+
+# Conflict resolution across tools: currently only "newest-wins".
+conflict: newest-wins
+
+# Shared cross-tool memory anchor already used by every 'memory' MCP server.
+mcp_memory_json: "${USERPROFILE}/mcp-memory.json"
+
+# ---------------------------------------------------------------------------
+# Per-tool wiring. enabled: false skips a tool completely.
+# Any key left absent simply means "this tool has no such surface".
+# ---------------------------------------------------------------------------
+tools:
+  claude:
+    enabled: true
+    skills_dirs:
+      - "${USERPROFILE}/.claude/skills"
+      - "${USERPROFILE}/.agents/skills"
+    memory_file: "${USERPROFILE}/.claude/CLAUDE.md"
+    mcp_json: "${USERPROFILE}/.claude.json"          # servers under "mcpServers"
+    history_dir: "${USERPROFILE}/.claude/projects"
+    inject_history: true      # file-based transcripts — high confidence
+    process_names: ["claude"]
+
+  opencode:
+    enabled: true
+    skills_dirs: ["${USERPROFILE}/.config/opencode/skills"]
+    memory_file: "${USERPROFILE}/.config/opencode/AGENTS.md"
+    mcp_json: "${USERPROFILE}/.config/opencode/opencode.json"   # servers under "mcp"
+    mcp_key: "mcp"
+    history_db: "${USERPROFILE}/.local/share/opencode/opencode.db"
+    inject_history: false     # SQLite insert — opt-in after validating a backup
+    process_names: ["opencode"]
+
+  codex:
+    enabled: true
+    skills_dirs: ["${USERPROFILE}/.codex/skills"]
+    memory_file: "${USERPROFILE}/.codex/AGENTS.md"
+    mcp_toml: "${USERPROFILE}/.codex/config.toml"               # [mcp_servers.*]
+    history_dir: "${USERPROFILE}/.codex/sessions"
+    session_index: "${USERPROFILE}/.codex/session_index.jsonl"
+    inject_history: true      # file-based rollouts — high confidence
+    process_names: ["codex"]
+
+  gemini:
+    enabled: true
+    memory_file: "${USERPROFILE}/.gemini/GEMINI.md"
+    mcp_json: "${USERPROFILE}/.gemini/config/mcp_config.json"   # servers under "mcpServers"
+    history_tmp: "${USERPROFILE}/.gemini/tmp"
+    projects_json: "${USERPROFILE}/.gemini/projects.json"
+    inject_history: true      # per-project JSON chats — hash verified on-machine
+    process_names: ["gemini"]
+
+  antigravity:
+    enabled: true
+    mcp_json: "${USERPROFILE}/.gemini/antigravity-ide/mcp_config.json"
+    conversations_dir: "${USERPROFILE}/.gemini/antigravity-ide/conversations"
+    process_names: ["Antigravity"]
+    inject_history: false   # protobuf schema not decoded → export/ingest-only
+
+  cursor:
+    enabled: true
+    skills_dirs: ["${USERPROFILE}/.cursor/skills-cursor"]
+    mcp_json: "${USERPROFILE}/.cursor/mcp.json"                 # created if absent
+    global_vscdb: "${USERPROFILE}/AppData/Roaming/Cursor/User/globalStorage/state.vscdb"
+    inject_history: false     # state.vscdb has encryption-key fields — deferred/opt-in
+    process_names: ["Cursor"]
+
+  devin:
+    enabled: true
+    # Devin reads project AGENTS.md; its knowledge/MCP are cloud-side.
+    history_db: "${USERPROFILE}/AppData/Roaming/Devin/cli/sessions.db"
+    process_names: ["Devin", "devin-desktop"]
+    inject_history: false   # cloud-driven; local sessions.db is empty by default
+
+# ---------------------------------------------------------------------------
+# Secret classification. A field is NEVER written/copied to another tool if its
+# KEY matches secret_field_keys OR its VALUE matches any secret_value_patterns.
+# Existing secrets already in a tool's config are always left untouched.
+# ---------------------------------------------------------------------------
+# NOTE: 'env' is intentionally NOT listed — env blocks routinely hold non-secret
+# config (MEMORY_FILE_PATH, PLAYWRIGHT_BROWSERS_PATH). Real secrets inside env are
+# still caught by secret_value_patterns below. Listed keys mask any bare,
+# non-${indirected} leaf value as a safety net.
+secret_field_keys:
+  - headers
+  - http_headers
+  - Authorization
+  - authorization
+  - token
+  - bearer_token
+  - bearer_token_env_var
+  - api_key
+  - apiKey
+  - password
+  - accessToken
+  - refreshToken
+
+# Token-SHAPE patterns only: they match real credential values, not structural
+# words. ${ENV} indirection (e.g. "Bearer ${GITHUB_TOKEN}") is preserved as-is.
+secret_value_patterns:
+  - "ghp_[A-Za-z0-9]{20,}"           # GitHub personal token
+  - "github_pat_[A-Za-z0-9_]{20,}"   # GitHub fine-grained PAT
+  - "gho_[A-Za-z0-9]{20,}"           # GitHub OAuth token
+  - "sbp_[A-Za-z0-9]{20,}"           # Supabase token
+  - "sk-[A-Za-z0-9]{20,}"            # OpenAI-style key
+  - "AIza[A-Za-z0-9_\\-]{20,}"       # Google API key
+  - "AQ\\.[A-Za-z0-9_\\-]{20,}"      # Stitch / Google AQ token
+  - "xox[baprs]-[A-Za-z0-9-]{10,}"   # Slack token
+  - "eyJ[A-Za-z0-9_\\-]{10,}\\.[A-Za-z0-9_\\-]{10,}"  # JWT

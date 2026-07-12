@@ -1,0 +1,6 @@
+# ai-sync runtime dependencies (Python 3.10+)
+PyYAML>=6.0        # config.local.yaml parsing
+tomli>=2.0         # read Codex config.toml (stdlib tomllib only on 3.11+)
+tomli-w>=1.0       # write Codex config.toml
+# Optional — only needed to enable Antigravity protobuf history (deferred by default):
+# protobuf>=4.0
