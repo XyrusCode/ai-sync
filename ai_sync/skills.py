@@ -5,13 +5,20 @@ import shutil
 from pathlib import Path
 
 from .ctx import Ctx
-from .util import LOG, newest_mtime, sha256_dir
+from .util import LOG, newest_mtime, repo_root, sha256_dir
 
 SKILL_MARKER = "SKILL.md"
 
 
 def _skill_dirs_for(tool) -> list[Path]:
-    return [d for d in tool.paths("skills_dirs")]
+    dirs = [d for d in tool.paths("skills_dirs")]
+    # Automatically include the repo's own tracked skills directory
+    # so version-controlled skills (e.g. from dissolved repos like
+    # XyrusCode/Skills) are synced to every tool.
+    repo_skills = repo_root() / "skills"
+    if repo_skills.is_dir():
+        dirs.append(repo_skills)
+    return dirs
 
 
 def _iter_skills(root: Path):
