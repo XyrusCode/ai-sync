@@ -10,13 +10,13 @@ from __future__ import annotations
 import argparse
 import sys
 
-from . import __version__, history_inject, history_read, mcp, memory, skills
+from . import __version__, agent_limits, history_inject, history_read, mcp, memory, skills
 from .ctx import Ctx
 from .state import State
 from .tools import RunningGuard, load_tools
 from .util import LOG, load_config, setup_logging
 
-PASSES = ("skills", "memory", "mcp", "history")
+PASSES = ("skills", "memory", "mcp", "history", "agent_limits")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -53,6 +53,8 @@ def main(argv: list[str] | None = None) -> int:
     if "history" in run:
         sessions = history_read.run(ctx)
         history_inject.run(ctx, sessions)
+    if "agent_limits" in run:
+        agent_limits.run(ctx)
 
     if args.apply:
         ctx.state.save()

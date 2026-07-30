@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+"""ai-sync-mcp — standalone MCP config diff/generate CLI.
+
+Port of agents/bin/sync-mcp into ai-sync's Python ecosystem.
+Reads the canonical mcp/servers.json from the agents repo and generates
+native configs for each tool. Supports 'diff' and 'generate' actions.
+
+Usage:
+    python bin/ai-sync-mcp [diff|generate] [tool]
+
+Examples:
+    python bin/ai-sync-mcp                  # diff all tools
+    python bin/ai-sync-mcp generate claude  # write only Claude's mcp.json
+"""
+from __future__ import annotations
+
+import difflib
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+
+BEGIN_MARKER = "# BEGIN SHARED MCP CONFIG"
+END_MARKER = "# END SHARED MCP CONFIG"
+PLACEHOLDER_RE = re.compile(r"\$\{([A-Z0-9_]+)\}")
+SUPPORTED_AGENTS = ("claude", "codex", "gemini", "kiro", "opencode", "cursor")
+MERGE_AGENTS = {"gemini", "opencode"}
+
+
+def main() -> int:
+    agents_dir = _find_agents_repo()
+    home = Path.home()
+    action = sys.argv[1] if len(sys.argv) > 1 else "diff"
+    agent = sys.argv[2] if len(sys.argv) > 2 else None
+
+    if action not in {"diff", "generate"}:
+        _print_usage()
+        return 1
+    if agent is not None and agent not in SUPPORTED_AGENTS:
+        print(f"Unsupported agent: {agent}", file=sys.stderr)
+        _print_usage()
+        return 1
+
+    manifest_path = agents_dir / "mcp" / "servers.json"
+    if not manifest_path.is_file():
+        print(f"agents repo manifest not found at {manifest_path}", file=sys.stderr)
+        print("Set AGENTS_REPO env var or place repo at ~/Desktop/XyrusCode/agents", file=sys.stderr)
+        return 1
+
+    env = _load_env(agents_dir)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    targets = [agent] if agent else list(SUPPORTED_AGENTS)
+
+    had_changes = False
+    for target in targets:
+        config_path = _live_config_path(home, target)
+        if config_path is None:
+            continue
+        rendered = _render_agent(target, manifest, env)
+        if action == "diff":
+            changed = _print_diff(rendered, config_path, target)
+        else:
+            changed = _write_output(rendered, config_path, target)
+        had_changes = had_changes or changed
+
+    if action == "diff" and not had_changes:
+        print("All generated MCP configs are in sync.")
+    return 0
+
+
+def _find_agents_repo() -> Path:
+    env_repo = os.environ.get("AGENTS_REPO")
+    if env_repo:
+        return Path(env_repo)
+    candidates = [
+        Path.home() / "Desktop" / "XyrusCode" / "agents",
+        Path.home() / ".agents",
+    ]
+    for c in candidates:
+        if (c / "mcp" / "servers.json").is_file():
+            return c
+    return candidates[0]
+
+
+def _print_usage() -> None:
+    agents = "|".join(SUPPORTED_AGENTS)
+    print(f"Usage: ai-sync-mcp [diff|generate] [{agents}]", file=sys.stderr)
+    print(f"  AGENTS_REPO env var overrides agents repo path", file=sys.stderr)
+
+
+def _load_env(agents_dir: Path) -> dict:
+    env = dict(os.environ)
+    dot_env = agents_dir / ".env.mcp"
+    if dot_env.is_file():
+        for line in dot_env.read_text().splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, val = line.partition("=")
+            env.setdefault(key.strip(), val.strip())
+    return env
+
+
+def _live_config_path(home: Path, agent: str) -> Path | None:
+    paths = {
+        "claude": home / ".claude" / "mcp.json",
+        "codex": home / ".codex" / "config.toml",
+        "gemini": home / ".gemini" / "config" / "mcp_config.json",
+        "kiro": home / ".kiro" / "mcp.json",
+        "opencode": home / ".config" / "opencode" / "opencode.json",
+        "cursor": home / ".cursor" / "mcp.json",
+    }
+    return paths.get(agent)
+
+
+def _render_agent(agent: str, manifest: dict, env: dict) -> str:
+    servers = manifest.get("servers", {})
+    if agent == "codex":
+        return _render_codex(servers, agent, env)
+    return _render_json(servers, agent, env)
+
+
+def _render_json(servers: dict, agent: str, env: dict) -> str:
+    mcp = {}
+    for name, sdef in servers.items():
+        acfg = (sdef.get("agents") or {}).get(agent)
+        if not acfg or not sdef.get("enabled", True):
+            continue
+        resolved = _resolve_env(acfg, env, name)
+        if not resolved:
+            continue
+        entry = {}
+        if resolved.get("type") == "http" or resolved.get("url"):
+            entry = {"type": "http", "url": resolved["url"]}
+            if resolved.get("headers"):
+                entry["headers"] = resolved["headers"]
+        elif resolved.get("type") == "remote" or resolved.get("url"):
+            entry = {"type": "remote", "url": resolved["url"]}
+            if resolved.get("headers"):
+                entry["headers"] = resolved["headers"]
+        elif isinstance(resolved.get("command"), list):
+            entry = {"type": "local", "command": resolved["command"]}
+        else:
+            cmd = resolved.get("command", "")
+            args = resolved.get("args", [])
+            if cmd:
+                entry = {"command": cmd, "args": args}
+        if resolved.get("env"):
+            entry.setdefault("env", {}).update(resolved["env"])
+        if entry:
+            mcp[name] = entry
+    return json.dumps({"mcpServers": mcp}, indent=2) + "\n"
+
+
+def _render_codex(servers: dict, agent: str, env: dict) -> str:
+    lines = [f"{BEGIN_MARKER}"]
+    for name, sdef in sorted(servers.items()):
+        acfg = (sdef.get("agents") or {}).get(agent)
+        if not acfg or not sdef.get("enabled", True):
+            continue
+        resolved = _resolve_env(acfg, env, name)
+        if not resolved:
+            continue
+        lines.append(f"\n[mcp_servers.{name}]")
+        cmd = resolved.get("command", "")
+        args = resolved.get("args", [])
+        if isinstance(args, list) and args:
+            args_str = json.dumps(args)
+            lines.append(f'args = {args_str}')
+        lines.append(f'command = "{cmd}"')
+        if resolved.get("env"):
+            for ek, ev in resolved["env"].items():
+                lines.append(f'env.{ek} = "{ev}"')
+    lines.append(f"\n{END_MARKER}")
+    return "\n".join(lines) + "\n"
+
+
+_RESOLVE_KEYS = {"command", "args", "url", "headers", "env"}
+
+
+def _resolve_env(cfg: dict, env: dict, name: str) -> dict | None:
+    required = cfg.get("required_env", [])
+    for var in required:
+        if var not in env:
+            print(f"  ⚠ {name}: required ${var} not set, skipping", file=sys.stderr)
+            return None
+    out = {k: v for k, v in cfg.items() if k in _RESOLVE_KEYS or k == "type"}
+    for key in ("command", "url"):
+        if key in out and isinstance(out[key], str):
+            out[key] = _sub_env(out[key], env)
+    if "args" in out and isinstance(out["args"], list):
+        out["args"] = [_sub_env(a, env) for a in out["args"]]
+    if "headers" in out and isinstance(out["headers"], dict):
+        out["headers"] = {k: _sub_env(v, env) for k, v in out["headers"].items()}
+    if "env" in out and isinstance(out["env"], dict):
+        out["env"] = {k: _sub_env(v, env) for k, v in out["env"].items()}
+    return out
+
+
+def _sub_env(val: str, env: dict) -> str:
+    def _replace(m: re.Match) -> str:
+        return env.get(m.group(1), m.group(0))
+    return PLACEHOLDER_RE.sub(_replace, val)
+
+
+def _read_shared_section(path: Path) -> str:
+    if not path.is_file():
+        return ""
+    text = path.read_text(encoding="utf-8")
+    start = text.find(BEGIN_MARKER)
+    if start == -1:
+        return ""
+    end = text.find(END_MARKER, start)
+    if end == -1:
+        return text[start:]
+    return text[start:end + len(END_MARKER)]
+
+
+def _replace_shared_section(path: Path, new_section: str) -> str:
+    if not path.is_file():
+        return f"{new_section}\n"
+    text = path.read_text(encoding="utf-8")
+    start = text.find(BEGIN_MARKER)
+    end = text.find(END_MARKER, start)
+    if start == -1 or end == -1:
+        return f"{text.rstrip()}\n\n{new_section}\n"
+    return text[:start] + new_section + text[end + len(END_MARKER):]
+
+
+def _print_diff(rendered: str, config_path: Path, agent: str) -> bool:
+    if not config_path.is_file():
+        print(f"{agent}: no live config at {config_path}")
+        return False
+    if agent == "codex":
+        current = _read_shared_section(config_path)
+        if not current:
+            print(f"{agent}: no shared MCP section found")
+            return False
+    else:
+        current = config_path.read_text(encoding="utf-8")
+    if current.rstrip() == rendered.rstrip():
+        print(f"{agent}: ✓ in sync")
+        return False
+    diff = difflib.unified_diff(
+        current.splitlines(), rendered.splitlines(),
+        fromfile=f"live/{agent}", tofile=f"generated/{agent}", lineterm="",
+    )
+    print(f"{agent}: ✗ differs:")
+    for line in diff:
+        print(f"  {line}")
+    return True
+
+
+def _write_output(rendered: str, config_path: Path, agent: str) -> bool:
+    if agent == "codex":
+        current = config_path.read_text(encoding="utf-8") if config_path.is_file() else ""
+        new_text = _replace_shared_section(config_path, rendered)
+        if new_text == current:
+            print(f"{agent}: ✓ up to date")
+            return False
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        config_path.write_text(new_text, encoding="utf-8")
+        print(f"{agent}: → wrote shared MCP section to {config_path}")
+        return True
+    if config_path.is_file() and config_path.read_text(encoding="utf-8").rstrip() == rendered.rstrip():
+        print(f"{agent}: ✓ up to date")
+        return False
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_path.write_text(rendered, encoding="utf-8")
+    print(f"{agent}: → wrote {config_path}")
+    return True
+
+
+if __name__ == "__main__":
+    sys.exit(main())

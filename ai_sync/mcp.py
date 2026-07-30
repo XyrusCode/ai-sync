@@ -149,6 +149,51 @@ def _write_servers(desc: dict, servers_native: dict, ctx: Ctx) -> None:
 # --------------------------------------------------------------------------- #
 # Pass entry point
 # --------------------------------------------------------------------------- #
+def _agents_repo_servers(ctx: Ctx, matchers) -> dict[str, dict[str, dict]]:
+    """Read the canonical MCP catalog from the agents repo (mcp/servers.json).
+
+    Returns {agent_name: {server_name: normalized_model}} so the registry can
+    merge the catalog's per-agent definitions into each tool's server pool.
+    """
+    repo = ctx.cfg.get("agents_repo")
+    if not repo:
+        return {}
+    manifest = Path(repo) / "mcp" / "servers.json"
+    if not manifest.is_file():
+        return {}
+    try:
+        data = read_json(manifest, {}) or {}
+    except Exception as exc:
+        LOG.warning("agents_repo mcp/servers.json read failed: %s", exc)
+        return {}
+    raw_servers = data.get("servers") or {}
+    if not raw_servers:
+        return {}
+
+    result: dict[str, dict[str, dict]] = {}
+    for sname, sdef in raw_servers.items():
+        if not isinstance(sdef, dict):
+            continue
+        if not sdef.get("enabled", True):
+            continue
+        agents_block = sdef.get("agents") or {}
+        for agent, acfg in agents_block.items():
+            if not isinstance(acfg, dict):
+                continue
+            model = _parse_server(acfg)
+            red, _had = redact_secrets(model, matchers)
+            result.setdefault(agent, {})[sname] = red
+    total = sum(len(v) for v in result.values())
+    LOG.info("MCP: agents_repo catalog: %d servers across %d agents", total, len(result))
+    return result
+
+
+def _agents_repo_add_manifest(ctx: Ctx, catalog: dict[str, dict[str, dict]]) -> None:
+    """Write the agents_repo catalog as a separate manifest in the hub."""
+    out = ctx.data_dir / "mcp" / "agents-repo-catalog.json"
+    write_json(out, catalog)
+
+
 def run(ctx: Ctx) -> None:
     LOG.info("== Pass 3: MCP servers ==")
     matchers = compile_secret_matchers(ctx.cfg)
@@ -169,7 +214,13 @@ def run(ctx: Ctx) -> None:
         LOG.info("no MCP configs found")
         return
 
+    # 1b. Load canonical catalog from agents repo (if configured).
+    catalog = _agents_repo_servers(ctx, matchers)
+    _agents_repo_add_manifest(ctx, catalog)
+
     # 2. Build canonical registry: union by name, newest config wins, redacted.
+    #    Catalog entries from agents_repo get a +0.5s mtime edge so they always
+    #    beat an equally-new tool-native copy, asserting the repo's authority.
     registry: dict[str, dict] = {}
     origin: dict[str, tuple[str, float]] = {}
     for tname, (_desc, servers, mtime) in per_tool.items():
@@ -180,9 +231,16 @@ def run(ctx: Ctx) -> None:
                 origin[sname] = (tname, mtime)
                 if had:
                     LOG.info("MCP: '%s' carries a credential — redacted in registry", sname)
+        # Overlay catalog entries for this tool (agents repo is authoritative).
+        for sname, model in catalog.get(tname, {}).items():
+            cat_edge = origin.get(sname, (None, 0.0))[1] + 0.5
+            if sname not in registry or cat_edge >= origin.get(sname, (None, 0.0))[1]:
+                registry[sname] = model
+                origin[sname] = (f"agents_repo/{tname}", cat_edge)
+                LOG.info("MCP: agents_repo provides '%s' for %s", sname, tname)
 
     write_json(ctx.data_dir / "mcp" / "registry.json", registry)
-    ctx.note(f"MCP registry: {len(registry)} servers from {len(per_tool)} tools")
+    ctx.note(f"MCP registry: {len(registry)} servers from {len(per_tool)} tools (+ agents_repo catalog)")
 
     # 3. Add-only fan-out: give each tool the servers it is missing.
     for tname, (desc, servers, _mtime) in per_tool.items():

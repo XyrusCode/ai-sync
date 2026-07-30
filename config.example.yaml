@@ -17,6 +17,15 @@ conflict: newest-wins
 mcp_memory_json: "${USERPROFILE}/mcp-memory.json"
 
 # ---------------------------------------------------------------------------
+# Agents canonical repo — the shared ~/.agents checkout.
+# When set, this becomes the highest-priority source for global AGENTS.md and
+# the canonical MCP server catalog (mcp/servers.json). ai-sync reads from here
+# and fans out to every tool, rather than relying purely on newest-wins among
+# the tool-native copies.
+# ---------------------------------------------------------------------------
+agents_repo: "${USERPROFILE}/Desktop/XyrusCode/agents"
+
+# ---------------------------------------------------------------------------
 # Per-tool wiring. enabled: false skips a tool completely.
 # Any key left absent simply means "this tool has no such surface".
 # ---------------------------------------------------------------------------
@@ -39,7 +48,7 @@ tools:
     mcp_json: "${USERPROFILE}/.config/opencode/opencode.json"   # servers under "mcp"
     mcp_key: "mcp"
     history_db: "${USERPROFILE}/.local/share/opencode/opencode.db"
-    inject_history: false     # SQLite insert — opt-in after validating a backup
+    inject_history: true      # SQLite insert — inject sessions from other tools into opencode
     process_names: ["opencode"]
 
   codex:
@@ -76,12 +85,60 @@ tools:
     inject_history: false     # state.vscdb has encryption-key fields — deferred/opt-in
     process_names: ["Cursor"]
 
+  kimi:
+    enabled: true
+    # Kimi Work/Desktop AI agent (Moonshot AI). Skills use SKILL.md format.
+    # History is in conversations.sqlite with messages in wire.jsonl files.
+    skills_dirs: ["${APPDATA}/kimi-desktop/daimon-share/daimon/skills"]
+    memory_file: "${APPDATA}/kimi-desktop/daimon-share/daimon/agents/main/memory/vault/index.md"
+    history_db: "${APPDATA}/kimi-desktop/daimon-share/daimon/agents/main/sessions/hosted-logical/conversations.sqlite"
+    sessions_dir: "${APPDATA}/kimi-desktop/daimon-share/daimon/runtime/kimi-code/home/sessions"
+    process_names: ["Kimi"]
+    inject_history: false     # SQLite-based — opt-in after validating
+
   devin:
     enabled: true
     # Devin reads project AGENTS.md; its knowledge/MCP are cloud-side.
     history_db: "${USERPROFILE}/AppData/Roaming/Devin/cli/sessions.db"
     process_names: ["Devin", "devin-desktop"]
     inject_history: false   # cloud-driven; local sessions.db is empty by default
+
+  kiro:
+    enabled: true
+    # Kilo Gateway CLI — free-tier AI reviewer (kiro-cli).
+    # The ~/.agents install.sh symlinks AGENTS.md -> KIRO.md.
+    memory_file: "${USERPROFILE}/.kiro/KIRO.md"
+    mcp_json: "${USERPROFILE}/.kiro/mcp.json"
+    # Kiro history is JSONL per-project, similar to Claude's layout.
+    history_dir: "${USERPROFILE}/.kiro/projects"
+    inject_history: false      # JSONL-based — opt-in after validating schema
+    process_names: ["kiro-cli", "kiro"]
+
+  qwen:
+    enabled: true
+    # Qwen CLI (Alibaba) — free-tier reviewer.
+    memory_file: "${USERPROFILE}/.qwen/QWEN.md"
+    mcp_json: "${USERPROFILE}/.qwen/mcp_config.json"
+    history_dir: "${USERPROFILE}/.qwen/sessions"
+    inject_history: false      # JSONL-based — opt-in after validating
+    process_names: ["qwen"]
+
+  windsurf:
+    enabled: true
+    # Windsurf AI IDE — uses .cursorrules (symlinked to AGENTS.md).
+    # MCP config in the IDE's code workspace storage.
+    memory_file: "${USERPROFILE}/.windsurf-server/.cursorrules"
+    mcp_json: "${USERPROFILE}/.windsurf-server/mcp.json"
+    skills_dirs: ["${USERPROFILE}/.windsurf-server/skills"]
+    process_names: ["windsurf", "windsurf-server"]
+    inject_history: false      # deferred — schema unknown
+
+# ---------------------------------------------------------------------------
+# agent-limits data directory (from ~/.agents repo).
+# When set, the agent_limits pass reads rate-limit event logs and status
+# caches into the hub for reporting alongside history.
+# ---------------------------------------------------------------------------
+agent_limits_data: "${USERPROFILE}/.agents/data/agent-limits"
 
 # ---------------------------------------------------------------------------
 # Secret classification. A field is NEVER written/copied to another tool if its

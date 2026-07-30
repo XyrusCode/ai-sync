@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+"""ai-sync-status — human-readable summary of the current sync state.
+
+Reads the ai-sync hub (~/.ai-sync/) and reports:
+  - Last sync time and result
+  - Per-tool status (config, memory, MCP, history)
+  - Rate-limit health (if agent-limits data available)
+  - Pending changes since last apply
+
+Usage:
+    python bin/ai-sync-status
+    python bin/ai-sync-status --verbose
+"""
+from __future__ import annotations
+
+import json
+import os
+import sys
+from datetime import datetime
+from pathlib import Path
+
+
+def main() -> int:
+    verbose = "--verbose" in sys.argv
+    hub = Path(os.environ.get("AI_SYNC_HUB", Path.home() / ".ai-sync"))
+
+    if not hub.is_dir():
+        print(f"ai-sync hub not found at {hub}")
+        print("Run 'python -m ai_sync' first to populate the hub.")
+        return 1
+
+    print(f"{'='*60}")
+    print(f"  ai-sync status  —  {hub}")
+    print(f"{'='*60}")
+
+    _report_last_sync(hub)
+    _report_state(hub)
+    _report_mcp(hub)
+    _report_history(hub)
+    _report_agent_limits(hub)
+
+    if verbose:
+        _report_verbose(hub)
+
+    return 0
+
+
+def _fmt_time(ts: float | None) -> str:
+    if not ts:
+        return "never"
+    return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M")
+
+
+def _report_last_sync(hub: Path) -> None:
+    logs = hub / "logs"
+    if logs.is_dir():
+        log_files = sorted(logs.glob("sync-*.log"))
+        if log_files:
+            latest = log_files[-1]
+            mtime = latest.stat().st_mtime
+            print(f"\n  Last sync: {_fmt_time(mtime)}  ({latest.name})")
+        else:
+            print("\n  Last sync: never (no logs)")
+    else:
+        print("\n  Last sync: unknown")
+
+
+def _report_state(hub: Path) -> None:
+    state = hub / "state"
+    if not state.is_dir():
+        print("\n  State: no sync state (run --apply first)")
+        return
+    manifest = _read_json(state / "manifest.json")
+    ledger = _read_json(state / "inject-ledger.json")
+    if manifest:
+        skills = sum(1 for k in manifest if k.startswith("skill:"))
+        print(f"\n  State: {len(manifest)} manifest entries, {skills} skills tracked")
+    if ledger:
+        print(f"         {len(ledger)} history injections recorded")
+
+
+def _report_mcp(hub: Path) -> None:
+    reg = _read_json(hub / "mcp" / "registry.json")
+    if reg:
+        print(f"\n  MCP: {len(reg)} servers in registry")
+    cat = _read_json(hub / "mcp" / "agents-repo-catalog.json")
+    if cat:
+        total = sum(len(v) for v in cat.values())
+        print(f"       {total} servers from agents_repo catalog across {len(cat)} agents")
+    if not reg and not cat:
+        print("\n  MCP: no registry (run sync first)")
+
+
+def _report_history(hub: Path) -> None:
+    hist = hub / "history"
+    if hist.is_dir():
+        projects = [p for p in hist.iterdir() if p.is_dir()]
+        total_sessions = 0
+        for proj in projects:
+            total_sessions += len(list(proj.glob("*.jsonl")))
+        print(f"\n  History: {total_sessions} sessions across {len(projects)} projects")
+    else:
+        print("\n  History: none")
+
+
+def _report_agent_limits(hub: Path) -> None:
+    rl = _read_json(hub / "agent-limits" / "rate-limits.json")
+    if not rl:
+        print("\n  Rate limits: no data (agent_limits_data not configured or empty)")
+        return
+    print(f"\n  Rate limits: {len(rl)} agents tracked")
+    for agent, rec in sorted(rl.items()):
+        status = rec.get("status", {})
+        avail = status.get("availability", "?")
+        count = rec.get("event_count", 0)
+        icon = "●" if avail == "AVAILABLE" else "○" if avail == "LIMITED" else "?"
+        print(f"    {icon} {agent:<12} {avail:<10} {count} events")
+
+
+def _report_verbose(hub: Path) -> None:
+    print(f"\n{'─'*60}")
+    print("  Hub contents:")
+    for child in sorted(hub.iterdir()):
+        if child.is_dir():
+            items = len(list(child.iterdir())) if child.is_dir() else 0
+            print(f"    {child.name}/  ({items} entries)")
+        else:
+            size = child.stat().st_size
+            print(f"    {child.name}  ({size} bytes)")
+
+
+def _read_json(path: Path):
+    if not path.is_file():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+if __name__ == "__main__":
+    sys.exit(main())

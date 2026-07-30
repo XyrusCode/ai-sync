@@ -11,13 +11,16 @@ each tool's `inject_history: true` flag — off by default to protect live DBs.
 """
 from __future__ import annotations
 
+import hashlib
 import json
+import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
 from .ctx import Ctx
-from .history_model import (ORIGINATOR, Msg, Session, claude_mangle,
-                            gemini_project_hash, ledger_key, synthetic_id)
+from .history_model import (ORIGINATOR, SYNCED_PREFIX, Msg, Session,
+                            claude_mangle, gemini_project_hash, ledger_key,
+                            synthetic_id)
 from .util import LOG, write_json
 
 
@@ -132,8 +135,138 @@ def inject_gemini(tool, s: Session, synth: str, ctx: Ctx) -> bool:
     return True
 
 
-INJECTORS = {"claude": inject_claude, "codex": inject_codex, "gemini": inject_gemini}
-DEFERRED = {"opencode", "cursor", "antigravity", "devin"}
+# --------------------------------------------------------------------------- #
+# OpenCode injector — SQLite session / message / part
+# --------------------------------------------------------------------------- #
+def inject_opencode(tool, s: Session, synth: str, ctx: Ctx) -> bool:
+    db = tool.path("history_db")
+    if not db or not db.is_file():
+        return False
+
+    project_path = s.project_path or ""
+    now_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+    created_ms = s.created_ms or now_ms
+    norm_path = project_path.replace("\\", "/") if project_path else ""
+    ses_id = "ses_" + synth[len(SYNCED_PREFIX):]
+
+    try:
+        con = sqlite3.connect(str(db))
+        with con:
+            if norm_path:
+                row = con.execute(
+                    "SELECT id FROM project WHERE worktree = ?", (norm_path,)
+                ).fetchone()
+                if row:
+                    project_id = row[0]
+                else:
+                    raw = norm_path.encode("utf-8")
+                    project_id = hashlib.sha1(raw).hexdigest()
+                    con.execute(
+                        "INSERT OR IGNORE INTO project "
+                        "(id, worktree, name, time_created, time_updated, sandboxes) "
+                        "VALUES (?, ?, ?, ?, ?, '[]')",
+                        (project_id, norm_path, Path(project_path).name,
+                         created_ms, now_ms),
+                    )
+                    con.execute(
+                        "INSERT OR IGNORE INTO project_directory "
+                        "(project_id, directory, time_created) VALUES (?, ?, ?)",
+                        (project_id, norm_path, now_ms),
+                    )
+            else:
+                project_id = "global"
+
+            tag = f"[ai-sync] {s.tool}/{s.session_id[:8]}"
+            title = (f"{tag}: {s.title}" if s.title else tag)[:500]
+            metadata = json.dumps({"originator": ORIGINATOR, "source_tool": s.tool,
+                                   "source_session": s.session_id})
+            con.execute(
+                "INSERT INTO session "
+                "(id, project_id, slug, directory, title, version, "
+                "time_created, time_updated, metadata) "
+                "VALUES (?, ?, ?, ?, ?, 'local', ?, ?, ?)",
+                (ses_id, project_id, ses_id[:20], norm_path,
+                 title, created_ms, now_ms, metadata),
+            )
+
+            if s.messages:
+                prompt = s.messages[0].text[:2000]
+                con.execute(
+                    "INSERT INTO session_input "
+                    "(id, session_id, prompt, delivery, admitted_seq, promoted_seq, time_created) "
+                    "VALUES (?, ?, ?, 'user', 1, 1, ?)",
+                    (_det_uuid(f"{synth}:input"), ses_id, prompt, created_ms),
+                )
+
+            for i, m in enumerate(s.messages):
+                msg_seed = f"{synth}:msg:{i}"
+                msg_id = "msg_" + _det_uuid(msg_seed)
+                msg_ts = created_ms + i
+                parent = None if i == 0 else "msg_" + _det_uuid(f"{synth}:msg:{i - 1}")
+                msg_data = json.dumps({
+                    "parentID": parent, "role": m.role,
+                    "mode": "build", "agent": "build",
+                })
+                con.execute(
+                    "INSERT INTO message "
+                    "(id, session_id, time_created, time_updated, data) "
+                    "VALUES (?, ?, ?, ?, ?)",
+                    (msg_id, ses_id, msg_ts, msg_ts, msg_data),
+                )
+                part_id = "prt_" + _det_uuid(f"{synth}:part:{i}")
+                part_data = json.dumps({"type": "text", "text": m.text})
+                con.execute(
+                    "INSERT INTO part "
+                    "(id, message_id, session_id, time_created, time_updated, data) "
+                    "VALUES (?, ?, ?, ?, ?, ?)",
+                    (part_id, msg_id, ses_id, msg_ts, msg_ts, part_data),
+                )
+        con.close()
+        return True
+    except sqlite3.Error as exc:
+        LOG.warning("opencode inject failed: %s", exc)
+        return False
+
+
+# --------------------------------------------------------------------------- #
+# Kiro injector — projects/<mangled>/synced-*.jsonl (same layout as Claude)
+# --------------------------------------------------------------------------- #
+def inject_kiro(tool, s: Session, synth: str, ctx: Ctx) -> bool:
+    if not s.project_path:
+        return False
+    root = tool.path("history_dir")
+    if not root:
+        return False
+    from .history_model import claude_mangle
+    proj_dir = root / claude_mangle(s.project_path)
+    out_file = proj_dir / f"{synth}.jsonl"
+    lines, prev = [], None
+    header = (f"[Imported by ai-sync from {s.tool} session {s.session_id}. "
+              f"Read-only copy for cross-tool visibility.]")
+    msgs = [Msg("user", header)] + s.messages
+    for i, m in enumerate(msgs):
+        uid = _det_uuid(f"{synth}:{i}")
+        lines.append({
+            "parentUuid": prev, "isSidechain": False, "type": m.role,
+            "message": {"role": m.role, "content": [{"type": "text", "text": m.text}]},
+            "uuid": uid, "timestamp": _iso(s.created_ms),
+            "sessionId": synth, "cwd": s.project_path, "gitBranch": "",
+            "version": "ai-sync", "originator": ORIGINATOR,
+            "syncedFrom": {"tool": s.tool, "session_id": s.session_id},
+        })
+        prev = uid
+    if ctx.apply:
+        proj_dir.mkdir(parents=True, exist_ok=True)
+        with open(out_file, "w", encoding="utf-8") as fh:
+            for ln in lines:
+                fh.write(json.dumps(ln, ensure_ascii=False) + "\n")
+    return True
+
+
+INJECTORS = {"claude": inject_claude, "codex": inject_codex,
+             "gemini": inject_gemini, "opencode": inject_opencode,
+             "kiro": inject_kiro}
+DEFERRED = {"cursor", "antigravity", "devin", "kimi", "qwen", "windsurf"}
 
 
 def run(ctx: Ctx, sessions: list[Session]) -> None:

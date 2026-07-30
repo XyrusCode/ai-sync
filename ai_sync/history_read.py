@@ -204,12 +204,19 @@ def read_opencode(tool) -> list[Session]:
     try:
         cur = con.cursor()
         sessions = cur.execute(
-            "SELECT id, directory, title, time_created FROM session"
+            "SELECT id, directory, title, time_created, metadata FROM session"
         ).fetchall()
         # message role/time + concatenated text parts
-        for sid, directory, title, created in sessions:
-            if str(sid).startswith("syn_"):
+        for sid, directory, title, created, metadata in sessions:
+            if str(sid).startswith("syn_") or title.startswith("[ai-sync]"):
                 continue
+            if metadata:
+                try:
+                    md = json.loads(metadata)
+                    if md.get("originator") == ORIGINATOR:
+                        continue
+                except (json.JSONDecodeError, TypeError):
+                    pass
             msgs = []
             rows = cur.execute(
                 "SELECT id, data FROM message WHERE session_id=? ORDER BY time_created", (sid,)
@@ -336,6 +343,206 @@ def read_devin(tool) -> list[Session]:
     return out
 
 
+# --------------------------------------------------------------------------- #
+# Kimi Work/Desktop — conversations.sqlite + wire.jsonl (event-sourced)
+# --------------------------------------------------------------------------- #
+def read_kimi(tool) -> list[Session]:
+    db = tool.path("history_db")
+    out: list[Session] = []
+    if not db or not db.is_file():
+        return out
+    con = _ro_sqlite(db)
+    if con is None:
+        return out
+    try:
+        cur = con.cursor()
+        rows = cur.execute(
+            "SELECT conversation_key, conversation_id, workspace_path, title, "
+            "created_at_ms, first_user_text, kernel_records_path "
+            "FROM conversations"
+        ).fetchall()
+        for ckey, cid, wpath, title, created, first_text, records_path in rows:
+            if str(ckey).startswith(SYNCED_PREFIX):
+                continue
+            msgs = read_kimi_wire(records_path)
+            if msgs:
+                out.append(_mk("kimi", cid or ckey, wpath or "", title or "",
+                               created, msgs))
+    except sqlite3.Error as exc:
+        LOG.warning("kimi: sqlite error %s", exc)
+    finally:
+        con.close()
+    return out
+
+
+def read_kimi_wire(records_path: str | None) -> list[Msg]:
+    """Parse a Kimi wire.jsonl file into Msg objects."""
+    if not records_path:
+        return []
+    p = Path(records_path)
+    if not p.is_file():
+        return []
+    msgs: list[Msg] = []
+    try:
+        for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            rec = json.loads(line)
+            if rec.get("type") != "context.append_message":
+                continue
+            message = rec.get("message") or {}
+            role = message.get("role")
+            if role not in ("user", "assistant"):
+                continue
+            text = _flatten_kimi_content(message.get("content"))
+            if text:
+                msgs.append(Msg(role, text[:MAX_TEXT]))
+    except (OSError, json.JSONDecodeError) as exc:
+        LOG.warning("kimi: wire parse error %s: %s", records_path, exc)
+    return msgs
+
+
+def _flatten_kimi_content(content) -> str:
+    """Extract text from Kimi's message.content (list of {type, text} or str)."""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for c in content:
+            if isinstance(c, dict) and c.get("type") == "text" and c.get("text"):
+                parts.append(c["text"])
+        return "\n".join(parts)
+    return ""
+
+
+# --------------------------------------------------------------------------- #
+# Kiro — projects/<mangled>/synced-*.jsonl (same layout as Claude)
+# --------------------------------------------------------------------------- #
+def read_kiro(tool) -> list[Session]:
+    root = tool.path("history_dir")
+    out: list[Session] = []
+    if not root or not root.is_dir():
+        return out
+    for proj_dir in root.iterdir():
+        if not proj_dir.is_dir():
+            continue
+        for jf in proj_dir.glob("*.jsonl"):
+            if jf.name.startswith(SYNCED_PREFIX):
+                continue
+            try:
+                msgs, cwd, injected = [], "", False
+                with open(jf, "r", encoding="utf-8", errors="replace") as fh:
+                    for line in fh:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        rec = json.loads(line)
+                        if rec.get("originator") == ORIGINATOR:
+                            injected = True
+                        cwd = rec.get("cwd") or cwd
+                        m = rec.get("message")
+                        if not isinstance(m, dict):
+                            continue
+                        role = m.get("role")
+                        if role not in ("user", "assistant"):
+                            continue
+                        text = _flatten_content(m.get("content"))
+                        if text:
+                            msgs.append(Msg(role, text))
+                if msgs and not injected:
+                    out.append(_mk("kiro", jf.stem, cwd, "", 0, msgs))
+            except (OSError, json.JSONDecodeError) as exc:
+                LOG.warning("kiro: skip %s (%s)", jf.name, exc)
+    return out
+
+
+# --------------------------------------------------------------------------- #
+# Qwen — sessions/<sessionId>.jsonl (one JSON per line, similar to Claude)
+# --------------------------------------------------------------------------- #
+def read_qwen(tool) -> list[Session]:
+    root = tool.path("history_dir")
+    out: list[Session] = []
+    if not root or not root.is_dir():
+        return out
+    for jf in root.rglob("*.jsonl"):
+        if SYNCED_PREFIX in jf.name:
+            continue
+        try:
+            msgs, cwd, injected = [], "", False
+            with open(jf, "r", encoding="utf-8", errors="replace") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    rec = json.loads(line)
+                    if rec.get("originator") == ORIGINATOR:
+                        injected = True
+                    cwd = rec.get("cwd") or cwd
+                    role = rec.get("role")
+                    if role in ("user", "assistant"):
+                        text = _flatten_content(rec.get("content"))
+                        if text:
+                            msgs.append(Msg(role, text))
+            if msgs and not injected:
+                out.append(_mk("qwen", jf.stem, cwd, "", 0, msgs))
+        except (OSError, json.JSONDecodeError) as exc:
+            LOG.warning("qwen: skip %s (%s)", jf.name, exc)
+    return out
+
+
+# --------------------------------------------------------------------------- #
+# Windsurf — per-project sessions (IDE stores history in SQLite or JSON files)
+# --------------------------------------------------------------------------- #
+def read_windsurf(tool) -> list[Session]:
+    db = tool.path("history_db")
+    out: list[Session] = []
+    if not db or not db.is_file():
+        return out
+    con = _ro_sqlite(db)
+    if con is None:
+        return out
+    try:
+        cur = con.cursor()
+        sessions = cur.execute(
+            "SELECT id, directory, title, time_created, metadata FROM session"
+        ).fetchall()
+        for sid, directory, title, created, metadata in sessions:
+            if str(sid).startswith(SYNCED_PREFIX) or (metadata and "ai-sync" in str(metadata)):
+                continue
+            msgs = []
+            rows = cur.execute(
+                "SELECT id, data FROM message WHERE session_id=? ORDER BY time_created", (sid,)
+            ).fetchall()
+            for mid, mdata in rows:
+                try:
+                    md = json.loads(mdata)
+                except (json.JSONDecodeError, TypeError):
+                    continue
+                role = md.get("role")
+                if role not in ("user", "assistant"):
+                    continue
+                texts = []
+                for (pdata,) in cur.execute(
+                    "SELECT data FROM part WHERE message_id=? ORDER BY time_created", (mid,)
+                ):
+                    try:
+                        pd = json.loads(pdata)
+                    except (json.JSONDecodeError, TypeError):
+                        continue
+                    if pd.get("type") == "text" and pd.get("text"):
+                        texts.append(pd["text"])
+                if texts:
+                    msgs.append(Msg(role, "\n".join(texts)[:MAX_TEXT]))
+            if msgs:
+                out.append(_mk("windsurf", str(sid), directory, title, created, msgs))
+    except sqlite3.Error as exc:
+        LOG.warning("windsurf: sqlite error %s", exc)
+    finally:
+        con.close()
+    return out
+
+
 READERS = {
     "claude": read_claude,
     "codex": read_codex,
@@ -343,7 +550,10 @@ READERS = {
     "opencode": read_opencode,
     "cursor": read_cursor,
     "devin": read_devin,
-    # antigravity: protobuf, deferred (no reader yet)
+    "kimi": read_kimi,
+    "kiro": read_kiro,
+    "qwen": read_qwen,
+    "windsurf": read_windsurf,
 }
 
 
