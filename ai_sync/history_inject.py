@@ -263,7 +263,75 @@ def inject_kiro(tool, s: Session, synth: str, ctx: Ctx) -> bool:
     return True
 
 
+# --------------------------------------------------------------------------- #
+# Copilot injector — session-store.db  (sessions + turns)
+# --------------------------------------------------------------------------- #
+def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
+    db = tool.path("history_db")
+    if not db or not db.is_file():
+        return False
+
+    try:
+        con = sqlite3.connect(str(db))
+        with con:
+            ses_id = synth[:36]  # UUID-format session id
+            created = _iso(s.created_ms)
+            tag = f"[ai-sync] {s.tool}/{s.session_id[:8]}"
+            title = (f"{tag}: {s.title}" if s.title else tag)[:500]
+
+            # Upsert session row
+            con.execute(
+                "INSERT OR REPLACE INTO sessions "
+                "(id, cwd, repository, branch, summary, host_type, created_at, updated_at) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (ses_id, s.project_path or "", "", "",
+                 title, "", created, created),
+            )
+
+            # Insert turns
+            turn_index = 0
+            for m in s.messages:
+                if m.role == "user":
+                    con.execute(
+                        "INSERT OR REPLACE INTO turns "
+                        "(session_id, turn_index, user_message, assistant_response, timestamp) "
+                        "VALUES (?, ?, ?, ?, ?)",
+                        (ses_id, turn_index, m.text[:200000], None, created),
+                    )
+                else:
+                    # Attach assistant message to previous turn if exists,
+                    # else create a synthetic turn pair
+                    prev = con.execute(
+                        "SELECT turn_index FROM turns "
+                        "WHERE session_id = ? ORDER BY turn_index DESC LIMIT 1",
+                        (ses_id,),
+                    ).fetchone()
+                    if prev:
+                        con.execute(
+                            "UPDATE turns SET assistant_response = ? "
+                            "WHERE session_id = ? AND turn_index = ?",
+                            (m.text[:200000], ses_id, prev[0]),
+                        )
+                    else:
+                        con.execute(
+                            "INSERT OR REPLACE INTO turns "
+                            "(session_id, turn_index, user_message, assistant_response, timestamp) "
+                            "VALUES (?, ?, ?, ?, ?)",
+                            (ses_id, turn_index, "[ai-sync import]", m.text[:200000], created),
+                        )
+                        turn_index += 1
+                if m.role == "user":
+                    turn_index += 1
+
+        con.close()
+        return True
+    except sqlite3.Error as exc:
+        LOG.warning("copilot inject failed: %s", exc)
+        return False
+
+
 INJECTORS = {"claude": inject_claude, "codex": inject_codex,
+             "copilot": inject_copilot,
              "gemini": inject_gemini, "opencode": inject_opencode,
              "kiro": inject_kiro}
 DEFERRED = {"cursor", "antigravity", "devin", "kimi", "qwen", "windsurf"}

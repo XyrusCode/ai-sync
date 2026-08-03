@@ -543,9 +543,51 @@ def read_windsurf(tool) -> list[Session]:
     return out
 
 
+# --------------------------------------------------------------------------- #
+# Copilot — session-store.db  (sessions + turns)
+# --------------------------------------------------------------------------- #
+def read_copilot(tool) -> list[Session]:
+    db = tool.path("history_db")
+    out: list[Session] = []
+    if not db or not db.is_file():
+        return out
+    con = _ro_sqlite(db)
+    if con is None:
+        return out
+    try:
+        cur = con.cursor()
+        sessions = cur.execute(
+            "SELECT id, cwd, summary, created_at FROM sessions ORDER BY created_at"
+        ).fetchall()
+        for sid, cwd, summary, created_at in sessions:
+            # Skip our own injected sessions
+            if summary and summary.startswith("[ai-sync]"):
+                continue
+            msgs = []
+            turns = cur.execute(
+                "SELECT turn_index, user_message, assistant_response FROM turns "
+                "WHERE session_id = ? ORDER BY turn_index",
+                (sid,),
+            ).fetchall()
+            for _ti, um, ar in turns:
+                if um and um.strip():
+                    msgs.append(Msg("user", um[:MAX_TEXT]))
+                if ar and ar.strip():
+                    msgs.append(Msg("assistant", ar[:MAX_TEXT]))
+            if msgs:
+                out.append(_mk("copilot", str(sid), cwd or "", summary or "",
+                               _as_ms(created_at), msgs))
+    except sqlite3.Error as exc:
+        LOG.warning("copilot: sqlite error %s", exc)
+    finally:
+        con.close()
+    return out
+
+
 READERS = {
     "claude": read_claude,
     "codex": read_codex,
+    "copilot": read_copilot,
     "gemini": read_gemini,
     "opencode": read_opencode,
     "cursor": read_cursor,
