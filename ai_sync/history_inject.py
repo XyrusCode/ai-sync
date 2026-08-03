@@ -272,7 +272,7 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
         return False
 
     try:
-        con = sqlite3.connect(str(db))
+        con = sqlite3.connect(str(db), timeout=10)
         with con:
             ses_id = synth[:36]  # UUID-format session id
             created = _iso(s.created_ms)
@@ -355,7 +355,9 @@ def run(ctx: Ctx, sessions: list[Session]) -> None:
         if not injector:
             ctx.note(f"inject: {tool.name} enabled but no writer implemented yet")
             continue
-        if not ctx.writable(tool):
+        # Copilot session-store.db uses WAL mode and tolerates concurrent writes,
+        # so we never skip it even while the app is running.
+        if tool.name != "copilot" and not ctx.writable(tool):
             continue
         for key, plist in by_project.items():
             for s in plist:
