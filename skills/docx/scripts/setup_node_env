@@ -1,0 +1,250 @@
+#!/usr/bin/env bash
+# Prepare the Node dependency environment used by docx-js build scripts.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+usage() {
+    cat <<'EOF'
+Usage:
+  scripts/setup_node_env roots [start-dir]
+  scripts/setup_node_env prefix
+  scripts/setup_node_env find-docx [start-dir]
+  scripts/setup_node_env check-docx [start-dir]
+  scripts/setup_node_env ensure-docx
+
+Environment:
+  DOCX_NPM_PREFIX        preferred npm install prefix
+  DOCX_NPM_PACKAGE       package spec to install, default: docx@^9
+  DOCX_BUILD_NO_INSTALL  set to 1 to disable auto-install
+  DOCX_BUILD_NO_GLOBAL   set to 1 to skip global npm roots
+EOF
+}
+
+install_prefix() {
+    local candidate
+    local candidates=()
+
+    if [ -n "${DOCX_NPM_PREFIX:-}" ]; then
+        candidates+=("$DOCX_NPM_PREFIX")
+    fi
+    if [ -n "${DOCX_SKILL_NPM_PREFIX:-}" ]; then
+        candidates+=("$DOCX_SKILL_NPM_PREFIX")
+    fi
+    if [ -n "${XDG_CACHE_HOME:-}" ]; then
+        candidates+=("$XDG_CACHE_HOME/claw-office-docx/npm")
+    fi
+    if [ -n "${HOME:-}" ]; then
+        candidates+=("$HOME/.cache/claw-office-docx/npm")
+    fi
+    candidates+=("/tmp/claw-office-docx-npm-${USER:-default}")
+
+    for candidate in "${candidates[@]}"; do
+        [ -n "$candidate" ] || continue
+        if mkdir -p "$candidate" 2>/dev/null && [ -w "$candidate" ]; then
+            cd "$candidate" && pwd
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+candidate_node_roots() {
+    local root
+    local start_dir="${1:-}"
+    local prefix
+    prefix="$(install_prefix 2>/dev/null || true)"
+
+    if [ -n "$start_dir" ]; then
+        start_dir="$(cd "$start_dir" 2>/dev/null && pwd || true)"
+        while [ -n "$start_dir" ] && [ "$start_dir" != "/" ]; do
+            [ -d "$start_dir/node_modules" ] && printf '%s\n' "$start_dir/node_modules"
+            start_dir="$(dirname "$start_dir")"
+        done
+    fi
+
+    for root in "$PWD/node_modules" "$SKILL_DIR/node_modules" "$SCRIPT_DIR/node_modules"; do
+        [ -d "$root" ] && printf '%s\n' "$root"
+    done
+
+    if [ -n "$prefix" ] && [ -d "$prefix/node_modules" ]; then
+        printf '%s\n' "$prefix/node_modules"
+    fi
+
+    if [ "${DOCX_BUILD_NO_GLOBAL:-}" != "1" ]; then
+        for root in "/usr/lib/node_modules" "/usr/local/lib/node_modules" "/opt/homebrew/lib/node_modules"; do
+            [ -d "$root" ] && printf '%s\n' "$root"
+        done
+
+        if command -v npm >/dev/null 2>&1; then
+            npm root -g 2>/dev/null || true
+        fi
+    fi
+
+    if [ -n "${NODE_PATH:-}" ]; then
+        printf '%s' "$NODE_PATH" | tr ':' '\n'
+    fi
+}
+
+find_docx_node_root() {
+    local start_dir="${1:-}"
+    local root
+    while IFS= read -r root; do
+        [ -n "$root" ] || continue
+        if [ -f "$root/docx/package.json" ]; then
+            printf '%s\n' "$root"
+            return 0
+        fi
+    done < <(candidate_node_roots "$start_dir" | awk '!seen[$0]++')
+
+    NODE_PATH="$(candidate_node_roots "$start_dir" | awk '!seen[$0]++' | paste -sd: -)" node -e '
+const path = require("node:path");
+try {
+  console.log(path.dirname(path.dirname(require.resolve("docx/package.json"))));
+} catch {
+  process.exit(1);
+}
+' 2>/dev/null || true
+}
+
+suggest_install_dir() {
+    local start_dir="${1:-$PWD}"
+    start_dir="$(cd "$start_dir" 2>/dev/null && pwd || pwd)"
+
+    while [ -n "$start_dir" ] && [ "$start_dir" != "/" ]; do
+        if [ -w "$start_dir" ]; then
+            printf '%s\n' "$start_dir"
+            return 0
+        fi
+        start_dir="$(dirname "$start_dir")"
+    done
+
+    pwd
+}
+
+check_docx_node_root() {
+    local start_dir="${1:-}"
+    local root
+    root="$(find_docx_node_root "$start_dir")"
+    if [ -n "$root" ] && [ -f "$root/docx/package.json" ]; then
+        echo "FOUND docx: $root/docx"
+        return 0
+    fi
+
+    local install_dir
+    install_dir="$(suggest_install_dir "$start_dir")"
+    cat <<EOF
+MISSING docx npm package.
+
+Install it where the build script can resolve it:
+  cd "$install_dir" && npm install docx
+
+Then rerun:
+  scripts/setup_node_env check-docx "$start_dir"
+
+Searched:
+$(candidate_node_roots "$start_dir" | awk '!seen[$0]++' | sed 's/^/  - /')
+EOF
+    return 1
+}
+
+install_docx_node_root() {
+    if [ "${DOCX_BUILD_NO_INSTALL:-}" = "1" ]; then
+        return 1
+    fi
+    if ! command -v npm >/dev/null 2>&1; then
+        return 1
+    fi
+
+    local prefix
+    prefix="$(install_prefix)" || return 1
+
+    if [ -f "$prefix/node_modules/docx/package.json" ]; then
+        printf '%s\n' "$prefix/node_modules"
+        return 0
+    fi
+
+    local package="${DOCX_NPM_PACKAGE:-docx@^9}"
+    local lock_dir="$prefix/.install.lock"
+    local have_lock=""
+    local i
+
+    for i in $(seq 1 60); do
+        if mkdir "$lock_dir" 2>/dev/null; then
+            have_lock="1"
+            break
+        fi
+        if [ -f "$prefix/node_modules/docx/package.json" ]; then
+            printf '%s\n' "$prefix/node_modules"
+            return 0
+        fi
+        sleep 1
+    done
+
+    [ -n "$have_lock" ] || return 1
+
+    echo "Installing npm package $package into $prefix" >&2
+    if npm install --prefix "$prefix" --no-audit --no-fund --silent "$package" >&2; then
+        rmdir "$lock_dir" 2>/dev/null || true
+        if [ -f "$prefix/node_modules/docx/package.json" ]; then
+            printf '%s\n' "$prefix/node_modules"
+            return 0
+        fi
+    else
+        rmdir "$lock_dir" 2>/dev/null || true
+    fi
+
+    return 1
+}
+
+ensure_docx_node_root() {
+    local root
+    root="$(find_docx_node_root)"
+    if [ -n "$root" ] && [ -f "$root/docx/package.json" ]; then
+        printf '%s\n' "$root"
+        return 0
+    fi
+
+    root="$(install_docx_node_root || true)"
+    if [ -n "$root" ] && [ -f "$root/docx/package.json" ]; then
+        printf '%s\n' "$root"
+        return 0
+    fi
+
+    cat >&2 <<'EOF'
+Cannot find or install npm package "docx".
+
+Searched local workspace roots, the skill directory, NODE_PATH, common global
+npm roots, and `npm root -g`; then attempted a cache-local npm install without
+touching the output directory or package.json.
+EOF
+    return 1
+}
+
+case "${1:-help}" in
+    roots)
+        candidate_node_roots "${2:-}" | awk '!seen[$0]++'
+        ;;
+    prefix)
+        install_prefix
+        ;;
+    find-docx)
+        find_docx_node_root "${2:-}"
+        ;;
+    check-docx)
+        check_docx_node_root "${2:-}"
+        ;;
+    ensure-docx)
+        ensure_docx_node_root
+        ;;
+    help|-h|--help)
+        usage
+        ;;
+    *)
+        usage
+        exit 2
+        ;;
+esac

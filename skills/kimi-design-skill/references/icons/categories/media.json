@@ -1,0 +1,261 @@
+[
+  {
+    "name": "ImageCreateIcon",
+    "file": "ImageCreate.svg",
+    "category": "media",
+    "aliases": [
+      "imagecreate",
+      "生成图片",
+      "AI生图"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageFailedIcon",
+    "file": "ImageFailed.svg",
+    "category": "media",
+    "aliases": [
+      "imagefailed",
+      "图片加载失败"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageGenerateIcon",
+    "file": "ImageGenerate.svg",
+    "category": "media",
+    "aliases": [
+      "imagegenerate",
+      "图片生成"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageIconIcon",
+    "file": "ImageIcon.svg",
+    "category": "media",
+    "aliases": [
+      "imageicon",
+      "图片图标"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MusicIcon",
+    "file": "Music.svg",
+    "category": "media",
+    "aliases": [
+      "music",
+      "音乐"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PhoneCallIcon",
+    "file": "PhoneCall.svg",
+    "category": "media",
+    "aliases": [
+      "phonecall",
+      "电话",
+      "语音通话"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PlayIcon",
+    "file": "Play.svg",
+    "category": "media",
+    "aliases": [
+      "play",
+      "播放"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RecordVoiceIcon",
+    "file": "RecordVoice.svg",
+    "category": "media",
+    "aliases": [
+      "recordvoice",
+      "录音"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SoundGenerateIcon",
+    "file": "SoundGenerate.svg",
+    "category": "media",
+    "aliases": [
+      "soundgenerate",
+      "生成音频",
+      "AI音频"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SoundsIcon",
+    "file": "Sounds.svg",
+    "category": "media",
+    "aliases": [
+      "sounds",
+      "声音"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VideoIcon",
+    "file": "Video.svg",
+    "category": "media",
+    "aliases": [
+      "video",
+      "视频"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VoiceInIcon",
+    "file": "VoiceIn.svg",
+    "category": "media",
+    "aliases": [
+      "voicein",
+      "语音输入"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VoiceWaveIcon",
+    "file": "VoiceWave.svg",
+    "category": "media",
+    "aliases": [
+      "voicewave",
+      "声波",
+      "语音波形"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VolOffIcon",
+    "file": "VolOff.svg",
+    "category": "media",
+    "aliases": [
+      "voloff",
+      "静音"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VolOnIcon",
+    "file": "VolOn.svg",
+    "category": "media",
+    "aliases": [
+      "volon",
+      "音量开"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

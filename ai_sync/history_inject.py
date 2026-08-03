@@ -313,11 +313,18 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
     if not db or not db.is_file():
         return False
 
+    import uuid as _uuid
+
     repo, host_type = _derive_repo(s.project_path)
     created = _iso(s.created_ms)
-    tag = f"[ai-sync] {s.tool}/{s.session_id[:8]}"
-    title = (f"{tag}: {s.title}" if s.title else tag)[:500]
-    ses_id = synth[:36]
+
+    # Copilot validates session IDs as UUIDs — use deterministic UUID from synth
+    ses_id = str(_uuid.uuid5(_uuid.NAMESPACE_DNS, synth))
+
+    # Title without [ai-sync] prefix — keep the original tool's title
+    title = (s.title or f"{s.tool}/{s.session_id[:8]}")[:500]
+    # Summary in session-store.db includes ai-sync provenance for dedup
+    summary = f"[ai-sync] {s.tool}/{s.session_id[:8]}: {s.title}"[:500]
 
     # 1. Write to session-store.db (local sync store)
     try:
@@ -327,7 +334,7 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
                 "INSERT OR REPLACE INTO sessions "
                 "(id, cwd, repository, branch, summary, host_type, created_at, updated_at) "
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                (ses_id, s.project_path or "", repo, "", title, host_type,
+                (ses_id, s.project_path or "", repo, "", summary, host_type,
                  created, created),
             )
             turn_index = 0
@@ -391,7 +398,6 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
             norm_path = s.project_path.replace("\\", "/") if s.project_path else ""
 
             # Generate deterministic workspace UUID
-            import uuid as _uuid
             ws_id = str(_uuid.uuid5(_uuid.NAMESPACE_DNS, ses_id + "-ws"))
 
             # Insert session

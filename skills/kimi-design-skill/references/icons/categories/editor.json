@@ -1,0 +1,185 @@
+[
+  {
+    "name": "BrushIcon",
+    "file": "Brush.svg",
+    "category": "editor",
+    "aliases": [
+      "brush",
+      "画笔",
+      "刷子"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "EditIcon",
+    "file": "Edit.svg",
+    "category": "editor",
+    "aliases": [
+      "edit",
+      "编辑",
+      "修改"
+    ],
+    "use_for": [
+      "edit content",
+      "modify text"
+    ],
+    "avoid_for": [
+      "create new",
+      "write from scratch"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "EraserIcon",
+    "file": "Eraser.svg",
+    "category": "editor",
+    "aliases": [
+      "eraser",
+      "橡皮擦"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FontIcon",
+    "file": "Font.svg",
+    "category": "editor",
+    "aliases": [
+      "font",
+      "字体"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageIcon",
+    "file": "Image.svg",
+    "category": "editor",
+    "aliases": [
+      "image",
+      "图片",
+      "图像"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PencilIcon",
+    "file": "Pencil.svg",
+    "category": "editor",
+    "aliases": [
+      "pencil",
+      "铅笔"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RedoIcon",
+    "file": "Redo.svg",
+    "category": "editor",
+    "aliases": [
+      "redo",
+      "重做",
+      "恢复"
+    ],
+    "use_for": [
+      "redo action",
+      "history step"
+    ],
+    "avoid_for": [
+      "reset",
+      "revert",
+      "reload"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TextIcon",
+    "file": "Text.svg",
+    "category": "editor",
+    "aliases": [
+      "text",
+      "文本",
+      "文字"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TextSelectIcon",
+    "file": "TextSelect.svg",
+    "category": "editor",
+    "aliases": [
+      "textselect",
+      "文本选择"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UndoIcon",
+    "file": "Undo.svg",
+    "category": "editor",
+    "aliases": [
+      "undo",
+      "撤销"
+    ],
+    "use_for": [
+      "undo action",
+      "history step"
+    ],
+    "avoid_for": [
+      "reset",
+      "revert",
+      "reload"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]
