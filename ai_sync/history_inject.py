@@ -264,31 +264,72 @@ def inject_kiro(tool, s: Session, synth: str, ctx: Ctx) -> bool:
 
 
 # --------------------------------------------------------------------------- #
-# Copilot injector — session-store.db  (sessions + turns)
+# Copilot injector — session-store.db (sessions + turns) AND data.db
+#   (sessions + workspaces + workspace_checkout_bindings).
+#   The sidebar reads from data.db, so we must write to both stores.
 # --------------------------------------------------------------------------- #
+def _derive_repo(path: str) -> tuple[str, str]:
+    """Parse a path into (owner/repo, host_type) via git remote or heuristic."""
+    import os as _os
+    p = (path or "").replace("/", "\\")
+    parts = p.split("\\")
+    # Walk up from the path looking for a .git dir
+    probe = p
+    for _ in range(6):
+        if _os.path.isdir(_os.path.join(probe, ".git")):
+            try:
+                import subprocess as _sp
+                r = _sp.run(["git", "-C", probe, "remote", "get-url", "origin"],
+                            capture_output=True, text=True, timeout=5)
+                url = r.stdout.strip()
+                if "github.com" in url:
+                    m = __import__("re").search(r"github\.com[:/](.+?/.+?)(?:\.git)?$", url)
+                    if m:
+                        return (m.group(1).rstrip("/"), "github")
+                elif "dev.azure.com" in url:
+                    m = __import__("re").search(r"dev\.azure\.com/(.+?)/(.+?)/_git/(.+)", url)
+                    if m:
+                        return (f"{m.group(1)}/{m.group(3)}", "ado")
+            except Exception:
+                pass
+        parent = _os.path.dirname(probe)
+        if parent == probe:
+            break
+        probe = parent
+
+    # Heuristic: find "copilot-worktrees/<repo>" first, then "XyrusCode/<repo>"
+    for i, part in enumerate(parts):
+        low = part.lower()
+        if low == "copilot-worktrees" and i + 2 < len(parts):
+            return (f"XyrusCode/{parts[i + 1]}", "github")
+    for i, part in enumerate(parts):
+        if part.lower() == "xyruscode" and i + 1 < len(parts):
+            return (f"XyrusCode/{parts[i + 1]}", "github")
+    return ("", "")
+
+
 def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
     db = tool.path("history_db")
     if not db or not db.is_file():
         return False
 
+    repo, host_type = _derive_repo(s.project_path)
+    created = _iso(s.created_ms)
+    tag = f"[ai-sync] {s.tool}/{s.session_id[:8]}"
+    title = (f"{tag}: {s.title}" if s.title else tag)[:500]
+    ses_id = synth[:36]
+
+    # 1. Write to session-store.db (local sync store)
     try:
         con = sqlite3.connect(str(db), timeout=10)
         with con:
-            ses_id = synth[:36]  # UUID-format session id
-            created = _iso(s.created_ms)
-            tag = f"[ai-sync] {s.tool}/{s.session_id[:8]}"
-            title = (f"{tag}: {s.title}" if s.title else tag)[:500]
-
-            # Upsert session row
             con.execute(
                 "INSERT OR REPLACE INTO sessions "
                 "(id, cwd, repository, branch, summary, host_type, created_at, updated_at) "
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                (ses_id, s.project_path or "", "", "",
-                 title, "", created, created),
+                (ses_id, s.project_path or "", repo, "", title, host_type,
+                 created, created),
             )
-
-            # Insert turns
             turn_index = 0
             for m in s.messages:
                 if m.role == "user":
@@ -299,8 +340,6 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
                         (ses_id, turn_index, m.text[:200000], None, created),
                     )
                 else:
-                    # Attach assistant message to previous turn if exists,
-                    # else create a synthetic turn pair
                     prev = con.execute(
                         "SELECT turn_index FROM turns "
                         "WHERE session_id = ? ORDER BY turn_index DESC LIMIT 1",
@@ -317,17 +356,80 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
                             "INSERT OR REPLACE INTO turns "
                             "(session_id, turn_index, user_message, assistant_response, timestamp) "
                             "VALUES (?, ?, ?, ?, ?)",
-                            (ses_id, turn_index, "[ai-sync import]", m.text[:200000], created),
+                            (ses_id, turn_index, "[ai-sync import]",
+                             m.text[:200000], created),
                         )
                         turn_index += 1
                 if m.role == "user":
                     turn_index += 1
-
         con.close()
-        return True
     except sqlite3.Error as exc:
-        LOG.warning("copilot inject failed: %s", exc)
+        LOG.warning("copilot session-store inject failed: %s", exc)
         return False
+
+    # 2. Write to data.db (sidebar source)
+    data_db_path = Path(str(db).replace("session-store.db", "data.db"))
+    if not repo or not data_db_path.is_file():
+        return bool(repo)  # still success for session-store part
+
+    try:
+        dcon = sqlite3.connect(str(data_db_path), timeout=10)
+        with dcon:
+            # Find or skip: match project by repo full name
+            proj_row = dcon.execute(
+                "SELECT id FROM projects "
+                "WHERE lower(github_owner || '/' || github_repo) = lower(?)",
+                (repo,),
+            ).fetchone()
+            if not proj_row:
+                return True  # no matching project, session-store part succeeded
+            project_id = proj_row[0]
+
+            # Determine workspace type and branch
+            ws_type = "branch"
+            branch = ""
+            norm_path = s.project_path.replace("\\", "/") if s.project_path else ""
+
+            # Generate deterministic workspace UUID
+            import uuid as _uuid
+            ws_id = str(_uuid.uuid5(_uuid.NAMESPACE_DNS, ses_id + "-ws"))
+
+            # Insert session
+            dcon.execute(
+                "INSERT OR REPLACE INTO sessions "
+                "(id, title, session_type, execution_location, created_at, updated_at, "
+                "title_source) "
+                "VALUES (?, ?, 'project', 'local', ?, ?, 'auto')",
+                (ses_id, title, created, created),
+            )
+
+            # Insert workspace (OR REPLACE because session_id has a UNIQUE index)
+            ws_name = title[:100]
+            dcon.execute(
+                "INSERT OR REPLACE INTO workspaces "
+                "(id, project_id, workspace_type, branch, name, host_id, session_id, "
+                "created_at, updated_at, created_by) "
+                "VALUES (?, ?, ?, ?, ?, 'local', ?, ?, ?, 'agent')",
+                (ws_id, project_id, ws_type, branch or "imported",
+                 ws_name, ses_id, created, created),
+            )
+
+            # Insert workspace_checkout_bindings
+            dcon.execute(
+                "INSERT OR REPLACE INTO workspace_checkout_bindings "
+                "(workspace_id, repo_path, repo_full_name, display_name, "
+                "checkout_kind, checkout_path) "
+                "VALUES (?, ?, ?, ?, 'in_place', ?)",
+                (ws_id, norm_path, repo, repo.split("/")[-1] if "/" in repo else repo,
+                 s.project_path or norm_path),
+            )
+
+        dcon.close()
+    except sqlite3.Error as exc:
+        LOG.warning("copilot data.db inject failed: %s", exc)
+        # session-store part succeeded, still return True
+
+    return True
 
 
 INJECTORS = {"claude": inject_claude, "codex": inject_codex,
