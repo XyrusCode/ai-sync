@@ -15,6 +15,7 @@ other's history. Runs daily from Windows Task Scheduler.
 
 | Tool | Skills | Memory | MCP | History (read) | History (inject) |
 |---|:--:|:--:|:--:|:--:|:--:|
+| **GitHub Copilot** | – | reads `AGENTS.md` | – | ✅ SQLite | ✅ high |
 | **Claude Code** | ✅ | ✅ `CLAUDE.md` | ✅ JSON | ✅ | ✅ high |
 | **OpenCode** | ✅ | ✅ `AGENTS.md` | ✅ JSON-inline | ✅ SQLite | ⚙️ opt-in |
 | **Codex** | ✅ | ✅ `AGENTS.md` | ✅ TOML | ✅ | ✅ high |
@@ -166,6 +167,7 @@ ai-sync/
 
 | Target | Method | Status |
 |---|---|---|
+| Copilot | INSERT `sessions` / `turns` in session-store.db | on |
 | Claude | write `projects/<mangled>/synced-*.jsonl` | on |
 | Codex | write `sessions/…/rollout-synced-*.jsonl` + index | on |
 | Gemini | write `tmp/<projectHash>/chats/session-synced-*.json` | on |

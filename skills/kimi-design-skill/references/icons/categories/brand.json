@@ -1,0 +1,222 @@
+[
+  {
+    "name": "AlphalabIcon",
+    "file": "Alphalab.svg",
+    "category": "brand",
+    "aliases": [
+      "alphalab",
+      "Alphalab"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AndroidIcon",
+    "file": "Android.svg",
+    "category": "brand",
+    "aliases": [
+      "android",
+      "安卓"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AppleIcon",
+    "file": "Apple.svg",
+    "category": "brand",
+    "aliases": [
+      "apple",
+      "苹果"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KimiOldIcon",
+    "file": "KimiOld.svg",
+    "category": "brand",
+    "aliases": [
+      "kimiold",
+      "旧版Kimi"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KimiPlusIcon",
+    "file": "KimiPlus.svg",
+    "category": "brand",
+    "aliases": [
+      "kimiplus",
+      "Kimi+"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KoderIcon",
+    "file": "Koder.svg",
+    "category": "brand",
+    "aliases": [
+      "koder",
+      "Koder"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "OKComputerIcon",
+    "file": "OKComputer.svg",
+    "category": "brand",
+    "aliases": [
+      "okcomputer",
+      "OK Computer"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PrismIcon",
+    "file": "Prism.svg",
+    "category": "brand",
+    "aliases": [
+      "prism",
+      "Prism"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RobotIcon",
+    "file": "Robot.svg",
+    "category": "brand",
+    "aliases": [
+      "robot",
+      "机器人"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WebBridgeIcon",
+    "file": "WebBridge.svg",
+    "category": "brand",
+    "aliases": [
+      "webbridge",
+      "WebBridge"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "k15Icon",
+    "file": "k15.svg",
+    "category": "brand",
+    "aliases": [
+      "k15"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "k15_bIcon",
+    "file": "k15_b.svg",
+    "category": "brand",
+    "aliases": [
+      "k15_b",
+      "k15"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "k15_cIcon",
+    "file": "k15_c.svg",
+    "category": "brand",
+    "aliases": [
+      "k15_c",
+      "k15"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

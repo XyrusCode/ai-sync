@@ -1,0 +1,336 @@
+[
+  {
+    "name": "AlphaIcon",
+    "file": "Alpha.svg",
+    "category": "image",
+    "aliases": [
+      "alpha",
+      "透明度",
+      "透明"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ColorIcon",
+    "file": "Color.svg",
+    "category": "image",
+    "aliases": [
+      "color",
+      "颜色",
+      "填充色"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ColorlessIcon",
+    "file": "Colorless.svg",
+    "category": "image",
+    "aliases": [
+      "colorless",
+      "无颜色",
+      "去色"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CropRotationIcon",
+    "file": "CropRotation.svg",
+    "category": "image",
+    "aliases": [
+      "croprotation",
+      "旋转裁剪"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CroppingIcon",
+    "file": "Cropping.svg",
+    "category": "image",
+    "aliases": [
+      "cropping",
+      "裁剪"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FitScreenIcon",
+    "file": "FitScreen.svg",
+    "category": "image",
+    "aliases": [
+      "fitscreen",
+      "适应屏幕",
+      "全屏适配"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FitScreen_bIcon",
+    "file": "FitScreen_b.svg",
+    "category": "image",
+    "aliases": [
+      "fitscreen_b",
+      "fitscreen"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FlipIcon",
+    "file": "Flip.svg",
+    "category": "image",
+    "aliases": [
+      "flip",
+      "翻转",
+      "镜像"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Flip_bIcon",
+    "file": "Flip_b.svg",
+    "category": "image",
+    "aliases": [
+      "flip_b",
+      "flip"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FullScreenIcon",
+    "file": "FullScreen.svg",
+    "category": "image",
+    "aliases": [
+      "fullscreen",
+      "全屏"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MagnifyIcon",
+    "file": "Magnify.svg",
+    "category": "image",
+    "aliases": [
+      "magnify",
+      "放大",
+      "放大镜"
+    ],
+    "use_for": [
+      "zoom in",
+      "enlarge image"
+    ],
+    "avoid_for": [
+      "search",
+      "find text"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MinifyIcon",
+    "file": "Minify.svg",
+    "category": "image",
+    "aliases": [
+      "minify",
+      "缩小"
+    ],
+    "use_for": [
+      "zoom out",
+      "shrink image"
+    ],
+    "avoid_for": [
+      "search",
+      "compress file"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ReplaceIcon",
+    "file": "Replace.svg",
+    "category": "image",
+    "aliases": [
+      "replace",
+      "替换"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ShapeIcon",
+    "file": "Shape.svg",
+    "category": "image",
+    "aliases": [
+      "shape",
+      "形状"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "StrokeIcon",
+    "file": "Stroke.svg",
+    "category": "image",
+    "aliases": [
+      "stroke",
+      "描边",
+      "边框"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabStrokeIcon",
+    "file": "TabStroke.svg",
+    "category": "image",
+    "aliases": [
+      "tabstroke",
+      "描边样式"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabStroke_bIcon",
+    "file": "TabStroke_b.svg",
+    "category": "image",
+    "aliases": [
+      "tabstroke_b",
+      "tabstroke"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TextColorIcon",
+    "file": "TextColor.svg",
+    "category": "image",
+    "aliases": [
+      "textcolor",
+      "文字颜色"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WatermarkIcon",
+    "file": "Watermark.svg",
+    "category": "image",
+    "aliases": [
+      "watermark",
+      "水印"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

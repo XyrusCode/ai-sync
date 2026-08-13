@@ -1,0 +1,795 @@
+[
+  {
+    "name": "ArtifactIcon",
+    "file": "Artifact.svg",
+    "category": "system",
+    "aliases": [
+      "artifact",
+      "Artifact"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AtIcon",
+    "file": "At.svg",
+    "category": "system",
+    "aliases": [
+      "at",
+      "@",
+      "提及"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BanIcon",
+    "file": "Ban.svg",
+    "category": "system",
+    "aliases": [
+      "ban",
+      "禁止",
+      "屏蔽"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BatteryIcon",
+    "file": "Battery.svg",
+    "category": "system",
+    "aliases": [
+      "battery",
+      "电池",
+      "电量"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BusinessIcon",
+    "file": "Business.svg",
+    "category": "system",
+    "aliases": [
+      "business",
+      "商务",
+      "商业"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BusinessCardIcon",
+    "file": "BusinessCard.svg",
+    "category": "system",
+    "aliases": [
+      "businesscard",
+      "名片"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ClearHistoryIcon",
+    "file": "ClearHistory.svg",
+    "category": "system",
+    "aliases": [
+      "clearhistory",
+      "清空历史",
+      "清除记录"
+    ],
+    "use_for": [
+      "clear history",
+      "clear records"
+    ],
+    "avoid_for": [
+      "delete account",
+      "remove item"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ConnectorsIcon",
+    "file": "Connectors.svg",
+    "category": "system",
+    "aliases": [
+      "connectors",
+      "连接器",
+      "连接"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CreateIcon",
+    "file": "Create.svg",
+    "category": "system",
+    "aliases": [
+      "create",
+      "创建"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DarkModeIcon",
+    "file": "DarkMode.svg",
+    "category": "system",
+    "aliases": [
+      "darkmode",
+      "深色模式",
+      "夜间模式"
+    ],
+    "use_for": [
+      "dark theme",
+      "night mode"
+    ],
+    "avoid_for": [
+      "brightness",
+      "contrast"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DeregisterIcon",
+    "file": "Deregister.svg",
+    "category": "system",
+    "aliases": [
+      "deregister",
+      "注销",
+      "解绑"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DiagnosisIcon",
+    "file": "Diagnosis.svg",
+    "category": "system",
+    "aliases": [
+      "diagnosis",
+      "诊断"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DotIcon",
+    "file": "Dot.svg",
+    "category": "system",
+    "aliases": [
+      "dot",
+      "圆点",
+      "点"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ExclamationIcon",
+    "file": "Exclamation.svg",
+    "category": "system",
+    "aliases": [
+      "exclamation",
+      "感叹号",
+      "提示"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FindAssetIcon",
+    "file": "FindAsset.svg",
+    "category": "system",
+    "aliases": [
+      "findasset",
+      "查找资源"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FollowSystemIcon",
+    "file": "FollowSystem.svg",
+    "category": "system",
+    "aliases": [
+      "followsystem",
+      "跟随系统"
+    ],
+    "use_for": [
+      "follow system theme",
+      "auto theme"
+    ],
+    "avoid_for": [
+      "brightness",
+      "contrast"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "GameIcon",
+    "file": "Game.svg",
+    "category": "system",
+    "aliases": [
+      "game",
+      "游戏"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "HandIcon",
+    "file": "Hand.svg",
+    "category": "system",
+    "aliases": [
+      "hand",
+      "手",
+      "手势"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "IconIcon",
+    "file": "Icon.svg",
+    "category": "system",
+    "aliases": [
+      "icon",
+      "图标"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KeyboardIcon",
+    "file": "Keyboard.svg",
+    "category": "system",
+    "aliases": [
+      "keyboard",
+      "键盘"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LayerIcon",
+    "file": "Layer.svg",
+    "category": "system",
+    "aliases": [
+      "layer",
+      "图层"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LightModeIcon",
+    "file": "LightMode.svg",
+    "category": "system",
+    "aliases": [
+      "lightmode",
+      "浅色模式",
+      "日间模式"
+    ],
+    "use_for": [
+      "light theme",
+      "day mode"
+    ],
+    "avoid_for": [
+      "brightness",
+      "contrast"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LocateIcon",
+    "file": "Locate.svg",
+    "category": "system",
+    "aliases": [
+      "locate",
+      "定位"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ManagementIcon",
+    "file": "Management.svg",
+    "category": "system",
+    "aliases": [
+      "management",
+      "管理"
+    ],
+    "use_for": [
+      "admin management",
+      "user management",
+      "system management"
+    ],
+    "avoid_for": [
+      "settings",
+      "personal preferences"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MathFormulaIcon",
+    "file": "MathFormula.svg",
+    "category": "system",
+    "aliases": [
+      "mathformula",
+      "数学公式"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MemoryIcon",
+    "file": "Memory.svg",
+    "category": "system",
+    "aliases": [
+      "memory",
+      "记忆",
+      "历史记忆"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveIcon",
+    "file": "Move.svg",
+    "category": "system",
+    "aliases": [
+      "move",
+      "移动"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "NotificationIcon",
+    "file": "Notification.svg",
+    "category": "system",
+    "aliases": [
+      "notification",
+      "通知",
+      "消息提醒"
+    ],
+    "use_for": [
+      "notification bell",
+      "alerts",
+      "reminders"
+    ],
+    "avoid_for": [
+      "message",
+      "inbox",
+      "announcement"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PagesIcon",
+    "file": "Pages.svg",
+    "category": "system",
+    "aliases": [
+      "pages",
+      "页面"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PinToTopIcon",
+    "file": "PinToTop.svg",
+    "category": "system",
+    "aliases": [
+      "pintotop",
+      "置顶"
+    ],
+    "use_for": [
+      "pin to top",
+      "sticky",
+      "keep visible"
+    ],
+    "avoid_for": [
+      "bookmark",
+      "favorite",
+      "lock"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PopupClosedIcon",
+    "file": "PopupClosed.svg",
+    "category": "system",
+    "aliases": [
+      "popupclosed",
+      "弹窗关闭"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PostIcon",
+    "file": "Post.svg",
+    "category": "system",
+    "aliases": [
+      "post",
+      "发布",
+      "帖子"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PowerIcon",
+    "file": "Power.svg",
+    "category": "system",
+    "aliases": [
+      "power",
+      "电源"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ProfileIcon",
+    "file": "Profile.svg",
+    "category": "system",
+    "aliases": [
+      "profile",
+      "个人资料",
+      "头像"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "QuestionIcon",
+    "file": "Question.svg",
+    "category": "system",
+    "aliases": [
+      "question",
+      "问题",
+      "帮助"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ReduceIcon",
+    "file": "Reduce.svg",
+    "category": "system",
+    "aliases": [
+      "reduce",
+      "减少",
+      "压缩"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SettingIcon",
+    "file": "Setting.svg",
+    "category": "system",
+    "aliases": [
+      "setting",
+      "设置"
+    ],
+    "use_for": [
+      "app settings",
+      "preferences",
+      "configuration"
+    ],
+    "avoid_for": [
+      "filter sliders",
+      "tune values",
+      "management"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SkillIcon",
+    "file": "Skill.svg",
+    "category": "system",
+    "aliases": [
+      "skill",
+      "技能",
+      "Skill"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SwitchIcon",
+    "file": "Switch.svg",
+    "category": "system",
+    "aliases": [
+      "switch",
+      "开关",
+      "切换"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TaskIcon",
+    "file": "Task.svg",
+    "category": "system",
+    "aliases": [
+      "task",
+      "任务"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TaskSubAgentOffIcon",
+    "file": "TaskSubAgentOff.svg",
+    "category": "system",
+    "aliases": [
+      "tasksubagentoff",
+      "子任务关闭"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TodoIcon",
+    "file": "Todo.svg",
+    "category": "system",
+    "aliases": [
+      "todo",
+      "待办",
+      "清单"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UnpinFromTopIcon",
+    "file": "UnpinFromTop.svg",
+    "category": "system",
+    "aliases": [
+      "unpinfromtop",
+      "取消置顶"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpdateIcon",
+    "file": "Update.svg",
+    "category": "system",
+    "aliases": [
+      "update",
+      "更新",
+      "升级"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

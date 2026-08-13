@@ -1,0 +1,307 @@
+#!/usr/bin/env bash
+# Unified entry point for docx-js creation and DOCX validation/repair.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+usage() {
+    cat <<'EOF'
+Usage:
+  scripts/docx build <script.js> <output.docx>
+  scripts/docx validate <file.docx>
+  scripts/docx lint <script.js> [more.js ...]
+  scripts/docx render <file.docx> <output-dir>
+  scripts/docx md2docx <file.md> [--style footnote|endnote|hyperlink] [--output-dir <dir>]
+
+build runs: node --check -> docx-js lint -> node script.js output.docx -> auto-fix/validate
+md2docx converts swarm-assembled Markdown (standard footnotes) to .docx with
+citations; for one-off documents author with docx-js instead.
+render uses LibreOffice to produce a PDF, then the bundled PDF skill renders
+every page and creates a contact sheet for visual QA.
+EOF
+}
+
+need_cmd() {
+    if ! command -v "$1" >/dev/null 2>&1; then
+        echo "Missing required command: $1" >&2
+        exit 1
+    fi
+}
+
+run_lint() {
+    need_cmd python3
+    PYTHONPATH="$SCRIPT_DIR:${PYTHONPATH:-}" python3 "$SCRIPT_DIR/lint_docx_js.py" "$@"
+}
+
+run_validate() {
+    need_cmd python3
+    local file="$1"
+    if [ ! -f "$file" ]; then
+        echo "DOCX not found: $file" >&2
+        exit 1
+    fi
+    PYTHONPATH="$SCRIPT_DIR:${PYTHONPATH:-}" python3 "$SCRIPT_DIR/validate_all.py" "$file"
+}
+
+resolve_docx_renderer() {
+    if [ -n "${DOCX_RENDERER:-}" ]; then
+        if [ -x "$DOCX_RENDERER" ]; then
+            printf '%s\n' "$DOCX_RENDERER"
+            return 0
+        fi
+        echo "Configured DOCX_RENDERER is not executable: $DOCX_RENDERER" >&2
+        return 1
+    fi
+    if command -v libreoffice >/dev/null 2>&1; then
+        command -v libreoffice
+        return 0
+    fi
+    if command -v soffice >/dev/null 2>&1; then
+        command -v soffice
+        return 0
+    fi
+    local mac_renderer="/Applications/LibreOffice.app/Contents/MacOS/soffice"
+    if [ -x "$mac_renderer" ]; then
+        printf '%s\n' "$mac_renderer"
+        return 0
+    fi
+    echo "No LibreOffice DOCX renderer is available; visual QA was not run." >&2
+    return 1
+}
+
+run_render() {
+    need_cmd python3
+    local file="${1:-}"
+    local output_dir="${2:-}"
+    if [ -z "$file" ] || [ -z "$output_dir" ]; then
+        usage
+        exit 2
+    fi
+    if [ ! -f "$file" ]; then
+        echo "DOCX not found: $file" >&2
+        exit 1
+    fi
+
+    local renderer
+    renderer="$(resolve_docx_renderer)" || exit 3
+    mkdir -p "$output_dir"
+    "$renderer" --headless --convert-to pdf --outdir "$output_dir" "$file" >/dev/null
+
+    local rendered_pdf="$output_dir/$(basename "${file%.*}").pdf"
+    if [ ! -f "$rendered_pdf" ]; then
+        echo "DOCX renderer did not produce the expected PDF: $rendered_pdf" >&2
+        exit 1
+    fi
+
+    local pdf_tool="$SKILL_DIR/../pdf/scripts/pdf.py"
+    if [ ! -f "$pdf_tool" ]; then
+        echo "Bundled PDF visual-QA tool not found: $pdf_tool" >&2
+        exit 1
+    fi
+    python3 "$pdf_tool" inspect "$rendered_pdf" -o "$output_dir/rendered-pages"
+}
+
+node_package_type() {
+    local dir="$1"
+    while [ "$dir" != "/" ]; do
+        if [ -f "$dir/package.json" ]; then
+            node -e '
+const fs = require("node:fs");
+try {
+  const pkg = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+  console.log(pkg.type || "");
+} catch {
+  console.log("");
+}
+' "$dir/package.json"
+            return
+        fi
+        dir="$(dirname "$dir")"
+    done
+    echo ""
+}
+
+script_looks_like_esm() {
+    node -e '
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const stripped = source
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .replace(/\/\/.*$/gm, "");
+process.exit(/\bimport\s+(?:[\s*{]|\w)|\bexport\s+(?:async\s+)?(?:function|class|const|let|var|default|\{)/m.test(stripped) ? 0 : 1);
+' "$1"
+}
+
+script_uses_docx_package() {
+    node -e '
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const stripped = source
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .replace(/\/\/.*$/gm, "");
+process.exit(/from\s+["'\'']docx["'\'']|import\s*\(["'\'']docx["'\'']\)|require\s*\(\s*["'\'']docx["'\'']\s*\)/m.test(stripped) ? 0 : 1);
+' "$1"
+}
+
+link_docx_dependency() {
+    local script_dir="$1"
+    if [ -f "$script_dir/node_modules/docx/package.json" ]; then
+        printf '\n'
+        return 0
+    fi
+
+    local docx_root
+    docx_root="$("$SCRIPT_DIR/setup_node_env" find-docx "$script_dir")"
+
+    if [ -z "$docx_root" ] || [ ! -f "$docx_root/docx/package.json" ]; then
+        cat >&2 <<EOF
+Cannot find npm package "docx" for $script_dir.
+
+Install it where Node can resolve it, for example:
+  cd "$script_dir" && npm install docx
+
+The build wrapper searches the script directory and its parents, the current
+directory, the skill directory, NODE_PATH, common global npm roots, and
+\`npm root -g\`. Use the same detection path before building:
+  "$SCRIPT_DIR/setup_node_env" check-docx "$script_dir"
+EOF
+        exit 1
+    fi
+
+    if [ ! -e "$script_dir/node_modules" ]; then
+        ln -s "$docx_root" "$script_dir/node_modules" 2>/dev/null && {
+            printf '%s\n' "$script_dir/node_modules"
+            return 0
+        }
+    fi
+
+    if [ -d "$script_dir/node_modules" ] && [ ! -e "$script_dir/node_modules/docx" ]; then
+        ln -s "$docx_root/docx" "$script_dir/node_modules/docx" 2>/dev/null && {
+            printf '%s\n' "$script_dir/node_modules/docx"
+            return 0
+        }
+    fi
+
+    printf '\n'
+}
+
+run_md2docx() {
+    need_cmd python3
+    need_cmd pandoc
+    local md="${1:-}"
+    if [ -z "$md" ]; then
+        usage
+        exit 2
+    fi
+    shift
+    if [ ! -f "$md" ]; then
+        echo "Markdown not found: $md" >&2
+        exit 1
+    fi
+    PYTHONPATH="$SCRIPT_DIR/md2docx:${PYTHONPATH:-}" \
+        python3 "$SCRIPT_DIR/md2docx/md2docx_convert.py" "$md" "$@"
+}
+
+run_build() {
+    need_cmd node
+    need_cmd python3
+
+    local script="${1:-}"
+    local output="${2:-}"
+    if [ -z "$script" ] || [ -z "$output" ]; then
+        usage
+        exit 2
+    fi
+    if [ ! -f "$script" ]; then
+        echo "Script not found: $script" >&2
+        exit 1
+    fi
+
+    local script_dir
+    script_dir="$(cd "$(dirname "$script")" && pwd)"
+
+    local exec_script="$script"
+    local temp_exec_script=""
+    local script_type
+    script_type="$(node_package_type "$script_dir")"
+    if [ "${script##*.}" = "js" ] && [ "$script_type" != "module" ] && script_looks_like_esm "$script"; then
+        temp_exec_script="${script%.js}.docx-build.$$.mjs"
+        cp "$script" "$temp_exec_script"
+        exec_script="$temp_exec_script"
+    fi
+
+    local linked_dependency=""
+    DOCX_BUILD_TEMP_EXEC_SCRIPT="$temp_exec_script"
+    DOCX_BUILD_LINKED_DEPENDENCY="$linked_dependency"
+    cleanup() {
+        if [ -n "${DOCX_BUILD_TEMP_EXEC_SCRIPT:-}" ] && [ -f "$DOCX_BUILD_TEMP_EXEC_SCRIPT" ]; then
+            rm -f "$DOCX_BUILD_TEMP_EXEC_SCRIPT"
+        fi
+        if [ -n "${DOCX_BUILD_LINKED_DEPENDENCY:-}" ] && [ -L "$DOCX_BUILD_LINKED_DEPENDENCY" ]; then
+            rm -f "$DOCX_BUILD_LINKED_DEPENDENCY"
+        fi
+    }
+    trap cleanup EXIT
+
+    mkdir -p "$(dirname "$output")"
+    rm -f "$output"
+
+    echo "▶ Syntax check"
+    node --check "$exec_script"
+
+    echo "▶ docx-js lint"
+    run_lint "$script"
+
+    if script_uses_docx_package "$script"; then
+        linked_dependency="$(link_docx_dependency "$script_dir")"
+        DOCX_BUILD_LINKED_DEPENDENCY="$linked_dependency"
+    fi
+
+    echo "▶ Generate"
+    node "$exec_script" "$output"
+    if [ ! -f "$output" ]; then
+        echo "Generation finished but output was not written: $output" >&2
+        echo "The script must write process.argv[2]." >&2
+        exit 1
+    fi
+
+    echo "▶ Auto-fix and validate"
+    run_validate "$output"
+
+    echo "✓ Done: $output"
+}
+
+case "${1:-help}" in
+    build)
+        shift
+        run_build "$@"
+        ;;
+    validate)
+        shift
+        [ "$#" -eq 1 ] || { usage; exit 2; }
+        run_validate "$1"
+        ;;
+    lint)
+        shift
+        [ "$#" -ge 1 ] || { usage; exit 2; }
+        run_lint "$@"
+        ;;
+    render)
+        shift
+        [ "$#" -eq 2 ] || { usage; exit 2; }
+        run_render "$1" "$2"
+        ;;
+    md2docx)
+        shift
+        run_md2docx "$@"
+        ;;
+    help|-h|--help)
+        usage
+        ;;
+    *)
+        usage
+        exit 2
+        ;;
+esac
