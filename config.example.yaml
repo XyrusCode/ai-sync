@@ -30,6 +30,14 @@ agents_repo: "${USERPROFILE}/Desktop/XyrusCode/agents"
 # Any key left absent simply means "this tool has no such surface".
 # ---------------------------------------------------------------------------
 tools:
+  copilot:
+    enabled: true
+    # GitHub Copilot CLI — the session orchestrator this repo lives in.
+    # History is in a local SQLite store that also backs the session cloud sync.
+    history_db: "${USERPROFILE}/.copilot/session-store.db"
+    inject_history: true      # SQLite insert — write other tools' sessions here
+    process_names: ["copilot", "github-copilot", "copilot-agent"]
+
   claude:
     enabled: true
     skills_dirs:

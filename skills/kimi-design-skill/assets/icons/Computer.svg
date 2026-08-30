@@ -1,0 +1,27 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_12787_15049)">
+<rect x="2.5" y="16.5" width="19" height="5" stroke="black" stroke-opacity="0.45"/>
+<rect x="6.5" y="4.5" width="11" height="8" stroke="black" stroke-opacity="0.45"/>
+<path d="M5 18H7V20H5V18Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M14 18H19V19H14V18Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M9 6H10V7H9V6Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M12 6.5H13V8H12V6.5Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M12 8H13V9H12V8Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M11 8H12V9H11V8Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M11 10H12V11H11V10Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M12 10H13V11H12V10Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M13 10H14V11H13V10Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M10 10H11V11H10V10Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M9 9H10V10H9V9Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M14 9H15V10H14V9Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M14 6H15V7H14V6Z" fill="currentColor" fill-opacity="0.45"/>
+<path d="M5 14.5H19M5 2.5H19M4.5 3V14M19.5 3V14" stroke="black" stroke-opacity="0.45"/>
+<line x1="7.625" y1="15" x2="7.625" y2="16" stroke="black" stroke-opacity="0.45"/>
+<line x1="16.625" y1="15" x2="16.625" y2="16" stroke="black" stroke-opacity="0.45"/>
+</g>
+<defs>
+<clipPath id="clip0_12787_15049">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>

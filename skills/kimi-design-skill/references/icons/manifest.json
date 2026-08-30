@@ -1,0 +1,4769 @@
+[
+  {
+    "name": "AddIcon",
+    "file": "Add.svg",
+    "category": "general",
+    "aliases": [
+      "add",
+      "添加",
+      "新建",
+      "加号"
+    ],
+    "use_for": [
+      "add item",
+      "create new",
+      "insert"
+    ],
+    "avoid_for": [
+      "upload file",
+      "compose text",
+      "expand"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AddConversationIcon",
+    "file": "AddConversation.svg",
+    "category": "chat",
+    "aliases": [
+      "addconversation",
+      "新建会话",
+      "新对话"
+    ],
+    "use_for": [
+      "chat related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AllSelectedIcon",
+    "file": "AllSelected.svg",
+    "category": "status",
+    "aliases": [
+      "allselected",
+      "全选"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AlphaIcon",
+    "file": "Alpha.svg",
+    "category": "image",
+    "aliases": [
+      "alpha",
+      "透明度",
+      "透明"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AlphalabIcon",
+    "file": "Alphalab.svg",
+    "category": "brand",
+    "aliases": [
+      "alphalab",
+      "Alphalab"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AndroidIcon",
+    "file": "Android.svg",
+    "category": "brand",
+    "aliases": [
+      "android",
+      "安卓"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AppleIcon",
+    "file": "Apple.svg",
+    "category": "brand",
+    "aliases": [
+      "apple",
+      "苹果"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ArtifactIcon",
+    "file": "Artifact.svg",
+    "category": "system",
+    "aliases": [
+      "artifact",
+      "Artifact"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "AtIcon",
+    "file": "At.svg",
+    "category": "system",
+    "aliases": [
+      "at",
+      "@",
+      "提及"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BadIcon",
+    "file": "Bad.svg",
+    "category": "status",
+    "aliases": [
+      "bad",
+      "差评",
+      "不好"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BanIcon",
+    "file": "Ban.svg",
+    "category": "system",
+    "aliases": [
+      "ban",
+      "禁止",
+      "屏蔽"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BatteryIcon",
+    "file": "Battery.svg",
+    "category": "system",
+    "aliases": [
+      "battery",
+      "电池",
+      "电量"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BoldIcon",
+    "file": "Bold.svg",
+    "category": "formatting",
+    "aliases": [
+      "bold",
+      "粗体",
+      "加粗"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BookmarkIcon",
+    "file": "Bookmark.svg",
+    "category": "general",
+    "aliases": [
+      "bookmark",
+      "书签",
+      "收藏"
+    ],
+    "use_for": [
+      "bookmark",
+      "save for later"
+    ],
+    "avoid_for": [
+      "pin",
+      "favorite",
+      "collect"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BottomIcon",
+    "file": "Bottom.svg",
+    "category": "formatting",
+    "aliases": [
+      "bottom",
+      "底部",
+      "底对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BottomAlignIcon",
+    "file": "BottomAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "bottomalign",
+      "底部对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BoxIcon",
+    "file": "Box.svg",
+    "category": "input",
+    "aliases": [
+      "box",
+      "盒子",
+      "工具箱"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BrowseIcon",
+    "file": "Browse.svg",
+    "category": "navigation",
+    "aliases": [
+      "browse",
+      "浏览",
+      "探索"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BrowserIcon",
+    "file": "Browser.svg",
+    "category": "navigation",
+    "aliases": [
+      "browser",
+      "浏览器"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Browser_bIcon",
+    "file": "Browser_b.svg",
+    "category": "navigation",
+    "aliases": [
+      "browser_b",
+      "browser"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BrushIcon",
+    "file": "Brush.svg",
+    "category": "editor",
+    "aliases": [
+      "brush",
+      "画笔",
+      "刷子"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BusinessIcon",
+    "file": "Business.svg",
+    "category": "system",
+    "aliases": [
+      "business",
+      "商务",
+      "商业"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BusinessCardIcon",
+    "file": "BusinessCard.svg",
+    "category": "system",
+    "aliases": [
+      "businesscard",
+      "名片"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CameraIcon",
+    "file": "Camera.svg",
+    "category": "input",
+    "aliases": [
+      "camera",
+      "相机",
+      "拍照"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CatalogIcon",
+    "file": "Catalog.svg",
+    "category": "navigation",
+    "aliases": [
+      "catalog",
+      "目录",
+      "分类"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CenterAlignIcon",
+    "file": "CenterAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "centeralign",
+      "居中对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CenterVerticallyIcon",
+    "file": "CenterVertically.svg",
+    "category": "formatting",
+    "aliases": [
+      "centervertically",
+      "垂直居中"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ChangeIcon",
+    "file": "Change.svg",
+    "category": "arrows",
+    "aliases": [
+      "change",
+      "交换",
+      "切换",
+      "转换"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Change_bIcon",
+    "file": "Change_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "change_b",
+      "change"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CheckIcon",
+    "file": "Check.svg",
+    "category": "general",
+    "aliases": [
+      "check",
+      "勾选",
+      "对勾",
+      "确认"
+    ],
+    "use_for": [
+      "confirm",
+      "selected",
+      "verified"
+    ],
+    "avoid_for": [
+      "radio button",
+      "favorite",
+      "bookmark"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CheckboxEmptyIcon",
+    "file": "CheckboxEmpty.svg",
+    "category": "status",
+    "aliases": [
+      "checkboxempty",
+      "空复选框",
+      "未勾选"
+    ],
+    "use_for": [
+      "multi-select",
+      "form checkbox"
+    ],
+    "avoid_for": [
+      "radio button",
+      "toggle switch"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CheckboxInIcon",
+    "file": "CheckboxIn.svg",
+    "category": "status",
+    "aliases": [
+      "checkboxin",
+      "复选框选中",
+      "已勾选"
+    ],
+    "use_for": [
+      "multi-select",
+      "form checkbox"
+    ],
+    "avoid_for": [
+      "radio button",
+      "toggle switch"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CirclePlusIcon",
+    "file": "CirclePlus.svg",
+    "category": "input",
+    "aliases": [
+      "circleplus",
+      "圆形加号"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ClearHistoryIcon",
+    "file": "ClearHistory.svg",
+    "category": "system",
+    "aliases": [
+      "clearhistory",
+      "清空历史",
+      "清除记录"
+    ],
+    "use_for": [
+      "clear history",
+      "clear records"
+    ],
+    "avoid_for": [
+      "delete account",
+      "remove item"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ClipIcon",
+    "file": "Clip.svg",
+    "category": "input",
+    "aliases": [
+      "clip",
+      "回形针",
+      "附件"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CloseIcon",
+    "file": "Close.svg",
+    "category": "general",
+    "aliases": [
+      "close",
+      "关闭",
+      "叉号",
+      "删除"
+    ],
+    "use_for": [
+      "close dialog",
+      "dismiss",
+      "remove tag"
+    ],
+    "avoid_for": [
+      "delete forever",
+      "logout",
+      "stop"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CodeIcon",
+    "file": "Code.svg",
+    "category": "general",
+    "aliases": [
+      "code",
+      "代码"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CollapseIcon",
+    "file": "Collapse.svg",
+    "category": "arrows",
+    "aliases": [
+      "collapse",
+      "收起",
+      "折叠"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CollectIcon",
+    "file": "Collect.svg",
+    "category": "general",
+    "aliases": [
+      "collect",
+      "收藏",
+      "收集"
+    ],
+    "use_for": [
+      "collect",
+      "gather items"
+    ],
+    "avoid_for": [
+      "bookmark",
+      "favorite",
+      "save"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ColorIcon",
+    "file": "Color.svg",
+    "category": "image",
+    "aliases": [
+      "color",
+      "颜色",
+      "填充色"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ColorlessIcon",
+    "file": "Colorless.svg",
+    "category": "image",
+    "aliases": [
+      "colorless",
+      "无颜色",
+      "去色"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CommentIcon",
+    "file": "Comment.svg",
+    "category": "chat",
+    "aliases": [
+      "comment",
+      "评论",
+      "留言"
+    ],
+    "use_for": [
+      "comment",
+      "reply",
+      "discussion"
+    ],
+    "avoid_for": [
+      "chat",
+      "message",
+      "note"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CompletedIcon",
+    "file": "Completed.svg",
+    "category": "status",
+    "aliases": [
+      "completed",
+      "完成",
+      "成功"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ComputerIcon",
+    "file": "Computer.svg",
+    "category": "general",
+    "aliases": [
+      "computer",
+      "电脑",
+      "计算机"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ConnectorsIcon",
+    "file": "Connectors.svg",
+    "category": "system",
+    "aliases": [
+      "connectors",
+      "连接器",
+      "连接"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CopyIcon",
+    "file": "Copy.svg",
+    "category": "general",
+    "aliases": [
+      "copy",
+      "复制"
+    ],
+    "use_for": [
+      "duplicate",
+      "copy to clipboard"
+    ],
+    "avoid_for": [
+      "cut",
+      "move",
+      "clone"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CreateIcon",
+    "file": "Create.svg",
+    "category": "system",
+    "aliases": [
+      "create",
+      "创建"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CropRotationIcon",
+    "file": "CropRotation.svg",
+    "category": "image",
+    "aliases": [
+      "croprotation",
+      "旋转裁剪"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CroppingIcon",
+    "file": "Cropping.svg",
+    "category": "image",
+    "aliases": [
+      "cropping",
+      "裁剪"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DarkModeIcon",
+    "file": "DarkMode.svg",
+    "category": "system",
+    "aliases": [
+      "darkmode",
+      "深色模式",
+      "夜间模式"
+    ],
+    "use_for": [
+      "dark theme",
+      "night mode"
+    ],
+    "avoid_for": [
+      "brightness",
+      "contrast"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DataIcon",
+    "file": "Data.svg",
+    "category": "data",
+    "aliases": [
+      "data",
+      "数据"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DeleteIcon",
+    "file": "Delete.svg",
+    "category": "general",
+    "aliases": [
+      "delete",
+      "删除",
+      "移除",
+      "垃圾桶"
+    ],
+    "use_for": [
+      "delete item",
+      "remove",
+      "trash"
+    ],
+    "avoid_for": [
+      "clear history",
+      "deregister",
+      "archive"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DeregisterIcon",
+    "file": "Deregister.svg",
+    "category": "system",
+    "aliases": [
+      "deregister",
+      "注销",
+      "解绑"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DesktopIcon",
+    "file": "Desktop.svg",
+    "category": "navigation",
+    "aliases": [
+      "desktop",
+      "桌面端",
+      "电脑"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DiagnosisIcon",
+    "file": "Diagnosis.svg",
+    "category": "system",
+    "aliases": [
+      "diagnosis",
+      "诊断"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DiagramIcon",
+    "file": "Diagram.svg",
+    "category": "data",
+    "aliases": [
+      "diagram",
+      "图表",
+      "关系图"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DislikeIcon",
+    "file": "Dislike.svg",
+    "category": "social",
+    "aliases": [
+      "dislike",
+      "踩",
+      "不喜欢",
+      "差评"
+    ],
+    "use_for": [
+      "thumbs down",
+      "disapprove"
+    ],
+    "avoid_for": [
+      "delete",
+      "report",
+      "block"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Dislike_bIcon",
+    "file": "Dislike_b.svg",
+    "category": "social",
+    "aliases": [
+      "dislike_b",
+      "dislike"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DocDoneIcon",
+    "file": "DocDone.svg",
+    "category": "file",
+    "aliases": [
+      "docdone",
+      "文档完成"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DocumentIcon",
+    "file": "Document.svg",
+    "category": "file",
+    "aliases": [
+      "document",
+      "文档"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Document_bIcon",
+    "file": "Document_b.svg",
+    "category": "file",
+    "aliases": [
+      "document_b",
+      "document"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DotIcon",
+    "file": "Dot.svg",
+    "category": "system",
+    "aliases": [
+      "dot",
+      "圆点",
+      "点"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DownIcon",
+    "file": "Down.svg",
+    "category": "arrows",
+    "aliases": [
+      "down",
+      "向下",
+      "下降",
+      "下载"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Down_bIcon",
+    "file": "Down_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "down_b",
+      "down"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DownloadIcon",
+    "file": "Download.svg",
+    "category": "file",
+    "aliases": [
+      "download",
+      "下载",
+      "导出"
+    ],
+    "use_for": [
+      "file download",
+      "export to local device"
+    ],
+    "avoid_for": [
+      "upload",
+      "import",
+      "share"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "EditIcon",
+    "file": "Edit.svg",
+    "category": "editor",
+    "aliases": [
+      "edit",
+      "编辑",
+      "修改"
+    ],
+    "use_for": [
+      "edit content",
+      "modify text"
+    ],
+    "avoid_for": [
+      "create new",
+      "write from scratch"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "EnterIcon",
+    "file": "Enter.svg",
+    "category": "arrows",
+    "aliases": [
+      "enter",
+      "回车",
+      "进入"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Enter_rIcon",
+    "file": "Enter_r.svg",
+    "category": "arrows",
+    "aliases": [
+      "enter_r",
+      "enter"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "EraserIcon",
+    "file": "Eraser.svg",
+    "category": "editor",
+    "aliases": [
+      "eraser",
+      "橡皮擦"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ErrorIcon",
+    "file": "Error.svg",
+    "category": "status",
+    "aliases": [
+      "error",
+      "错误",
+      "失败"
+    ],
+    "use_for": [
+      "error state",
+      "failure",
+      "something went wrong"
+    ],
+    "avoid_for": [
+      "warning",
+      "caution",
+      "missing"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ExcelIcon",
+    "file": "Excel.svg",
+    "category": "file",
+    "aliases": [
+      "excel",
+      "Excel"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ExclamationIcon",
+    "file": "Exclamation.svg",
+    "category": "system",
+    "aliases": [
+      "exclamation",
+      "感叹号",
+      "提示"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ExpandIcon",
+    "file": "Expand.svg",
+    "category": "arrows",
+    "aliases": [
+      "expand",
+      "展开",
+      "放大"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ExpandRightIcon",
+    "file": "ExpandRight.svg",
+    "category": "general",
+    "aliases": [
+      "expandright",
+      "向右展开"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FindAssetIcon",
+    "file": "FindAsset.svg",
+    "category": "system",
+    "aliases": [
+      "findasset",
+      "查找资源"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FitScreenIcon",
+    "file": "FitScreen.svg",
+    "category": "image",
+    "aliases": [
+      "fitscreen",
+      "适应屏幕",
+      "全屏适配"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FitScreen_bIcon",
+    "file": "FitScreen_b.svg",
+    "category": "image",
+    "aliases": [
+      "fitscreen_b",
+      "fitscreen"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FlattenIcon",
+    "file": "Flatten.svg",
+    "category": "formatting",
+    "aliases": [
+      "flatten",
+      "扁平化",
+      "合并图层"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FlipIcon",
+    "file": "Flip.svg",
+    "category": "image",
+    "aliases": [
+      "flip",
+      "翻转",
+      "镜像"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Flip_bIcon",
+    "file": "Flip_b.svg",
+    "category": "image",
+    "aliases": [
+      "flip_b",
+      "flip"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FoldLeftIcon",
+    "file": "FoldLeft.svg",
+    "category": "general",
+    "aliases": [
+      "foldleft",
+      "向左折叠"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FolderIcon",
+    "file": "Folder.svg",
+    "category": "file",
+    "aliases": [
+      "folder",
+      "文件夹"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FolderOpenIcon",
+    "file": "FolderOpen.svg",
+    "category": "file",
+    "aliases": [
+      "folderopen",
+      "打开文件夹"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FollowSystemIcon",
+    "file": "FollowSystem.svg",
+    "category": "system",
+    "aliases": [
+      "followsystem",
+      "跟随系统"
+    ],
+    "use_for": [
+      "follow system theme",
+      "auto theme"
+    ],
+    "avoid_for": [
+      "brightness",
+      "contrast"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FontIcon",
+    "file": "Font.svg",
+    "category": "editor",
+    "aliases": [
+      "font",
+      "字体"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FullScreenIcon",
+    "file": "FullScreen.svg",
+    "category": "image",
+    "aliases": [
+      "fullscreen",
+      "全屏"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "GameIcon",
+    "file": "Game.svg",
+    "category": "system",
+    "aliases": [
+      "game",
+      "游戏"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "GiftIcon",
+    "file": "Gift.svg",
+    "category": "social",
+    "aliases": [
+      "gift",
+      "礼物",
+      "红包"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "GoBackIcon",
+    "file": "GoBack.svg",
+    "category": "arrows",
+    "aliases": [
+      "goback",
+      "返回",
+      "后退"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "GoBack_NumberIcon",
+    "file": "GoBack_Number.svg",
+    "category": "arrows",
+    "aliases": [
+      "goback_number"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "GroupIcon",
+    "file": "Group.svg",
+    "category": "social",
+    "aliases": [
+      "group",
+      "群组",
+      "分组"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "HandIcon",
+    "file": "Hand.svg",
+    "category": "system",
+    "aliases": [
+      "hand",
+      "手",
+      "手势"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "HistogramIcon",
+    "file": "Histogram.svg",
+    "category": "data",
+    "aliases": [
+      "histogram",
+      "柱状图"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "HistoryIcon",
+    "file": "History.svg",
+    "category": "navigation",
+    "aliases": [
+      "history",
+      "历史",
+      "记录"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "IconIcon",
+    "file": "Icon.svg",
+    "category": "system",
+    "aliases": [
+      "icon",
+      "图标"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageIcon",
+    "file": "Image.svg",
+    "category": "editor",
+    "aliases": [
+      "image",
+      "图片",
+      "图像"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageCreateIcon",
+    "file": "ImageCreate.svg",
+    "category": "media",
+    "aliases": [
+      "imagecreate",
+      "生成图片",
+      "AI生图"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageFailedIcon",
+    "file": "ImageFailed.svg",
+    "category": "media",
+    "aliases": [
+      "imagefailed",
+      "图片加载失败"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageGenerateIcon",
+    "file": "ImageGenerate.svg",
+    "category": "media",
+    "aliases": [
+      "imagegenerate",
+      "图片生成"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ImageIconIcon",
+    "file": "ImageIcon.svg",
+    "category": "media",
+    "aliases": [
+      "imageicon",
+      "图片图标"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "InfoIcon",
+    "file": "Info.svg",
+    "category": "status",
+    "aliases": [
+      "info",
+      "信息",
+      "提示"
+    ],
+    "use_for": [
+      "information",
+      "help tip",
+      "details"
+    ],
+    "avoid_for": [
+      "warning",
+      "error",
+      "notification"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "InternetOffIcon",
+    "file": "InternetOff.svg",
+    "category": "navigation",
+    "aliases": [
+      "internetoff",
+      "网络断开"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "InternetOff_bIcon",
+    "file": "InternetOff_b.svg",
+    "category": "navigation",
+    "aliases": [
+      "internetoff_b",
+      "internetoff"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "InternetOnIcon",
+    "file": "InternetOn.svg",
+    "category": "navigation",
+    "aliases": [
+      "interneton",
+      "网络连接"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "InternetOpenIcon",
+    "file": "InternetOpen.svg",
+    "category": "navigation",
+    "aliases": [
+      "internetopen",
+      "网络开放"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "IntervalSpaceIcon",
+    "file": "IntervalSpace.svg",
+    "category": "formatting",
+    "aliases": [
+      "intervalspace"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ItalicIcon",
+    "file": "Italic.svg",
+    "category": "formatting",
+    "aliases": [
+      "italic",
+      "斜体"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "JoinGroupIcon",
+    "file": "JoinGroup.svg",
+    "category": "social",
+    "aliases": [
+      "joingroup",
+      "加入群组"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "JustifyIcon",
+    "file": "Justify.svg",
+    "category": "formatting",
+    "aliases": [
+      "justify",
+      "两端对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KeyboardIcon",
+    "file": "Keyboard.svg",
+    "category": "system",
+    "aliases": [
+      "keyboard",
+      "键盘"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KimiOldIcon",
+    "file": "KimiOld.svg",
+    "category": "brand",
+    "aliases": [
+      "kimiold",
+      "旧版Kimi"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KimiPlusIcon",
+    "file": "KimiPlus.svg",
+    "category": "brand",
+    "aliases": [
+      "kimiplus",
+      "Kimi+"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KnowledgeIcon",
+    "file": "Knowledge.svg",
+    "category": "data",
+    "aliases": [
+      "knowledge",
+      "知识库"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "KoderIcon",
+    "file": "Koder.svg",
+    "category": "brand",
+    "aliases": [
+      "koder",
+      "Koder"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LayerIcon",
+    "file": "Layer.svg",
+    "category": "system",
+    "aliases": [
+      "layer",
+      "图层"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LeftIcon",
+    "file": "Left.svg",
+    "category": "arrows",
+    "aliases": [
+      "left",
+      "向左",
+      "左箭头"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LeftAlignIcon",
+    "file": "LeftAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "leftalign",
+      "左对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LeftBarIcon",
+    "file": "LeftBar.svg",
+    "category": "navigation",
+    "aliases": [
+      "leftbar",
+      "左侧面板"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LeftRightIcon",
+    "file": "LeftRight.svg",
+    "category": "arrows",
+    "aliases": [
+      "leftright"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LeftRight_bIcon",
+    "file": "LeftRight_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "leftright_b",
+      "leftright"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Left_bIcon",
+    "file": "Left_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "left_b",
+      "left"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Left_cIcon",
+    "file": "Left_c.svg",
+    "category": "arrows",
+    "aliases": [
+      "left_c",
+      "left"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LightModeIcon",
+    "file": "LightMode.svg",
+    "category": "system",
+    "aliases": [
+      "lightmode",
+      "浅色模式",
+      "日间模式"
+    ],
+    "use_for": [
+      "light theme",
+      "day mode"
+    ],
+    "avoid_for": [
+      "brightness",
+      "contrast"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LikeIcon",
+    "file": "Like.svg",
+    "category": "social",
+    "aliases": [
+      "like",
+      "赞",
+      "喜欢",
+      "好评"
+    ],
+    "use_for": [
+      "thumbs up",
+      "approve",
+      "favorite"
+    ],
+    "avoid_for": [
+      "bookmark",
+      "star",
+      "collect"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Like_bIcon",
+    "file": "Like_b.svg",
+    "category": "social",
+    "aliases": [
+      "like_b",
+      "like"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LineIcon",
+    "file": "Line.svg",
+    "category": "formatting",
+    "aliases": [
+      "line",
+      "线条",
+      "直线"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LineSpaceIcon",
+    "file": "LineSpace.svg",
+    "category": "formatting",
+    "aliases": [
+      "linespace",
+      "行间距"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LinechartIcon",
+    "file": "Linechart.svg",
+    "category": "data",
+    "aliases": [
+      "linechart",
+      "折线图"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LinkIcon",
+    "file": "Link.svg",
+    "category": "general",
+    "aliases": [
+      "link",
+      "链接",
+      "超链接"
+    ],
+    "use_for": [
+      "hyperlink",
+      "attach URL",
+      "connect"
+    ],
+    "avoid_for": [
+      "share",
+      "export",
+      "attach file"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ListIcon",
+    "file": "List.svg",
+    "category": "navigation",
+    "aliases": [
+      "list",
+      "列表"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LoadingDoneIcon",
+    "file": "LoadingDone.svg",
+    "category": "status",
+    "aliases": [
+      "loadingdone",
+      "加载完成"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LoadingRightIcon",
+    "file": "LoadingRight.svg",
+    "category": "status",
+    "aliases": [
+      "loadingright",
+      "加载中",
+      "转圈"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LocateIcon",
+    "file": "Locate.svg",
+    "category": "system",
+    "aliases": [
+      "locate",
+      "定位"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LowerLeftIcon",
+    "file": "LowerLeft.svg",
+    "category": "arrows",
+    "aliases": [
+      "lowerleft",
+      "左下箭头"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LowerRightIcon",
+    "file": "LowerRight.svg",
+    "category": "arrows",
+    "aliases": [
+      "lowerright",
+      "右下箭头"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MCPIcon",
+    "file": "MCP.svg",
+    "category": "data",
+    "aliases": [
+      "mcp",
+      "MCP"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MagnifyIcon",
+    "file": "Magnify.svg",
+    "category": "image",
+    "aliases": [
+      "magnify",
+      "放大",
+      "放大镜"
+    ],
+    "use_for": [
+      "zoom in",
+      "enlarge image"
+    ],
+    "avoid_for": [
+      "search",
+      "find text"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ManagementIcon",
+    "file": "Management.svg",
+    "category": "system",
+    "aliases": [
+      "management",
+      "管理"
+    ],
+    "use_for": [
+      "admin management",
+      "user management",
+      "system management"
+    ],
+    "avoid_for": [
+      "settings",
+      "personal preferences"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MathFormulaIcon",
+    "file": "MathFormula.svg",
+    "category": "system",
+    "aliases": [
+      "mathformula",
+      "数学公式"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MemoryIcon",
+    "file": "Memory.svg",
+    "category": "system",
+    "aliases": [
+      "memory",
+      "记忆",
+      "历史记忆"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MessageIcon",
+    "file": "Message.svg",
+    "category": "social",
+    "aliases": [
+      "message",
+      "消息",
+      "私信"
+    ],
+    "use_for": [
+      "direct message",
+      "chat",
+      "inbox"
+    ],
+    "avoid_for": [
+      "comment",
+      "notification",
+      "announcement"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MicroscopeIcon",
+    "file": "Microscope.svg",
+    "category": "input",
+    "aliases": [
+      "microscope",
+      "显微镜"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MinifyIcon",
+    "file": "Minify.svg",
+    "category": "image",
+    "aliases": [
+      "minify",
+      "缩小"
+    ],
+    "use_for": [
+      "zoom out",
+      "shrink image"
+    ],
+    "avoid_for": [
+      "search",
+      "compress file"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MinusIcon",
+    "file": "Minus.svg",
+    "category": "general",
+    "aliases": [
+      "minus",
+      "减号",
+      "删除"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MobileIcon",
+    "file": "Mobile.svg",
+    "category": "navigation",
+    "aliases": [
+      "mobile",
+      "移动端",
+      "手机"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MobileDesktopAdoptIcon",
+    "file": "MobileDesktopAdopt.svg",
+    "category": "navigation",
+    "aliases": [
+      "mobiledesktopadopt",
+      "自适应",
+      "多端适配"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ModelIcon",
+    "file": "Model.svg",
+    "category": "data",
+    "aliases": [
+      "model",
+      "模型"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoreIcon",
+    "file": "More.svg",
+    "category": "general",
+    "aliases": [
+      "more",
+      "更多",
+      "省略号"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveIcon",
+    "file": "Move.svg",
+    "category": "system",
+    "aliases": [
+      "move",
+      "移动"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveDownIcon",
+    "file": "MoveDown.svg",
+    "category": "formatting",
+    "aliases": [
+      "movedown",
+      "下移"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveForwardIcon",
+    "file": "MoveForward.svg",
+    "category": "arrows",
+    "aliases": [
+      "moveforward",
+      "前进",
+      "下一步"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveUpIcon",
+    "file": "MoveUp.svg",
+    "category": "formatting",
+    "aliases": [
+      "moveup",
+      "上移"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MultiSelectedIcon",
+    "file": "MultiSelected.svg",
+    "category": "status",
+    "aliases": [
+      "multiselected",
+      "多选"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MusicIcon",
+    "file": "Music.svg",
+    "category": "media",
+    "aliases": [
+      "music",
+      "音乐"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "NextIcon",
+    "file": "Next.svg",
+    "category": "arrows",
+    "aliases": [
+      "next",
+      "下一步",
+      "下一个"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "NormalIcon",
+    "file": "Normal.svg",
+    "category": "status",
+    "aliases": [
+      "normal",
+      "一般",
+      "普通"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "NotificationIcon",
+    "file": "Notification.svg",
+    "category": "system",
+    "aliases": [
+      "notification",
+      "通知",
+      "消息提醒"
+    ],
+    "use_for": [
+      "notification bell",
+      "alerts",
+      "reminders"
+    ],
+    "avoid_for": [
+      "message",
+      "inbox",
+      "announcement"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "OKComputerIcon",
+    "file": "OKComputer.svg",
+    "category": "brand",
+    "aliases": [
+      "okcomputer",
+      "OK Computer"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "OrderedIcon",
+    "file": "Ordered.svg",
+    "category": "formatting",
+    "aliases": [
+      "ordered",
+      "有序列表",
+      "编号列表"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "OutputIcon",
+    "file": "Output.svg",
+    "category": "general",
+    "aliases": [
+      "output",
+      "输出",
+      "导出"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PPTIcon",
+    "file": "PPT.svg",
+    "category": "file",
+    "aliases": [
+      "ppt",
+      "PPT"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PPT_bIcon",
+    "file": "PPT_b.svg",
+    "category": "file",
+    "aliases": [
+      "ppt_b",
+      "ppt"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PageStyleIcon",
+    "file": "PageStyle.svg",
+    "category": "formatting",
+    "aliases": [
+      "pagestyle",
+      "页面样式"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PagesIcon",
+    "file": "Pages.svg",
+    "category": "system",
+    "aliases": [
+      "pages",
+      "页面"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PauseIcon",
+    "file": "Pause.svg",
+    "category": "status",
+    "aliases": [
+      "pause",
+      "暂停"
+    ],
+    "use_for": [
+      "pause playback",
+      "pause process"
+    ],
+    "avoid_for": [
+      "stop",
+      "end",
+      "terminate"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PencilIcon",
+    "file": "Pencil.svg",
+    "category": "editor",
+    "aliases": [
+      "pencil",
+      "铅笔"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PhoneCallIcon",
+    "file": "PhoneCall.svg",
+    "category": "media",
+    "aliases": [
+      "phonecall",
+      "电话",
+      "语音通话"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PinIcon",
+    "file": "Pin.svg",
+    "category": "general",
+    "aliases": [
+      "pin",
+      "置顶",
+      "固定"
+    ],
+    "use_for": [
+      "pin to top",
+      "sticky",
+      "keep visible"
+    ],
+    "avoid_for": [
+      "bookmark",
+      "favorite",
+      "lock"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PinToTopIcon",
+    "file": "PinToTop.svg",
+    "category": "system",
+    "aliases": [
+      "pintotop",
+      "置顶"
+    ],
+    "use_for": [
+      "pin to top",
+      "sticky",
+      "keep visible"
+    ],
+    "avoid_for": [
+      "bookmark",
+      "favorite",
+      "lock"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PlayIcon",
+    "file": "Play.svg",
+    "category": "media",
+    "aliases": [
+      "play",
+      "播放"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PlusIcon",
+    "file": "Plus.svg",
+    "category": "general",
+    "aliases": [
+      "plus",
+      "加号",
+      "增加"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PopupClosedIcon",
+    "file": "PopupClosed.svg",
+    "category": "system",
+    "aliases": [
+      "popupclosed",
+      "弹窗关闭"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PostIcon",
+    "file": "Post.svg",
+    "category": "system",
+    "aliases": [
+      "post",
+      "发布",
+      "帖子"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PowerIcon",
+    "file": "Power.svg",
+    "category": "system",
+    "aliases": [
+      "power",
+      "电源"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PreviousIcon",
+    "file": "Previous.svg",
+    "category": "arrows",
+    "aliases": [
+      "previous",
+      "上一步",
+      "上一个"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PrismIcon",
+    "file": "Prism.svg",
+    "category": "brand",
+    "aliases": [
+      "prism",
+      "Prism"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ProSearchIcon",
+    "file": "ProSearch.svg",
+    "category": "input",
+    "aliases": [
+      "prosearch",
+      "深度搜索",
+      "高级搜索"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ProfileIcon",
+    "file": "Profile.svg",
+    "category": "system",
+    "aliases": [
+      "profile",
+      "个人资料",
+      "头像"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PublishPostIcon",
+    "file": "PublishPost.svg",
+    "category": "chat",
+    "aliases": [
+      "publishpost",
+      "发布帖子"
+    ],
+    "use_for": [
+      "chat related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "QuestionIcon",
+    "file": "Question.svg",
+    "category": "system",
+    "aliases": [
+      "question",
+      "问题",
+      "帮助"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RecognizeIcon",
+    "file": "Recognize.svg",
+    "category": "input",
+    "aliases": [
+      "recognize",
+      "识别",
+      "OCR"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RecordVoiceIcon",
+    "file": "RecordVoice.svg",
+    "category": "media",
+    "aliases": [
+      "recordvoice",
+      "录音"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RedPacketIcon",
+    "file": "RedPacket.svg",
+    "category": "social",
+    "aliases": [
+      "redpacket",
+      "红包"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RedoIcon",
+    "file": "Redo.svg",
+    "category": "editor",
+    "aliases": [
+      "redo",
+      "重做",
+      "恢复"
+    ],
+    "use_for": [
+      "redo action",
+      "history step"
+    ],
+    "avoid_for": [
+      "reset",
+      "revert",
+      "reload"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ReduceIcon",
+    "file": "Reduce.svg",
+    "category": "system",
+    "aliases": [
+      "reduce",
+      "减少",
+      "压缩"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RefreshIcon",
+    "file": "Refresh.svg",
+    "category": "general",
+    "aliases": [
+      "refresh",
+      "刷新",
+      "重新加载"
+    ],
+    "use_for": [
+      "reload",
+      "refresh data",
+      "sync"
+    ],
+    "avoid_for": [
+      "undo",
+      "retry",
+      "rotate"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Refresh_bIcon",
+    "file": "Refresh_b.svg",
+    "category": "general",
+    "aliases": [
+      "refresh_b",
+      "refresh"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ReplaceIcon",
+    "file": "Replace.svg",
+    "category": "image",
+    "aliases": [
+      "replace",
+      "替换"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ReviewIcon",
+    "file": "Review.svg",
+    "category": "general",
+    "aliases": [
+      "review",
+      "回顾",
+      "复习"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RightIcon",
+    "file": "Right.svg",
+    "category": "arrows",
+    "aliases": [
+      "right",
+      "向右",
+      "右箭头"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RightAlignIcon",
+    "file": "RightAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "rightalign",
+      "右对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RightBarIcon",
+    "file": "RightBar.svg",
+    "category": "navigation",
+    "aliases": [
+      "rightbar",
+      "右侧面板"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Right_bIcon",
+    "file": "Right_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "right_b",
+      "right"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Right_cIcon",
+    "file": "Right_c.svg",
+    "category": "arrows",
+    "aliases": [
+      "right_c",
+      "right"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RobotIcon",
+    "file": "Robot.svg",
+    "category": "brand",
+    "aliases": [
+      "robot",
+      "机器人"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SafeIcon",
+    "file": "Safe.svg",
+    "category": "status",
+    "aliases": [
+      "safe",
+      "安全",
+      "保险箱"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SaveIcon",
+    "file": "Save.svg",
+    "category": "file",
+    "aliases": [
+      "save",
+      "保存"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ScanIcon",
+    "file": "Scan.svg",
+    "category": "input",
+    "aliases": [
+      "scan",
+      "扫描"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ScanMathIcon",
+    "file": "ScanMath.svg",
+    "category": "input",
+    "aliases": [
+      "scanmath",
+      "扫描数学"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SearchIcon",
+    "file": "Search.svg",
+    "category": "general",
+    "aliases": [
+      "search",
+      "搜索",
+      "查找",
+      "查询"
+    ],
+    "use_for": [
+      "search input",
+      "global search",
+      "table search"
+    ],
+    "avoid_for": [
+      "zoom",
+      "inspect",
+      "analytics"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SelectIcon",
+    "file": "Select.svg",
+    "category": "status",
+    "aliases": [
+      "select",
+      "选择"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Send_aIcon",
+    "file": "Send_a.svg",
+    "category": "chat",
+    "aliases": [
+      "send_a",
+      "发送"
+    ],
+    "use_for": [
+      "send message",
+      "submit"
+    ],
+    "avoid_for": [
+      "share",
+      "forward",
+      "export"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Send_bIcon",
+    "file": "Send_b.svg",
+    "category": "chat",
+    "aliases": [
+      "send_b",
+      "send",
+      "发送"
+    ],
+    "use_for": [
+      "send message",
+      "submit"
+    ],
+    "avoid_for": [
+      "share",
+      "forward",
+      "export"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SettingIcon",
+    "file": "Setting.svg",
+    "category": "system",
+    "aliases": [
+      "setting",
+      "设置"
+    ],
+    "use_for": [
+      "app settings",
+      "preferences",
+      "configuration"
+    ],
+    "avoid_for": [
+      "filter sliders",
+      "tune values",
+      "management"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ShapeIcon",
+    "file": "Shape.svg",
+    "category": "image",
+    "aliases": [
+      "shape",
+      "形状"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ShareIcon",
+    "file": "Share.svg",
+    "category": "social",
+    "aliases": [
+      "share",
+      "分享"
+    ],
+    "use_for": [
+      "share content",
+      "share to external"
+    ],
+    "avoid_for": [
+      "export to file",
+      "copy link"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Share_bIcon",
+    "file": "Share_b.svg",
+    "category": "social",
+    "aliases": [
+      "share_b",
+      "share"
+    ],
+    "use_for": [
+      "social related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SignInIcon",
+    "file": "SignIn.svg",
+    "category": "general",
+    "aliases": [
+      "signin",
+      "登录"
+    ],
+    "use_for": [
+      "login",
+      "authentication"
+    ],
+    "avoid_for": [
+      "register",
+      "delete account",
+      "switch user"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SignOutIcon",
+    "file": "SignOut.svg",
+    "category": "general",
+    "aliases": [
+      "signout",
+      "退出",
+      "登出"
+    ],
+    "use_for": [
+      "logout",
+      "authentication"
+    ],
+    "avoid_for": [
+      "register",
+      "delete account",
+      "switch user"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SkillIcon",
+    "file": "Skill.svg",
+    "category": "system",
+    "aliases": [
+      "skill",
+      "技能",
+      "Skill"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SmileIcon",
+    "file": "Smile.svg",
+    "category": "status",
+    "aliases": [
+      "smile",
+      "微笑",
+      "满意"
+    ],
+    "use_for": [
+      "status related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SoundGenerateIcon",
+    "file": "SoundGenerate.svg",
+    "category": "media",
+    "aliases": [
+      "soundgenerate",
+      "生成音频",
+      "AI音频"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SoundsIcon",
+    "file": "Sounds.svg",
+    "category": "media",
+    "aliases": [
+      "sounds",
+      "声音"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "StopIcon",
+    "file": "Stop.svg",
+    "category": "status",
+    "aliases": [
+      "stop",
+      "停止"
+    ],
+    "use_for": [
+      "stop process",
+      "halt generation"
+    ],
+    "avoid_for": [
+      "pause",
+      "cancel",
+      "close"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "StrikeThroughIcon",
+    "file": "StrikeThrough.svg",
+    "category": "formatting",
+    "aliases": [
+      "strikethrough",
+      "删除线"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "StrokeIcon",
+    "file": "Stroke.svg",
+    "category": "image",
+    "aliases": [
+      "stroke",
+      "描边",
+      "边框"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "StyleIcon",
+    "file": "Style.svg",
+    "category": "general",
+    "aliases": [
+      "style",
+      "样式"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SwitchIcon",
+    "file": "Switch.svg",
+    "category": "system",
+    "aliases": [
+      "switch",
+      "开关",
+      "切换"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabDiscoverIcon",
+    "file": "TabDiscover.svg",
+    "category": "navigation",
+    "aliases": [
+      "tabdiscover",
+      "发现页"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabKimiIcon",
+    "file": "TabKimi.svg",
+    "category": "navigation",
+    "aliases": [
+      "tabkimi",
+      "Kimi页"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabMeIcon",
+    "file": "TabMe.svg",
+    "category": "navigation",
+    "aliases": [
+      "tabme",
+      "我的页"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabStrokeIcon",
+    "file": "TabStroke.svg",
+    "category": "image",
+    "aliases": [
+      "tabstroke",
+      "描边样式"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabStroke_bIcon",
+    "file": "TabStroke_b.svg",
+    "category": "image",
+    "aliases": [
+      "tabstroke_b",
+      "tabstroke"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TabularIcon",
+    "file": "Tabular.svg",
+    "category": "data",
+    "aliases": [
+      "tabular",
+      "表格"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TagIcon",
+    "file": "Tag.svg",
+    "category": "general",
+    "aliases": [
+      "tag",
+      "标签"
+    ],
+    "use_for": [
+      "general related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TaskIcon",
+    "file": "Task.svg",
+    "category": "system",
+    "aliases": [
+      "task",
+      "任务"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TaskSubAgentOffIcon",
+    "file": "TaskSubAgentOff.svg",
+    "category": "system",
+    "aliases": [
+      "tasksubagentoff",
+      "子任务关闭"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TextIcon",
+    "file": "Text.svg",
+    "category": "editor",
+    "aliases": [
+      "text",
+      "文本",
+      "文字"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TextColorIcon",
+    "file": "TextColor.svg",
+    "category": "image",
+    "aliases": [
+      "textcolor",
+      "文字颜色"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TextSelectIcon",
+    "file": "TextSelect.svg",
+    "category": "editor",
+    "aliases": [
+      "textselect",
+      "文本选择"
+    ],
+    "use_for": [
+      "editor related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TodoIcon",
+    "file": "Todo.svg",
+    "category": "system",
+    "aliases": [
+      "todo",
+      "待办",
+      "清单"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TopAlignIcon",
+    "file": "TopAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "topalign",
+      "顶部对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TopUpIcon",
+    "file": "TopUp.svg",
+    "category": "formatting",
+    "aliases": [
+      "topup",
+      "向上置顶"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TranslateIcon",
+    "file": "Translate.svg",
+    "category": "input",
+    "aliases": [
+      "translate",
+      "翻译"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UnbrowseIcon",
+    "file": "Unbrowse.svg",
+    "category": "navigation",
+    "aliases": [
+      "unbrowse",
+      "取消浏览"
+    ],
+    "use_for": [
+      "navigation related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UnderlineIcon",
+    "file": "Underline.svg",
+    "category": "formatting",
+    "aliases": [
+      "underline",
+      "下划线"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UndoIcon",
+    "file": "Undo.svg",
+    "category": "editor",
+    "aliases": [
+      "undo",
+      "撤销"
+    ],
+    "use_for": [
+      "undo action",
+      "history step"
+    ],
+    "avoid_for": [
+      "reset",
+      "revert",
+      "reload"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UnfoldIcon",
+    "file": "Unfold.svg",
+    "category": "arrows",
+    "aliases": [
+      "unfold",
+      "展开",
+      "打开"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UnpinFromTopIcon",
+    "file": "UnpinFromTop.svg",
+    "category": "system",
+    "aliases": [
+      "unpinfromtop",
+      "取消置顶"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpIcon",
+    "file": "Up.svg",
+    "category": "arrows",
+    "aliases": [
+      "up"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpDownIcon",
+    "file": "UpDown.svg",
+    "category": "arrows",
+    "aliases": [
+      "updown"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpDown_bIcon",
+    "file": "UpDown_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "updown_b",
+      "updown"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Up_bIcon",
+    "file": "Up_b.svg",
+    "category": "arrows",
+    "aliases": [
+      "up_b",
+      "up"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Up_cIcon",
+    "file": "Up_c.svg",
+    "category": "arrows",
+    "aliases": [
+      "up_c",
+      "up"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpdateIcon",
+    "file": "Update.svg",
+    "category": "system",
+    "aliases": [
+      "update",
+      "更新",
+      "升级"
+    ],
+    "use_for": [
+      "system related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UploadIcon",
+    "file": "Upload.svg",
+    "category": "input",
+    "aliases": [
+      "upload",
+      "上传"
+    ],
+    "use_for": [
+      "file upload",
+      "asset import",
+      "upload from local device"
+    ],
+    "avoid_for": [
+      "download",
+      "export",
+      "cloud sync"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UploadFileIcon",
+    "file": "UploadFile.svg",
+    "category": "input",
+    "aliases": [
+      "uploadfile",
+      "上传文件"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UploadWechatIcon",
+    "file": "UploadWechat.svg",
+    "category": "input",
+    "aliases": [
+      "uploadwechat",
+      "从微信上传"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpperLeftIcon",
+    "file": "UpperLeft.svg",
+    "category": "arrows",
+    "aliases": [
+      "upperleft",
+      "左上箭头"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UpperRightIcon",
+    "file": "UpperRight.svg",
+    "category": "arrows",
+    "aliases": [
+      "upperright",
+      "右上箭头"
+    ],
+    "use_for": [
+      "arrows related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VideoIcon",
+    "file": "Video.svg",
+    "category": "media",
+    "aliases": [
+      "video",
+      "视频"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ViewAllIcon",
+    "file": "ViewAll.svg",
+    "category": "data",
+    "aliases": [
+      "viewall",
+      "查看全部"
+    ],
+    "use_for": [
+      "data related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VoiceInIcon",
+    "file": "VoiceIn.svg",
+    "category": "media",
+    "aliases": [
+      "voicein",
+      "语音输入"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VoiceWaveIcon",
+    "file": "VoiceWave.svg",
+    "category": "media",
+    "aliases": [
+      "voicewave",
+      "声波",
+      "语音波形"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VolOffIcon",
+    "file": "VolOff.svg",
+    "category": "media",
+    "aliases": [
+      "voloff",
+      "静音"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "VolOnIcon",
+    "file": "VolOn.svg",
+    "category": "media",
+    "aliases": [
+      "volon",
+      "音量开"
+    ],
+    "use_for": [
+      "media related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WarningIcon",
+    "file": "Warning.svg",
+    "category": "status",
+    "aliases": [
+      "warning",
+      "警告",
+      "提醒"
+    ],
+    "use_for": [
+      "alert",
+      "caution",
+      "needs attention"
+    ],
+    "avoid_for": [
+      "error",
+      "blocked",
+      "success"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WatermarkIcon",
+    "file": "Watermark.svg",
+    "category": "image",
+    "aliases": [
+      "watermark",
+      "水印"
+    ],
+    "use_for": [
+      "image related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WebBridgeIcon",
+    "file": "WebBridge.svg",
+    "category": "brand",
+    "aliases": [
+      "webbridge",
+      "WebBridge"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WordSpaceIcon",
+    "file": "WordSpace.svg",
+    "category": "formatting",
+    "aliases": [
+      "wordspace",
+      "字间距"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WrapTextIcon",
+    "file": "WrapText.svg",
+    "category": "formatting",
+    "aliases": [
+      "wraptext",
+      "换行",
+      "自动换行"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WrapText_bIcon",
+    "file": "WrapText_b.svg",
+    "category": "formatting",
+    "aliases": [
+      "wraptext_b",
+      "wraptext"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WriteIcon",
+    "file": "Write.svg",
+    "category": "input",
+    "aliases": [
+      "write",
+      "写作",
+      "创作"
+    ],
+    "use_for": [
+      "write content",
+      "compose text"
+    ],
+    "avoid_for": [
+      "edit existing",
+      "annotate"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "k15Icon",
+    "file": "k15.svg",
+    "category": "brand",
+    "aliases": [
+      "k15"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "k15_bIcon",
+    "file": "k15_b.svg",
+    "category": "brand",
+    "aliases": [
+      "k15_b",
+      "k15"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "k15_cIcon",
+    "file": "k15_c.svg",
+    "category": "brand",
+    "aliases": [
+      "k15_c",
+      "k15"
+    ],
+    "use_for": [
+      "brand related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

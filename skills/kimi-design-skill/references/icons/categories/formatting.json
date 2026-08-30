@@ -1,0 +1,415 @@
+[
+  {
+    "name": "BoldIcon",
+    "file": "Bold.svg",
+    "category": "formatting",
+    "aliases": [
+      "bold",
+      "粗体",
+      "加粗"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BottomIcon",
+    "file": "Bottom.svg",
+    "category": "formatting",
+    "aliases": [
+      "bottom",
+      "底部",
+      "底对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "BottomAlignIcon",
+    "file": "BottomAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "bottomalign",
+      "底部对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CenterAlignIcon",
+    "file": "CenterAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "centeralign",
+      "居中对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CenterVerticallyIcon",
+    "file": "CenterVertically.svg",
+    "category": "formatting",
+    "aliases": [
+      "centervertically",
+      "垂直居中"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FlattenIcon",
+    "file": "Flatten.svg",
+    "category": "formatting",
+    "aliases": [
+      "flatten",
+      "扁平化",
+      "合并图层"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "IntervalSpaceIcon",
+    "file": "IntervalSpace.svg",
+    "category": "formatting",
+    "aliases": [
+      "intervalspace"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ItalicIcon",
+    "file": "Italic.svg",
+    "category": "formatting",
+    "aliases": [
+      "italic",
+      "斜体"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "JustifyIcon",
+    "file": "Justify.svg",
+    "category": "formatting",
+    "aliases": [
+      "justify",
+      "两端对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LeftAlignIcon",
+    "file": "LeftAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "leftalign",
+      "左对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LineIcon",
+    "file": "Line.svg",
+    "category": "formatting",
+    "aliases": [
+      "line",
+      "线条",
+      "直线"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "LineSpaceIcon",
+    "file": "LineSpace.svg",
+    "category": "formatting",
+    "aliases": [
+      "linespace",
+      "行间距"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveDownIcon",
+    "file": "MoveDown.svg",
+    "category": "formatting",
+    "aliases": [
+      "movedown",
+      "下移"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MoveUpIcon",
+    "file": "MoveUp.svg",
+    "category": "formatting",
+    "aliases": [
+      "moveup",
+      "上移"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "OrderedIcon",
+    "file": "Ordered.svg",
+    "category": "formatting",
+    "aliases": [
+      "ordered",
+      "有序列表",
+      "编号列表"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PageStyleIcon",
+    "file": "PageStyle.svg",
+    "category": "formatting",
+    "aliases": [
+      "pagestyle",
+      "页面样式"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RightAlignIcon",
+    "file": "RightAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "rightalign",
+      "右对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "StrikeThroughIcon",
+    "file": "StrikeThrough.svg",
+    "category": "formatting",
+    "aliases": [
+      "strikethrough",
+      "删除线"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TopAlignIcon",
+    "file": "TopAlign.svg",
+    "category": "formatting",
+    "aliases": [
+      "topalign",
+      "顶部对齐"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TopUpIcon",
+    "file": "TopUp.svg",
+    "category": "formatting",
+    "aliases": [
+      "topup",
+      "向上置顶"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UnderlineIcon",
+    "file": "Underline.svg",
+    "category": "formatting",
+    "aliases": [
+      "underline",
+      "下划线"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WordSpaceIcon",
+    "file": "WordSpace.svg",
+    "category": "formatting",
+    "aliases": [
+      "wordspace",
+      "字间距"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WrapTextIcon",
+    "file": "WrapText.svg",
+    "category": "formatting",
+    "aliases": [
+      "wraptext",
+      "换行",
+      "自动换行"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WrapText_bIcon",
+    "file": "WrapText_b.svg",
+    "category": "formatting",
+    "aliases": [
+      "wraptext_b",
+      "wraptext"
+    ],
+    "use_for": [
+      "formatting related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

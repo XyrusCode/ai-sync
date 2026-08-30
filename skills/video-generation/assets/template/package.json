@@ -1,0 +1,21 @@
+{
+  "name": "REPLACE-project-name",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remotion video project scaffolded by the video-generation skill.",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Video out/video.mp4",
+    "render:vertical": "remotion render VideoVertical out/video-vertical.mp4"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0",
+    "@remotion/cli": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "typescript": "^5.5.4"
+  }
+}

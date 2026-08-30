@@ -1,0 +1,176 @@
+[
+  {
+    "name": "DocDoneIcon",
+    "file": "DocDone.svg",
+    "category": "file",
+    "aliases": [
+      "docdone",
+      "文档完成"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DocumentIcon",
+    "file": "Document.svg",
+    "category": "file",
+    "aliases": [
+      "document",
+      "文档"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "Document_bIcon",
+    "file": "Document_b.svg",
+    "category": "file",
+    "aliases": [
+      "document_b",
+      "document"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "DownloadIcon",
+    "file": "Download.svg",
+    "category": "file",
+    "aliases": [
+      "download",
+      "下载",
+      "导出"
+    ],
+    "use_for": [
+      "file download",
+      "export to local device"
+    ],
+    "avoid_for": [
+      "upload",
+      "import",
+      "share"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ExcelIcon",
+    "file": "Excel.svg",
+    "category": "file",
+    "aliases": [
+      "excel",
+      "Excel"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FolderIcon",
+    "file": "Folder.svg",
+    "category": "file",
+    "aliases": [
+      "folder",
+      "文件夹"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "FolderOpenIcon",
+    "file": "FolderOpen.svg",
+    "category": "file",
+    "aliases": [
+      "folderopen",
+      "打开文件夹"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PPTIcon",
+    "file": "PPT.svg",
+    "category": "file",
+    "aliases": [
+      "ppt",
+      "PPT"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "PPT_bIcon",
+    "file": "PPT_b.svg",
+    "category": "file",
+    "aliases": [
+      "ppt_b",
+      "ppt"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "SaveIcon",
+    "file": "Save.svg",
+    "category": "file",
+    "aliases": [
+      "save",
+      "保存"
+    ],
+    "use_for": [
+      "file related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]

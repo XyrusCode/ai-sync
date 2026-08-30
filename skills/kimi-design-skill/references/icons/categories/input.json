@@ -1,0 +1,252 @@
+[
+  {
+    "name": "BoxIcon",
+    "file": "Box.svg",
+    "category": "input",
+    "aliases": [
+      "box",
+      "盒子",
+      "工具箱"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CameraIcon",
+    "file": "Camera.svg",
+    "category": "input",
+    "aliases": [
+      "camera",
+      "相机",
+      "拍照"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "CirclePlusIcon",
+    "file": "CirclePlus.svg",
+    "category": "input",
+    "aliases": [
+      "circleplus",
+      "圆形加号"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ClipIcon",
+    "file": "Clip.svg",
+    "category": "input",
+    "aliases": [
+      "clip",
+      "回形针",
+      "附件"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "MicroscopeIcon",
+    "file": "Microscope.svg",
+    "category": "input",
+    "aliases": [
+      "microscope",
+      "显微镜"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ProSearchIcon",
+    "file": "ProSearch.svg",
+    "category": "input",
+    "aliases": [
+      "prosearch",
+      "深度搜索",
+      "高级搜索"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "RecognizeIcon",
+    "file": "Recognize.svg",
+    "category": "input",
+    "aliases": [
+      "recognize",
+      "识别",
+      "OCR"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ScanIcon",
+    "file": "Scan.svg",
+    "category": "input",
+    "aliases": [
+      "scan",
+      "扫描"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "ScanMathIcon",
+    "file": "ScanMath.svg",
+    "category": "input",
+    "aliases": [
+      "scanmath",
+      "扫描数学"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "TranslateIcon",
+    "file": "Translate.svg",
+    "category": "input",
+    "aliases": [
+      "translate",
+      "翻译"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UploadIcon",
+    "file": "Upload.svg",
+    "category": "input",
+    "aliases": [
+      "upload",
+      "上传"
+    ],
+    "use_for": [
+      "file upload",
+      "asset import",
+      "upload from local device"
+    ],
+    "avoid_for": [
+      "download",
+      "export",
+      "cloud sync"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UploadFileIcon",
+    "file": "UploadFile.svg",
+    "category": "input",
+    "aliases": [
+      "uploadfile",
+      "上传文件"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "UploadWechatIcon",
+    "file": "UploadWechat.svg",
+    "category": "input",
+    "aliases": [
+      "uploadwechat",
+      "从微信上传"
+    ],
+    "use_for": [
+      "input related action"
+    ],
+    "avoid_for": [
+      "unrelated context"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  },
+  {
+    "name": "WriteIcon",
+    "file": "Write.svg",
+    "category": "input",
+    "aliases": [
+      "write",
+      "写作",
+      "创作"
+    ],
+    "use_for": [
+      "write content",
+      "compose text"
+    ],
+    "avoid_for": [
+      "edit existing",
+      "annotate"
+    ],
+    "color_mode": "currentColor",
+    "default_size": 20
+  }
+]
