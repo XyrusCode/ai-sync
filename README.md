@@ -30,8 +30,7 @@ other's history. Runs daily from Windows Task Scheduler.
 
 ## Design inspiration
 
-This project is heavily inspired by the [agents](https://github.com/9jaGuy/agents)
-repo — the canonical multi-agent configuration hub. Key patterns adopted:
+This project is heavily inspired by canonical multi-agent configuration hubs. Key patterns adopted:
 
 - **Agents repo bridge**: `agents_repo` config points to the shared `~/.agents/`
   checkout; its `AGENTS.md` and `mcp/servers.json` are the highest-priority
