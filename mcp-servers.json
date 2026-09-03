@@ -1,0 +1,43 @@
+{
+  "servers": [
+    {
+      "name": "chrome-devtools",
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-chrome-devtools"],
+      "env": {},
+      "tools": ["claude", "codex", "gemini", "kiro"],
+      "notes": "Chrome DevTools debugging for all agents. Claude: auto-connect enabled."
+    },
+    {
+      "name": "sentry",
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-sentry"],
+      "env": {"SENTRY_API_KEY": "{{ env.SENTRY_API_KEY }}"},
+      "tools": ["claude"],
+      "notes": "Sentry error tracking integration (Claude only)"
+    },
+    {
+      "name": "playwright",
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-playwright"],
+      "env": {},
+      "tools": ["codex"],
+      "notes": "Browser automation (Codex extension mode only)"
+    },
+    {
+      "name": "azure-devops",
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-azure-devops"],
+      "env": {
+        "AZURE_DEVOPS_ORG": "{{ env.AZURE_DEVOPS_ORG }}",
+        "AZURE_DEVOPS_TOKEN": "{{ env.AZURE_DEVOPS_TOKEN }}"
+      },
+      "tools": ["claude"],
+      "notes": "Azure DevOps integration (TabulaRasa org). Requires auth."
+    }
+  ]
+}
