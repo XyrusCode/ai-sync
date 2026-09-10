@@ -11,9 +11,13 @@ each tool's `inject_history: true` flag — off by default to protect live DBs.
 """
 from __future__ import annotations
 
+import functools
 import hashlib
 import json
+import os
+import re
 import sqlite3
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -181,7 +185,7 @@ def inject_opencode(tool, s: Session, synth: str, ctx: Ctx) -> bool:
             metadata = json.dumps({"originator": ORIGINATOR, "source_tool": s.tool,
                                    "source_session": s.session_id})
             con.execute(
-                "INSERT INTO session "
+                "INSERT OR REPLACE INTO session "
                 "(id, project_id, slug, directory, title, version, "
                 "time_created, time_updated, metadata) "
                 "VALUES (?, ?, ?, ?, ?, 'local', ?, ?, ?)",
@@ -192,7 +196,7 @@ def inject_opencode(tool, s: Session, synth: str, ctx: Ctx) -> bool:
             if s.messages:
                 prompt = s.messages[0].text[:2000]
                 con.execute(
-                    "INSERT INTO session_input "
+                    "INSERT OR REPLACE INTO session_input "
                     "(id, session_id, prompt, delivery, admitted_seq, promoted_seq, time_created) "
                     "VALUES (?, ?, ?, 'user', 1, 1, ?)",
                     (_det_uuid(f"{synth}:input"), ses_id, prompt, created_ms),
@@ -208,7 +212,7 @@ def inject_opencode(tool, s: Session, synth: str, ctx: Ctx) -> bool:
                     "mode": "build", "agent": "build",
                 })
                 con.execute(
-                    "INSERT INTO message "
+                    "INSERT OR REPLACE INTO message "
                     "(id, session_id, time_created, time_updated, data) "
                     "VALUES (?, ?, ?, ?, ?)",
                     (msg_id, ses_id, msg_ts, msg_ts, msg_data),
@@ -216,7 +220,7 @@ def inject_opencode(tool, s: Session, synth: str, ctx: Ctx) -> bool:
                 part_id = "prt_" + _det_uuid(f"{synth}:part:{i}")
                 part_data = json.dumps({"type": "text", "text": m.text})
                 con.execute(
-                    "INSERT INTO part "
+                    "INSERT OR REPLACE INTO part "
                     "(id, message_id, session_id, time_created, time_updated, data) "
                     "VALUES (?, ?, ?, ?, ?, ?)",
                     (part_id, msg_id, ses_id, msg_ts, msg_ts, part_data),
@@ -268,43 +272,54 @@ def inject_kiro(tool, s: Session, synth: str, ctx: Ctx) -> bool:
 #   (sessions + workspaces + workspace_checkout_bindings).
 #   The sidebar reads from data.db, so we must write to both stores.
 # --------------------------------------------------------------------------- #
+@functools.lru_cache(maxsize=1024)
 def _derive_repo(path: str) -> tuple[str, str]:
-    """Parse a path into (owner/repo, host_type) via git remote or heuristic."""
-    import os as _os
+    """Parse a path into (owner/repo, host_type) via heuristic or git remote (cached)."""
     p = (path or "").replace("/", "\\")
-    parts = p.split("\\")
-    # Walk up from the path looking for a .git dir
-    probe = p
-    for _ in range(6):
-        if _os.path.isdir(_os.path.join(probe, ".git")):
-            try:
-                import subprocess as _sp
-                r = _sp.run(["git", "-C", probe, "remote", "get-url", "origin"],
-                            capture_output=True, text=True, timeout=5)
-                url = r.stdout.strip()
-                if "github.com" in url:
-                    m = __import__("re").search(r"github\.com[:/](.+?/.+?)(?:\.git)?$", url)
-                    if m:
-                        return (m.group(1).rstrip("/"), "github")
-                elif "dev.azure.com" in url:
-                    m = __import__("re").search(r"dev\.azure\.com/(.+?)/(.+?)/_git/(.+)", url)
-                    if m:
-                        return (f"{m.group(1)}/{m.group(3)}", "ado")
-            except Exception:
-                pass
-        parent = _os.path.dirname(probe)
-        if parent == probe:
-            break
-        probe = parent
+    parts = [x for x in p.split("\\") if x]
 
-    # Heuristic: find "copilot-worktrees/<repo>" first, then "XyrusCode/<repo>"
+    # 1. Fast heuristics first: no disk IO, no subprocess
     for i, part in enumerate(parts):
         low = part.lower()
         if low == "copilot-worktrees" and i + 2 < len(parts):
             return (f"XyrusCode/{parts[i + 1]}", "github")
-    for i, part in enumerate(parts):
-        if part.lower() == "xyruscode" and i + 1 < len(parts):
-            return (f"XyrusCode/{parts[i + 1]}", "github")
+        if low in ("xyruscode", "epoh") and i + 1 < len(parts):
+            return (f"{part}/{parts[i + 1]}", "github")
+
+    # 2. Skip UNC / network / WSL paths for Windows git calls
+    if p.startswith("\\\\") or (len(parts) > 0 and "wsl" in parts[0].lower()):
+        return ("", "")
+
+    # 3. Local paths: walk up checking for .git
+    probe = p
+    for _ in range(6):
+        if not os.path.exists(probe):
+            parent = os.path.dirname(probe)
+            if parent == probe:
+                break
+            probe = parent
+            continue
+        if os.path.isdir(os.path.join(probe, ".git")):
+            try:
+                r = subprocess.run(["git", "-C", probe, "remote", "get-url", "origin"],
+                                   capture_output=True, text=True, timeout=2)
+                url = r.stdout.strip()
+                if "github.com" in url:
+                    m = re.search(r"github\.com[:/](.+?/.+?)(?:\.git)?$", url)
+                    if m:
+                        return (m.group(1).rstrip("/"), "github")
+                elif "dev.azure.com" in url:
+                    m = re.search(r"dev\.azure\.com/(.+?)/(.+?)/_git/(.+)", url)
+                    if m:
+                        return (f"{m.group(1)}/{m.group(3)}", "ado")
+            except Exception:
+                pass
+            break
+        parent = os.path.dirname(probe)
+        if parent == probe:
+            break
+        probe = parent
+
     return ("", "")
 
 
@@ -377,7 +392,7 @@ def inject_copilot(tool, s: Session, synth: str, ctx: Ctx) -> bool:
     # 2. Write to data.db (sidebar source)
     data_db_path = Path(str(db).replace("session-store.db", "data.db"))
     if not repo or not data_db_path.is_file():
-        return bool(repo)  # still success for session-store part
+        return True  # session-store part succeeded
 
     try:
         dcon = sqlite3.connect(str(data_db_path), timeout=10)
@@ -489,4 +504,8 @@ def run(ctx: Ctx, sessions: list[Session]) -> None:
                         ctx.state.mark_injected(lk, {
                             "synth": synth, "source_tool": s.tool,
                             "source_sid": s.session_id, "target": tool.name})
+                        if injected % 25 == 0:
+                            ctx.state.save()
+    if ctx.apply:
+        ctx.state.save()
     ctx.note(f"history inject: {injected} session(s) written")
