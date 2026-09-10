@@ -1,13 +1,63 @@
 """Pass 1 — Skills reconcile (newest-wins) across Claude, OpenCode, Codex, Cursor."""
 from __future__ import annotations
 
+import os
 import shutil
+import stat
 from pathlib import Path
 
 from .ctx import Ctx
 from .util import LOG, newest_mtime, repo_root, sha256_dir
 
 SKILL_MARKER = "SKILL.md"
+
+
+def _is_reparse_point(path: Path) -> bool:
+    try:
+        st = os.lstat(path)
+        return bool(st.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT)
+    except Exception:
+        return False
+
+
+def _remove_tree(path: Path) -> None:
+    """Safely remove a file, symlink, junction, or directory tree on Windows/POSIX."""
+    if not path.exists() and not _is_reparse_point(path):
+        return
+    if path.is_symlink() or _is_reparse_point(path):
+        try:
+            os.rmdir(path)
+            return
+        except OSError:
+            try:
+                os.unlink(path)
+                return
+            except OSError:
+                pass
+    if path.is_file():
+        try:
+            path.unlink(missing_ok=True)
+            return
+        except OSError:
+            try:
+                os.chmod(path, stat.S_IWRITE)
+                path.unlink(missing_ok=True)
+                return
+            except OSError:
+                pass
+    if path.is_dir():
+        def _on_error(func, p, exc_info):
+            try:
+                os.chmod(p, stat.S_IWRITE)
+                func(p)
+            except Exception:
+                pass
+        shutil.rmtree(path, onerror=_on_error)
+        if path.exists() or _is_reparse_point(path):
+            try:
+                os.rmdir(path)
+            except OSError:
+                pass
 
 
 def _skill_dirs_for(tool) -> list[Path]:
@@ -34,9 +84,8 @@ def _iter_skills(root: Path):
 
 def _copy_skill(src: Path, dest: Path, ctx: Ctx) -> None:
     if ctx.apply:
-        if dest.exists():
-            shutil.rmtree(dest, ignore_errors=True)
-        shutil.copytree(src, dest)
+        _remove_tree(dest)
+        shutil.copytree(src, dest, dirs_exist_ok=True)
 
 
 def run(ctx: Ctx) -> None:
