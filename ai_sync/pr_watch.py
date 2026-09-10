@@ -17,8 +17,6 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-import requests
-
 # Config
 WATCH_FILE = Path.home() / ".ai-sync" / "memory" / "pr-watch.json"
 WATCH_FILE.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,44 @@
+﻿[MAIN]
+# Ignore external / vendored skills directory
+ignore=skills
+ignore-paths=^skills/.*$
+
+[MESSAGES CONTROL]
+# Disable styling and informational notices that do not indicate functional defects
+disable=
+    raw-checker-failed,
+    bad-inline-option,
+    locally-disabled,
+    file-ignored,
+    suppressed-message,
+    useless-suppression,
+    deprecated-pragma,
+    use-symbolic-message-instead,
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-locals,
+    too-many-branches,
+    too-many-statements,
+    too-many-instance-attributes,
+    too-many-lines,
+    duplicate-code,
+    line-too-long,
+    broad-exception-caught,
+    fixme,
+    import-outside-toplevel,
+    invalid-name,
+    unused-import
+
+[FORMAT]
+max-line-length=120
+
+[DESIGN]
+max-args=8
+max-locals=20
+
+[REPORTS]
+output-format=text
+score=yes
