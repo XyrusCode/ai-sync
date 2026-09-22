@@ -16,7 +16,7 @@ When `graphify` is present, you replace raw code ingestion with targeted graph t
 ### 1. Check for Existing Graph
 Before reading large source files, check if `graphify-out/graph.json` exists in the repository root.
 - If present, use graph queries before using file search tools.
-- If absent, proceed with targeted surgical file reads, and suggest generating a graph if the user plans extensive architectural changes.
+- If absent, skip silently in zero turns. Proceed with standard targeted file reads. Never run commands to generate or install a graph during task execution.
 
 ### 2. Querying Instead of Ingesting
 Use the graphify CLI or NetworkX traversal to retrieve scoped subgraphs:
@@ -31,15 +31,7 @@ Example:
 - Verbose approach (wastes 200 tokens every turn): "We are modifying the UserAuthenticationController which imports JwtTokenGenerator and dispatches to DatabaseUserRepository via the UserRepositoryInterface..."
 - Graph-anchored approach (wastes 25 tokens): "Focus: Node `UserAuthenticationController` (Community 2: Auth Pipeline), bridging to `DatabaseUserRepository`."
 
-## Multi-Topic Continuity
-
-When a long conversation shifts from one subsystem to another:
-1. Identify the source node from the previous phase and the target node for the new phase.
-2. Run `graphify path "<OldNode>" "<NewNode>"` to check if the new task impacts the earlier work.
-3. Note any bridge or shared dependencies in the ledger under "Locked Decisions".
-
-## Graph Maintenance
-
+### 4. Graph Maintenance
 When code edits are complete:
-- Run `graphify update .` to re-extract AST structural changes for modified files.
-- This maintains structural integrity for future turns and sessions with zero LLM API cost.
+- If a graph already existed, run `graphify update .` to re-extract AST structural changes for modified files.
+- If no graph existed, do nothing.

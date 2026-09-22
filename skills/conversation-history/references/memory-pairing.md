@@ -12,42 +12,29 @@ This document defines how `conversation-history` pairs with the `memory` store (
 | **Content** | Tool outputs, turn-by-turn steps, debug traces | Rules, preferences, gotchas, architecture plans |
 | **Retention** | Pruned or compacted as turns advance | Persists until explicitly updated or consolidated |
 
-## What Stays in Conversation History (Ephemeral)
+## Non-Interference Guardrails
 
-Never write these to permanent memory:
-- Temporary test run failures that were immediately fixed.
-- Raw file listings or exploratory bash command output.
-- In-progress code snippets that are about to change.
-- Unverified hypotheses explored during debugging.
+1. **Never hunt for missing memory stores**: If `~/.agents/memory/` or `MEMORY.md` does not already exist on disk, do nothing. Never run shell commands, check for `install.sh`, or attempt to bootstrap a missing store.
+2. **High bar for promotion**: Normal execution events are never memories:
+   - Routine test run failures and subsequent fixes are not memories.
+   - Transient npm, yarn, or pnpm version/script quirks are not cross-project gotchas.
+   - Temporary build or compiler errors are not memories.
+   - Scratchpad notes or unverified hypotheses belong in conversation history only.
+3. **No automatic chaining**: Never invoke or load `memory-authoring` at the end of a session unless the user explicitly requested a memory to be saved.
 
-## What Promotes to Memory (Durable)
+## When Promotion is Appropriate
 
-Promote knowledge to `~/.agents/memory/` using the 6 canonical types from `memory-authoring`:
+Only promote knowledge to `~/.agents/memory/` under two specific conditions:
+1. The user explicitly says "remember this", "save this feedback", or "add this gotcha to memory".
+2. An architectural invariant has been established and agreed with the user as a permanent cross-project standard.
 
-1. **User preferences (`user_*`)**: User working habits, tooling preferences, preferred CLI flags.
-2. **Behavioral rules (`feedback_*`)**: Explicit corrections or rules stated by the user (for example, "never run full test suite without -k filter").
-3. **Project milestones (`project_*`)**: Locked architectural choices, milestone completions, release schedules.
-4. **Recurring bugs and traps (`gotcha_*`)**: Non-obvious failures, silent environment quirks, third-party library bugs and their fixes.
-5. **Architectural shapes (`pattern_*`)**: Established structural patterns, reusable data flow conventions.
-6. **External pointers (`reference_*`)**: URLs, external cluster configs, service dependencies.
-
-## Promotion Workflow
-
-When a conversation settles a durable item:
-
-1. **Identify the signal**: The user provides explicit feedback, or a debugging investigation uncovers a tricky environment gotcha.
-2. **Formulate the memory**: Draft the entry using the matching template from `memory-authoring`:
-   - Must have required YAML frontmatter (`name`, `description`, `metadata.type`).
-   - Body must include context, root cause, and how to apply.
-3. **Commit the memory file**: Write to `~/.agents/memory/<type>_<slug>.md`.
-4. **Index in MEMORY.md**: Add a single index line under 150 characters to `MEMORY.md`.
-5. **Drop from active conversation**: Once saved to disk, remove the verbose backstory from the conversation ledger. Reference only the memory slug.
+When authorized, use the matching template from `memory-authoring` and add a single index line under 150 characters to `MEMORY.md`.
 
 ## Selective Hydration
 
 Do not load all memory files into context at the start of a conversation. Follow this selective retrieval pattern:
 
-1. Read `MEMORY.md` lines relevant to the user's prompt.
-2. If an index line directly matches the task domain (for example, `gotcha_composer_unpublished_lock.md` when running PHP builds), read only that specific file.
+1. Check if `MEMORY.md` exists. If not, stop and proceed with the task.
+2. Read only the specific index lines matching the active goal.
 3. Incorporate the constraint into the Active Objectives Ledger under "Locked Decisions".
-4. Keep the remaining memory files unread until specifically required.
+4. Keep all other memory files unread.
