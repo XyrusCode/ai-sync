@@ -1,0 +1,6 @@
+node_modules/
+output/
+dist/
+.env
+config/app.config.json
+*.log

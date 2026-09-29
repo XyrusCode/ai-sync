@@ -1,0 +1,85 @@
+{
+  "_comment": "Copy to config/app.config.json and edit. ${ENV:VAR} pulls from .env. One pipeline, many apps: add an 'audiences' entry per user role, then point each script's 'audience' field at a key.",
+
+  "name": "my-app",
+  "audiences": {
+    "admin": {
+      "label": "Admin console",
+      "appBaseUrl": "https://admin.example.com",
+
+      "auth": {
+        "mode": "localStorage-token",
+        "cacheKey": "admin",
+
+        "tokenApi": {
+          "url": "https://api.example.com/auth/login",
+          "body": { "email": "${ENV:LOGIN_ID}", "password": "${ENV:LOGIN_PASSWORD}" },
+          "tokenPath": "data.token"
+        },
+
+        "localStorage": {
+          "scope": "admin",
+          "tokenKey": "@admin.token",
+          "seed": { "@admin.tourCompleted": "{\"home\":true}" }
+        },
+
+        "uiLogin": {
+          "loginPath": "/login",
+          "identifierSelector": "input[name='email']",
+          "passwordSelector": "input[type='password']",
+          "submitSelector": "button[type='submit']",
+          "identifierField": "email"
+        }
+      },
+
+      "shell": {
+        "readyRootSelector": "#root",
+        "spinnerSelectors": [".spinner", "[aria-busy='true']"],
+        "defaultPath": "/",
+        "navExpandSelectors": ["nav button[aria-expanded='false']"],
+        "navLinkSelector": "nav a[href]"
+      }
+    },
+
+    "_comment": "A second role needs no new code. Duplicate the block, change the URL, auth, and selectors.",
+    "member": {
+      "label": "Member portal",
+      "appBaseUrl": "https://app.example.com",
+      "auth": {
+        "mode": "ui-login",
+        "cacheKey": "member",
+        "uiLogin": {
+          "loginPath": "/signin",
+          "identifierSelector": "input[placeholder='Email or phone number']",
+          "passwordSelector": "input[type='password']",
+          "submitSelector": "button[type='submit']",
+          "identifierField": "identifier"
+        }
+      },
+      "shell": {
+        "readyRootSelector": "#root",
+        "spinnerSelectors": [".spinner"],
+        "defaultPath": "/dashboard"
+      }
+    }
+  },
+
+  "viewer": {
+    "width": 1280,
+    "height": 720,
+    "readyTimeoutMs": 30000,
+    "shellTimeoutMs": 60000,
+    "scriptTimeoutMs": 900000
+  },
+
+  "tts": {
+    "voice": "en-US-AriaNeural",
+    "rate": "+0%",
+    "volume": "+0%"
+  },
+
+  "upload": {
+    "privacy": "unlisted",
+    "playlistId": ""
+  }
+}

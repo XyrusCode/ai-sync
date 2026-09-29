@@ -1,0 +1,36 @@
+{
+  "id": "dashboard-tour",
+  "title": "Dashboard Tour",
+  "audience": "admin",
+  "description": "A walkthrough of the dashboard and its main sections.",
+  "segments": [
+    {
+      "id": "intro",
+      "narrator": "This is the dashboard. The main navigation sits on the left, and everything you need day to day is one click away.",
+      "actions": [
+        { "type": "navigate", "url": "/" },
+        { "type": "wait", "ms": 800 }
+      ],
+      "readySelector": "#root"
+    },
+    {
+      "id": "quick-actions",
+      "narrator": "The quick action tiles jump straight to the most common tasks. Hovering one previews where it goes before you commit to the click.",
+      "actions": [
+        { "type": "hover", "selector": "button:has-text('Reports')" },
+        { "type": "wait", "ms": 500 }
+      ],
+      "readySelector": "#root"
+    },
+    {
+      "id": "drill-in",
+      "narrator": "Opening Reports shows the same layout principle at a deeper level. Filters sit above the table, and the table scrolls independently.",
+      "actions": [
+        { "type": "click", "selector": "a[href='/reports']" },
+        { "type": "wait", "ms": 600 },
+        { "type": "scroll", "direction": "down", "amount": 300 }
+      ],
+      "readySelector": "h1:has-text('Reports')"
+    }
+  ]
+}
