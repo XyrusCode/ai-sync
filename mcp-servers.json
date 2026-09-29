@@ -61,6 +61,25 @@
         "opencode"
       ],
       "notes": "Unified AI routing gateway with 352 providers and token compression"
+    },
+    {
+      "name": "shopify",
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@shopify/dev-mcp@latest"
+      ],
+      "env": {},
+      "tools": [
+        "claude",
+        "codex",
+        "gemini",
+        "kiro",
+        "cursor",
+        "opencode"
+      ],
+      "notes": "Official Shopify Dev MCP server for developer docs, GraphQL API schemas, and Liquid"
     }
   ]
 }
