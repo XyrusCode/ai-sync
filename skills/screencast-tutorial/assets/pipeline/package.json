@@ -1,0 +1,30 @@
+{
+  "name": "screencast-tutorial-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Record narrated screen-walkthrough tutorials of a web app: TTS narration, Playwright capture, FFmpeg merge.",
+  "scripts": {
+    "list": "ts-node src/pipeline.ts --list",
+    "validate": "ts-node src/pipeline.ts --validate",
+    "audio": "ts-node src/pipeline.ts --audio-only",
+    "record": "ts-node src/pipeline.ts --record-only",
+    "merge": "ts-node src/pipeline.ts --merge-only",
+    "all": "ts-node src/pipeline.ts --all",
+    "tutorial": "ts-node src/pipeline.ts --script",
+    "inspect": "ts-node src/inspect.ts",
+    "auth-youtube": "ts-node src/pipeline.ts --auth-youtube",
+    "upload": "ts-node src/pipeline.ts --upload"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.0",
+    "googleapis": "^144.0.0",
+    "msedge-tts": "^2.0.7",
+    "playwright": "^1.48.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}

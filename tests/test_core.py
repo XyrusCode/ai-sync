@@ -1,6 +1,6 @@
 """Unit tests for the safety-critical bits: secret redaction, loop guard,
-MCP translators, Gemini project-hash, agents-repo bridge, and
-Kiro/Qwen/Windsurf readers."""
+MCP translators, Gemini project-hash, agents-repo bridge, persistent removals log,
+and Kiro/Qwen/Windsurf readers."""
 import json
 import sys
 from pathlib import Path
@@ -10,7 +10,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from ai_sync.util import compile_secret_matchers, redact_secrets, contains_secret, PLACEHOLDER
-from ai_sync.mcp import _parse_server, _emit, _agents_repo_servers
+from ai_sync.mcp import _parse_server, _emit, _agents_repo_servers, _load_removals, _delete_server
 from ai_sync.history_model import (synthetic_id, ledger_key, claude_mangle,
                                    gemini_project_hash, SYNCED_PREFIX)
 from ai_sync.history_read import read_kiro, read_qwen
@@ -137,9 +137,6 @@ def test_claude_mangle():
 
 
 def test_gemini_hash_algorithm():
-    # Gemini's projectHash = SHA-256 of the original-case BACKSLASH absolute path
-    # (verified against a live tmp/<hash> dir on a real machine). Test the formula
-    # with a neutral path so no real username lands in the repo.
     import hashlib
     backslash = "C:\\Users\\Example\\Desktop\\proj"
     expected = hashlib.sha256(backslash.encode("utf-8")).hexdigest()
@@ -150,13 +147,12 @@ def test_gemini_hash_algorithm():
 
 
 # --------------------------------------------------------------------------- #
-# agents_repo bridge
+# agents_repo bridge & removals log
 # --------------------------------------------------------------------------- #
 def test_agents_repo_servers_catalog(tmp_path):
     """_agents_repo_servers parses the agents-repo servers.json format."""
     from ai_sync.ctx import Ctx
     from ai_sync.state import State
-    from ai_sync.tools import Tool
     mcp_dir = tmp_path / "mcp"
     mcp_dir.mkdir()
     manifest = mcp_dir / "servers.json"
@@ -187,7 +183,7 @@ def test_agents_repo_servers_catalog(tmp_path):
     ctx = Ctx(cfg=cfg, data_dir=tmp_path / "hub", tools={},
               guard=None, state=State(tmp_path / "hub"), apply=False)
     matchers = compile_secret_matchers({})
-    catalog = _agents_repo_servers(ctx, matchers)
+    catalog = _agents_repo_servers(ctx, matchers, set())
 
     assert "claude" in catalog
     assert "codex" in catalog
@@ -195,6 +191,58 @@ def test_agents_repo_servers_catalog(tmp_path):
     assert "sentry" in catalog["claude"]
     # disabled server should NOT appear
     assert "disabled-srv" not in catalog.get("claude", {})
+
+
+def test_agents_repo_servers_ignores_removals(tmp_path):
+    """_agents_repo_servers skips servers listed in removals."""
+    from ai_sync.ctx import Ctx
+    from ai_sync.state import State
+    mcp_dir = tmp_path / "mcp"
+    mcp_dir.mkdir()
+    manifest = mcp_dir / "servers.json"
+    manifest.write_text(json.dumps({
+        "servers": {
+            "chrome-devtools": {
+                "enabled": True,
+                "agents": {"claude": {"command": "npx", "args": ["cdt"]}},
+            },
+            "sentry": {
+                "enabled": True,
+                "agents": {"claude": {"command": "sentry-mcp"}},
+            },
+        },
+    }), encoding="utf-8")
+
+    cfg = {"agents_repo": str(tmp_path)}
+    ctx = Ctx(cfg=cfg, data_dir=tmp_path / "hub", tools={},
+              guard=None, state=State(tmp_path / "hub"), apply=False)
+    matchers = compile_secret_matchers({})
+    catalog = _agents_repo_servers(ctx, matchers, {"chrome-devtools"})
+
+    assert "sentry" in catalog.get("claude", {})
+    assert "chrome-devtools" not in catalog.get("claude", {})
+
+
+def test_delete_server_json(tmp_path):
+    """_delete_server removes a specified server key from JSON config."""
+    from ai_sync.ctx import Ctx
+    from ai_sync.state import State
+    cfg_file = tmp_path / "mcp.json"
+    cfg_file.write_text(json.dumps({
+        "mcpServers": {
+            "sentry": {"command": "sentry-mcp"},
+            "airtable": {"command": "airtable-mcp"}
+        }
+    }), encoding="utf-8")
+
+    desc = {"path": cfg_file, "fmt": "json", "key": "mcpServers", "create": False}
+    ctx = Ctx(cfg={}, data_dir=tmp_path / "hub", tools={},
+              guard=None, state=State(tmp_path / "hub"), apply=True)
+
+    _delete_server(desc, "airtable", ctx)
+    updated = json.loads(cfg_file.read_text(encoding="utf-8"))
+    assert "airtable" not in updated["mcpServers"]
+    assert "sentry" in updated["mcpServers"]
 
 
 def test_agents_repo_servers_no_repo():
@@ -205,7 +253,7 @@ def test_agents_repo_servers_no_repo():
     ctx = Ctx(cfg=cfg, data_dir=Path("/tmp/_test_hub"), tools={},
               guard=None, state=State(Path("/tmp/_test_hub")), apply=False)
     matchers = compile_secret_matchers({})
-    assert _agents_repo_servers(ctx, matchers) == {}
+    assert _agents_repo_servers(ctx, matchers, set()) == {}
 
 
 # --------------------------------------------------------------------------- #
