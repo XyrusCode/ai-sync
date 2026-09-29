@@ -3,7 +3,10 @@
 Parses OpenCode JSON-inline, Codex TOML, and standalone-JSON (Claude/Gemini/
 Antigravity/Cursor) into a normalized model, builds a redacted canonical registry,
 then ADD-ONLY fans out missing servers into each tool's native format. Existing
-servers (and their credentials) are never modified.
+servers (and their credentials/disabled status) are never modified.
+
+Also enforces the persistent removal log (mcp-removals.json) so uninstalled MCPs
+are purged across all tool configs and never re-installed.
 """
 from __future__ import annotations
 
@@ -146,14 +149,76 @@ def _write_servers(desc: dict, servers_native: dict, ctx: Ctx) -> None:
             write_json(path, doc)
 
 
+def _delete_server(desc: dict, server_name: str, ctx: Ctx) -> None:
+    """Delete a server from the tool's native config file."""
+    path: Path = desc["path"]
+    if not path or not path.is_file():
+        return
+    if ctx.apply:
+        ctx.backup(path)
+    if desc["fmt"] == "toml":
+        try:
+            with open(path, "rb") as fh:
+                doc = tomli.load(fh)
+        except (OSError, FileNotFoundError, tomli.TOMLDecodeError):
+            return
+        block = doc.get(desc["key"], {})
+        if isinstance(block, dict) and server_name in block:
+            del block[server_name]
+            if ctx.apply:
+                with open(path, "wb") as fh:
+                    tomli_w.dump(doc, fh)
+    else:
+        doc = read_json(path, {})
+        if not isinstance(doc, dict):
+            return
+        block = doc.get(desc["key"], {})
+        if isinstance(block, dict) and server_name in block:
+            del block[server_name]
+            if ctx.apply:
+                write_json(path, doc)
+
+
+# --------------------------------------------------------------------------- #
+# Removals log handling
+# --------------------------------------------------------------------------- #
+def _load_removals(ctx: Ctx) -> set[str]:
+    """Load persistent removal log of uninstalled MCPs from all locations."""
+    locations: list[Path] = [
+        Path(__file__).resolve().parent.parent / "mcp-removals.json",
+        ctx.data_dir / "mcp" / "removals.json",
+    ]
+    repo = ctx.cfg.get("agents_repo")
+    if repo:
+        locations.append(Path(repo) / "mcp" / "removals.json")
+
+    removals: set[str] = set()
+    for loc in locations:
+        if loc.is_file():
+            try:
+                data = read_json(loc, {}) or {}
+                items = data.get("removals") or []
+                for item in items:
+                    if isinstance(item, str) and item.strip():
+                        removals.add(item.strip())
+            except Exception as exc:
+                LOG.warning("MCP: could not parse removals log %s: %s", loc, exc)
+
+    if removals:
+        LOG.info("MCP: loaded %d uninstalled servers from removal log: %s",
+                 len(removals), ", ".join(sorted(removals)))
+    return removals
+
+
 # --------------------------------------------------------------------------- #
 # Pass entry point
 # --------------------------------------------------------------------------- #
-def _agents_repo_servers(ctx: Ctx, matchers) -> dict[str, dict[str, dict]]:
+def _agents_repo_servers(ctx: Ctx, matchers, removals_lower: set[str]) -> dict[str, dict[str, dict]]:
     """Read the canonical MCP catalog from the agents repo (mcp/servers.json).
 
     Returns {agent_name: {server_name: normalized_model}} so the registry can
     merge the catalog's per-agent definitions into each tool's server pool.
+    Excludes any server in the removals set.
     """
     repo = ctx.cfg.get("agents_repo")
     if not repo:
@@ -173,6 +238,8 @@ def _agents_repo_servers(ctx: Ctx, matchers) -> dict[str, dict[str, dict]]:
     result: dict[str, dict[str, dict]] = {}
     for sname, sdef in raw_servers.items():
         if not isinstance(sdef, dict):
+            continue
+        if sname.lower() in removals_lower:
             continue
         if not sdef.get("enabled", True):
             continue
@@ -197,6 +264,12 @@ def _agents_repo_add_manifest(ctx: Ctx, catalog: dict[str, dict[str, dict]]) -> 
 def run(ctx: Ctx) -> None:
     LOG.info("== Pass 3: MCP servers ==")
     matchers = compile_secret_matchers(ctx.cfg)
+    removals = _load_removals(ctx)
+    removals_lower = {r.lower() for r in removals}
+
+    # Save removals manifest in hub data dir
+    if ctx.apply:
+        write_json(ctx.data_dir / "mcp" / "removals.json", {"removals": sorted(list(removals))})
 
     # 1. Load every tool's servers + config mtime (proxy for newest-wins).
     per_tool: dict[str, tuple[dict, dict, float]] = {}  # tool -> (desc, servers, mtime)
@@ -214,17 +287,30 @@ def run(ctx: Ctx) -> None:
         LOG.info("no MCP configs found")
         return
 
-    # 1b. Load canonical catalog from agents repo (if configured).
-    catalog = _agents_repo_servers(ctx, matchers)
+    # 1b. Scrub uninstalled/removed MCPs from all enabled tool configurations.
+    for tname, (desc, servers, _mtime) in list(per_tool.items()):
+        tool = ctx.tools[tname]
+        for sname in list(servers.keys()):
+            if sname.lower() in removals_lower:
+                ctx.record(f"MCP: {tname} -> purge uninstalled '{sname}'")
+                if ctx.writable(tool):
+                    _delete_server(desc, sname, ctx)
+                del servers[sname]
+
+    # 1c. Load canonical catalog from agents repo (if configured), ignoring removals.
+    catalog = _agents_repo_servers(ctx, matchers, removals_lower)
     _agents_repo_add_manifest(ctx, catalog)
 
     # 2. Build canonical registry: union by name, newest config wins, redacted.
     #    Catalog entries from agents_repo get a +0.5s mtime edge so they always
     #    beat an equally-new tool-native copy, asserting the repo's authority.
+    #    Excludes any server present in the persistent removal log.
     registry: dict[str, dict] = {}
     origin: dict[str, tuple[str, float]] = {}
     for tname, (_desc, servers, mtime) in per_tool.items():
         for sname, model in servers.items():
+            if sname.lower() in removals_lower:
+                continue
             if sname not in registry or mtime > origin[sname][1]:
                 red, had = redact_secrets(model, matchers)
                 registry[sname] = red
@@ -233,6 +319,8 @@ def run(ctx: Ctx) -> None:
                     LOG.info("MCP: '%s' carries a credential — redacted in registry", sname)
         # Overlay catalog entries for this tool (agents repo is authoritative).
         for sname, model in catalog.get(tname, {}).items():
+            if sname.lower() in removals_lower:
+                continue
             cat_edge = origin.get(sname, (None, 0.0))[1] + 0.5
             if sname not in registry or cat_edge >= origin.get(sname, (None, 0.0))[1]:
                 registry[sname] = model
@@ -243,9 +331,11 @@ def run(ctx: Ctx) -> None:
     ctx.note(f"MCP registry: {len(registry)} servers from {len(per_tool)} tools (+ agents_repo catalog)")
 
     # 3. Add-only fan-out: give each tool the servers it is missing.
+    #    New servers are added enabled/turned-on.
+    #    Pre-existing servers already present in a tool (including turned-off ones) are left untouched.
     for tname, (desc, servers, _mtime) in per_tool.items():
         tool = ctx.tools[tname]
-        missing = {n: s for n, s in registry.items() if n not in servers}
+        missing = {n: s for n, s in registry.items() if n not in servers and n.lower() not in removals_lower}
         if not missing:
             continue
         if not ctx.writable(tool):

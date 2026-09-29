@@ -1,0 +1,65 @@
+{
+  "removals": [
+    "StitchMCP",
+    "TSM-GitLab",
+    "TSMGitLab",
+    "airtable",
+    "azure-devops",
+    "caveman",
+    "chrome-devtools",
+    "chrome-devtools-mcp",
+    "cloudflare",
+    "cloudflare-api",
+    "expo",
+    "facebook-ads",
+    "figma",
+    "fiverr",
+    "fiverrr",
+    "n8n",
+    "n8n-mcp",
+    "node_repl",
+    "supabase-mcp-server"
+  ],
+  "history": [
+    {
+      "name": "n8n",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Trimmed via user approval"
+    },
+    {
+      "name": "n8n-mcp",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Trimmed via user approval"
+    },
+    {
+      "name": "supabase-mcp-server",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Superseded by remote supabase SSE"
+    },
+    {
+      "name": "TSM-GitLab",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Merged into GitLab"
+    },
+    {
+      "name": "TSMGitLab",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Merged into GitLab"
+    },
+    {
+      "name": "StitchMCP",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Merged into stitch"
+    },
+    {
+      "name": "facebook-ads",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Merged into meta-ads"
+    },
+    {
+      "name": "figma",
+      "timestamp": "2026-09-25T09:11:01.555135+01:00",
+      "reason": "Renamed to TSM-Figma"
+    }
+  ]
+}
