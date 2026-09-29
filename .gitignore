@@ -42,3 +42,4 @@ dist/
 # Generated output — not source, must not land in public repo
 graphify-out/
 .skills-list.txt
+*.exe
