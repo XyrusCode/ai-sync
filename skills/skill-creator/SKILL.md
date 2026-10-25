@@ -43,6 +43,34 @@ Match the level of specificity to the task's fragility and variability:
 
 Think of Kimi as exploring a path: a narrow bridge with cliffs needs specific guardrails (low freedom), while an open field allows many routes (high freedom).
 
+### Give Every Fact One Home
+
+Never state the same piece of information in more than one skill, or twice within one skill. Repeated facts are copies that drift apart; a fact with a single home has a single place to keep up to date.
+
+Decide where that home is before writing the fact down:
+
+- Ask whether the information warrants its own skill. A system, domain, or recurring workflow usually does; an incidental detail does not.
+- Otherwise place it inside the skill that most owns it. Within a skill this is the same rule as the "Avoid duplication" guidance under References.
+- From every other skill that needs it, link to that skill instead of restating the text.
+
+### Respect the Model's Intelligence
+
+State the goal of the task and the context needed to reach it; do not script the model's behavior. A skill that spells out every step assumes the model cannot be trusted to choose well, and the steps go stale as the model improves.
+
+- **Define what "done" looks like.** Give the completion condition - the observable state that means the work can stop - so the model knows when to stop and when to keep working.
+- **Add a rule only with evidence.** Rigid rules and guardrails cost the model freedom and become obsolete; introduce one when a failure has actually shown it is needed, not preemptively.
+- **State each rule's purpose right after it.** A rule without a reason cannot be applied to new cases and cannot be evaluated for removal.
+- **Prune regularly.** Periodically delete rules and run the skill without them to confirm they still earn their place. More capable models need fewer rules, and a skill written a few months ago is a prime candidate for a refresh.
+- **Delete instructions that stand in for the model's own judgment.** Guidance such as "think carefully" or "use a thinking block" is obsolete: current models decide how much to think. The same applies to writing style directives that describe how to sound rather than what to produce. Anthropic's prompting guide makes the equivalent point for effort settings - calibrate by measurement, not inherited instruction.
+
+### Describe the Systems the Skill Acts In
+
+When a skill operates in an external system, the model needs to know that system's shape before it can act well.
+
+- **Complex systems get their own skill.** For task management tools like Notion or a CRM like Salesforce, write one skill documenting the system's structure, and have every skill that works in that system link to it rather than describing it again.
+- **Simple systems do not.** Google Drive, Gmail, or Slack rarely justify a dedicated structural skill, but the skill should still instruct the model to look around the system first: surveying how it is actually organized improves accuracy and efficiency, and keeps the skill from hardcoding assumptions that may be wrong.
+- **Grow the map on demand.** If a system turns out to be more complex than expected while working in it, map it out and propose a dedicated skill.
+
 ### Anatomy of a Skill
 
 Every skill consists of a required SKILL.md file and optional bundled resources:
@@ -253,6 +281,8 @@ To avoid overwhelming users, avoid asking too many questions in a single message
 
 Conclude this step when there is a clear sense of the functionality the skill should support.
 
+If the user arrives with an explicit set of rules or principles for the skill, treat them as a proposal rather than a spec: agree where they hold, push back with reasons where they do not, and contribute rules of your own before drafting. Then structure the agreed set logically and build the skill to obey the guidelines it embodies - a skill that violates its own rules is not a working example of them.
+
 ### Step 2: Planning the Reusable Skill Contents
 
 To turn concrete examples into an effective skill, analyze each example by:
@@ -366,3 +396,5 @@ After testing the skill, users may request improvements. Often this happens righ
 2. Notice struggles or inefficiencies
 3. Identify how SKILL.md or bundled resources should be updated
 4. Implement changes and test again
+
+Refresh on a schedule as well as on complaint: a skill written more than a few months ago was written for an older model and usually carries rules that model needed and the current one does not. When refreshing, re-check every rule against the Core Principles - drop rules whose purpose no longer holds, delete any instruction that stands in for the model's judgment, and re-test the skill without them before restoring anything.

@@ -84,6 +84,33 @@ Skills use a three-level loading system to manage context efficiently:
 
 *Unlimited because scripts can be executed without reading into context window.
 
+## Guiding Principles
+
+These principles govern every skill written for a plugin, on top of the structure and process described below.
+
+### Give Every Fact One Home
+
+Never state the same information twice within a skill, or in more than one skill. Repeated facts are copies that drift apart; a fact with one home has one place to keep up to date. Decide the home before writing the fact down:
+
+- Ask whether it warrants its own skill. A system, domain, or recurring workflow usually does; an incidental detail does not.
+- Otherwise place it in the skill that most owns it, and have every other skill link to that home instead of restating the text.
+- Within a skill, this is the same rule as "Avoid duplication" under References above: details live in one file, SKILL.md points at it.
+
+### Respect the Model's Intelligence
+
+State the goal of the task and the context needed to reach it; do not script the model's behavior. Steps written down for an older model go stale as the model improves.
+
+- **Define what "done" looks like.** Give the observable completion condition so the model knows when it can stop and when to keep working.
+- **Add a rule only with evidence.** Guardrails belong on narrow bridges; add one only after a failure has shown it is needed.
+- **State each rule's purpose right after it,** so it can be applied to new cases and evaluated for removal.
+- **Prune regularly.** A skill written a few months ago was written for an older model. Delete rules, re-test the skill without them, and keep only those that still earn their place. Remove instructions that stand in for the model's own judgment, such as "think carefully" or "use a thinking block" - the model decides how much to think.
+
+### Describe the Systems the Skill Acts In
+
+- **Complex systems get their own skill.** For a task tool like Notion or a CRM like Salesforce, write one skill documenting that system's structure and have every skill working in it link there rather than describing it again.
+- **Simple systems do not.** Google Drive, Gmail, or Slack rarely justify a structural skill, but the skill should still tell the model to look around the system first - surveying how it is actually organized improves accuracy and avoids hardcoding wrong assumptions.
+- **Grow the map on demand.** When a system turns out to be more complex than expected, map it and propose a dedicated skill.
+
 ## Skill Creation Process
 
 To create a skill, follow the "Skill Creation Process" in order, skipping steps only if there is a clear reason why they are not applicable.
@@ -615,8 +642,7 @@ Plugin-dev's skills demonstrate best practices:
 
 ### Reference Files
 
-For complete skill-creator methodology:
-- **`references/skill-creator-original.md`** - Full original skill-creator content
+For the general skill-creator methodology these principles extend, use the `skill-creator` skill, which is the single home for that guidance. Do not copy its content into this skill.
 
 ## Implementation Workflow
 
