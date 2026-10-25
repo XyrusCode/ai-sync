@@ -11,7 +11,7 @@ Raw conversation transcripts quickly bloat with tool outputs, file contents, com
 
 This skill operates across two levels:
 1. **Intra-session working context**: Anchoring immediate objectives and pruning noisy tool outputs during execution.
-2. **Project decision log (`CONVERSATION_HISTORY.md`)**: Maintaining a committed chronological log in the repository that enables fast rehydration, records scope boundaries, and preserves exact verification proofs.
+2. **Project decision log (`conversation-history/`)**: Maintaining a committed directory of date-stamped day files in the repository - one file per day, sessions marked inside it - that enables fast rehydration, records scope boundaries, and preserves exact verification proofs.
 
 ## Non-Interference Rules (Zero Overhead)
 
@@ -26,7 +26,7 @@ This skill operates across two levels:
 - You notice the agent re-reading previously loaded files or drifting from the core task.
 - Beginning a multi-phase implementation where each phase builds on previous decisions.
 - Starting a fresh session and needing to rehydrate project context with minimal token spend.
-- Winding down a session to record settled decisions, code changes, and test proofs in `CONVERSATION_HISTORY.md`.
+- Winding down a session to record settled decisions, code changes, and test proofs in `conversation-history/YYYY-MM-DD.md`.
 
 ## Don't use for
 
@@ -40,7 +40,7 @@ This skill operates across two levels:
 Record each fact once, in the store that owns it, then reference it. A checkpoint that restates the ledger, an entry that restates `MEMORY.md`, and a handoff that restates all three are copies that drift apart and get re-read every turn. Choose the home before writing:
 
 - Live state (current phase, open blockers) → Active Objectives Ledger.
-- Settled decisions and verification proof → `CONVERSATION_HISTORY.md`.
+- Settled decisions and verification proof → `conversation-history/YYYY-MM-DD.md`.
 - Cross-project lessons → `MEMORY.md`, only when explicitly asked.
 - Codebase structure → graphify.
 
@@ -68,11 +68,12 @@ Keep a concise, 10 to 15 line objective block active in working memory. When tur
 
 See [references/objective-ledger.md](references/objective-ledger.md) and [templates/objective-anchor.md](templates/objective-anchor.md).
 
-### 2. Project Decision Log (CONVERSATION_HISTORY.md)
-Maintain a committed markdown decision log in the repository (e.g. `CONVERSATION_HISTORY.md` or `docs/CONVERSATION_HISTORY.md`).
-- **Zero-token-waste rehydration**: A fresh agent reads the latest 2 or 3 entries to understand full context in under 1,500 tokens, avoiding transcript dumps.
-- **Chronological record**: Formatted by date and topic (`## YYYY-MM-DD: Topic`).
+### 2. Project Decision Log (`conversation-history/`)
+Maintain a committed directory `conversation-history/` at the repository root, holding one file per calendar day (`conversation-history/YYYY-MM-DD.md`). Every session that day appends to the same file; a new session opens its own `## Session HH:MM · <tool>` heading inside it, so each day file reads as the human-readable history of all agentic work that day.
+- **Zero-token-waste rehydration**: A fresh agent reads the latest 1 or 2 day files to understand full context in under 1,500 tokens, avoiding transcript dumps.
+- **Chronological record**: Day files named by date; entries grouped by session and topic within the day.
 - **Core fields**: Captures user intent, scope inclusions/exclusions, architectural shortcuts, touched files, root causes for fixes, and exact verification numbers.
+- **Legacy conversion**: If no directory exists but a single `CONVERSATION_HISTORY.md` (or a `docs/` copy) does, convert it to directory mode before writing anything new - see the reference.
 
 See [references/project-decision-log.md](references/project-decision-log.md) and [templates/conversation-history-entry.md](templates/conversation-history-entry.md).
 
@@ -100,7 +101,7 @@ See [references/compaction-protocols.md](references/compaction-protocols.md), [t
 ## Decision Tree
 
 1. **Starting work:**
-   - If `CONVERSATION_HISTORY.md` exists, read recent entries to rehydrate context.
+   - If `conversation-history/` exists, read the most recent day files to rehydrate context. If only a legacy `CONVERSATION_HISTORY.md` exists, convert it to directory mode first ([references/project-decision-log.md](references/project-decision-log.md)).
    - Establish the Active Objectives Ledger ([templates/objective-anchor.md](templates/objective-anchor.md)).
    - If `graphify-out/graph.json` exists, use graph queries. If absent, skip.
    - If `MEMORY.md` exists, check relevant lines. If absent, skip.
@@ -116,13 +117,13 @@ See [references/compaction-protocols.md](references/compaction-protocols.md), [t
 
 4. **Task completion:**
    - Verify all primary objectives in the ledger are satisfied.
-   - Append a structured entry to `CONVERSATION_HISTORY.md` ([templates/conversation-history-entry.md](templates/conversation-history-entry.md)) if the repository maintains one.
+   - Append a structured session entry to today's `conversation-history/YYYY-MM-DD.md` ([templates/conversation-history-entry.md](templates/conversation-history-entry.md)) if the repository maintains one; create the day file when it does not exist yet.
    - Stop and deliver the work. Do not auto-chain into external tools or memory authoring.
 
 ## References
 
 - [references/objective-ledger.md](references/objective-ledger.md): Structure and lifecycle of the Active Objectives Ledger.
-- [references/project-decision-log.md](references/project-decision-log.md): Standards for maintaining repository CONVERSATION_HISTORY.md files.
+- [references/project-decision-log.md](references/project-decision-log.md): Standards for the `conversation-history/` day files, session markers, and legacy conversion.
 - [references/memory-pairing.md](references/memory-pairing.md): Protocol for strictly scoped memory pairing.
 - [references/graphify-pairing.md](references/graphify-pairing.md): Using graphify knowledge graphs to prune conversation context.
 - [references/compaction-protocols.md](references/compaction-protocols.md): Heuristics for condensing tool outputs and turn history.
@@ -130,6 +131,6 @@ See [references/compaction-protocols.md](references/compaction-protocols.md), [t
 ## Templates
 
 - [templates/objective-anchor.md](templates/objective-anchor.md): Template for tracking active goals and constraints.
-- [templates/conversation-history-entry.md](templates/conversation-history-entry.md): Template for appending entries to project CONVERSATION_HISTORY.md.
+- [templates/conversation-history-entry.md](templates/conversation-history-entry.md): Template for a session entry inside a date-stamped day file.
 - [templates/compaction-checkpoint.md](templates/compaction-checkpoint.md): Template for intermediate state synthesis.
 - [templates/session-handoff.md](templates/session-handoff.md): Template for clean session transitions.
