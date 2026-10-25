@@ -34,6 +34,28 @@ This skill operates across two levels:
 - Simple single-turn commands or quick lookups that conclude immediately.
 - Code commit logs or git history: git tracks its own commits.
 
+## Guiding Principles
+
+### Give Every Fact One Home
+Record each fact once, in the store that owns it, then reference it. A checkpoint that restates the ledger, an entry that restates `MEMORY.md`, and a handoff that restates all three are copies that drift apart and get re-read every turn. Choose the home before writing:
+
+- Live state (current phase, open blockers) → Active Objectives Ledger.
+- Settled decisions and verification proof → `CONVERSATION_HISTORY.md`.
+- Cross-project lessons → `MEMORY.md`, only when explicitly asked.
+- Codebase structure → graphify.
+
+Everything downstream summarizes in one line and links; never restates.
+
+### Respect the Model's Intelligence
+State the goal and the completion condition instead of scripting how to summarize.
+
+- **Define what "done" looks like.** Rehydration is complete when the latest entries answer the primary goal, current phase, and blockers; stop reading there instead of digging through transcripts.
+- **State each protocol rule's purpose next to it**, so it can be applied to new situations and pruned once it stops earning its place.
+- **Add a protocol only with evidence.** Introduce a new checkpoint or condensation rule when goal drift or a re-read loop has actually happened, not preemptively.
+
+### Describe the Systems the Skill Acts In
+The session stores are external systems: note cheaply which ones actually exist before summarizing toward them (presence checks only - never build or hunt, per the Non-Interference Rules). When a session turns out to be more structured than the default format assumes - multi-phase work with locked decisions and exact verification numbers - grow the record to match instead of forcing the template.
+
 ## Core Pillars
 
 ### 1. Active Objectives Ledger
