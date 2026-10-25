@@ -1,5 +1,8 @@
 <!-- Project Decision Log Entry Template -->
-## YYYY-MM-DD: [Descriptive Topic Title]
+<!-- Append under the current session heading in conversation-history/YYYY-MM-DD.md.
+     The day file starts with "# YYYY-MM-DD"; each session opens "## Session HH:MM · <tool>".
+     Create the day file if it does not exist yet. -->
+### [Descriptive Topic Title]
 
 - **User Intent**:
   - [The core user goal, context, or problem statement]
