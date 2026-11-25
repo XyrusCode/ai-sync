@@ -129,6 +129,28 @@ Get-ScheduledTask -TaskName AI-Toolchain-Sync | Get-ScheduledTaskInfo
 .\install-schedule.ps1 -Unregister
 ```
 
+## Install the screencast-tutorial-v2 skill
+
+`screencast-tutorial-v2` records narrated app walkthroughs with a small Rust
+CLI and Vercel agent-browser (v1 uses TypeScript + Playwright). Copy this
+prompt into any AI coding assistant on the target machine:
+
+```text
+Install the screencast-tutorial-v2 skill for me. Do not build from source — use the published release binary.
+
+1. Find this agent's global skills directory (OpenCode: ~/.config/opencode/skills, Claude Code: ~/.claude/skills, Codex: ~/.codex/skills, Cursor: ~/.cursor/skills). Clone https://github.com/XyrusCode/screencast-tutorial-v2.git into <skills-dir>/screencast-tutorial-v2. The SKILL.md at the repo root makes it auto-discoverable.
+2. Detect the OS and CPU architecture, then download the matching asset from https://github.com/XyrusCode/screencast-tutorial-v2/releases/latest/download/ and put it on PATH as `screencast-v2` (`screencast-v2.exe` on Windows):
+   - Linux x86_64: screencast-v2_linux-x86_64
+   - macOS Intel: screencast-v2_macos-x86_64
+   - macOS Apple Silicon: screencast-v2_macos-aarch64
+   - Windows x86_64: screencast-v2_windows-x86_64.exe
+3. Install prerequisites: `npm install -g agent-browser && agent-browser install`, `uv tool install edge-tts`, and make sure `ffmpeg` and `ffprobe` are on PATH.
+4. Verify with `screencast-v2 --version` and `agent-browser doctor`. Report both versions and the install path.
+```
+
+The skill repo's `AGENTS.md` forbids local `cargo` builds — CI publishes the
+binaries.
+
 ## Project layout
 
 ```
